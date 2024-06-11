@@ -1,0 +1,29 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+  color: #000;
+}
+
+.red{
+  color: red;
+}
+.purple{
+  color: rgb(47,0,255);
+}
+.green{
+  color: rgb(0,195,0);
+}
+
+
+@use "./admin_styles/mixin.scss"
