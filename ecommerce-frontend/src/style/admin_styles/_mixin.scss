@@ -12,7 +12,7 @@
     gap: $gap;
 }
 
-@mixin grid($row : unset, $col : 1fr, $gap : 1rem){
+@mixin grid($col : 1fr, $gap : 1rem,$row : unset,){
     display: grid;
     grid-template-columns: $col;
     grid-template-rows: $row;
