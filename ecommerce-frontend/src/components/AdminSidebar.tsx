@@ -1,4 +1,5 @@
 import { IconType } from "react-icons";
+import { FaChartBar, FaChartLine, FaChartPie } from "react-icons/fa";
 import { RiDashboardFill, RiShoppingBag3Fill, RiFileTextFill, RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { Link, Location, useLocation } from "react-router-dom";
 
@@ -21,6 +22,18 @@ const AdminSidebar = () => {
                 <Li text="Customers" url="/admin/customers" Icon={RiFileTextFill} location={location} />
               {/* Transactions */}
                 <Li text="Transactions" url="/admin/transactions" Icon={RiMoneyRupeeCircleFill} location={location} />
+            </ul>
+        </div>
+
+        <div>
+            <h5>Charts</h5>
+            <ul>
+              {/* Bar Chart */}
+                <Li text="Bar" url="/admin/chart/bar" Icon={FaChartBar} location={location} />
+              {/* Pie Chart */}
+                <Li text="Pie" url="/admin/chart/pie" Icon={FaChartPie} location={location} />
+              {/* Line Chart */}
+                <Li text="Line" url="/admin/chart/line" Icon={FaChartLine} location={location} />
             </ul>
         </div>
     </aside>
