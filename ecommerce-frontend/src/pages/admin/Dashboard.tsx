@@ -1,11 +1,11 @@
 import { FaRegBell, FaSearch } from "react-icons/fa"
-import { AdminSidebar, BarChart } from "../../components"
+import { AdminSidebar, BarChart, DoughnutChart } from "../../components"
 import userImg from "../../assets/images/user.png";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 import data from "../../assets/data.json";
+import { BiMaleFemale } from "react-icons/bi";
 
 const Dashboard = () => {
-
   return (
     <div className="adminContainer">
       {/* Sidebar */}
@@ -25,40 +25,65 @@ const Dashboard = () => {
           <Widget percent={40} amount={true} value={340000} heading="Revenue" color="rgb(0,115,255)" />
 
           <Widget percent={-14} value={400} heading="Users" color="rgb(0,198,202)" />
-          
+
           <Widget percent={80} value={30000} heading="Transactions" color="rgb(255,196,0)" />
-          
+
           <Widget percent={30} value={1000} heading="Products" color="rgb(75,0,255)" />
         </section>
 
         {/* Graph Container */}
         <section className="graph-container">
-            <div className="revenue-chart">
-              <h2>Revenue & Transactions</h2>
-              <BarChart 
-                data1={[300,144,433,655,237,655,490]}
-                data2={[200,444,575,755,437,785,690]}
-                title1="Revenue"
-                title2="Transaction"
-                bgColor1="rgb(0,115,255)"
-                bgColor2="rgb(53,162,235,0.8)"
-               />
+          <div className="revenue-chart">
+            <h2>Revenue & Transactions</h2>
+            <BarChart
+              data1={[300, 144, 433, 655, 237, 655, 490]}
+              data2={[200, 444, 575, 755, 437, 785, 690]}
+              title1="Revenue"
+              title2="Transaction"
+              bgColor1="rgb(0,115,255)"
+              bgColor2="rgb(53,162,235,0.8)"
+            />
+          </div>
+
+          <div className="dashboard-categories">
+            <h2>Inventories</h2>
+            {
+              data.categories.map((item) => (
+                <CategoryItem
+                  heading={item.heading}
+                  value={item.value}
+                  color={`hsl(${item.value * 4},${item.value}%,60%)`}
+                  key={item.heading}
+                />
+              ))
+            }
+          </div>
+        </section>
+
+        {/* Transaction Container */}
+        <div className="transaction-container">
+          {/* Gender chart */}
+            <div className="gender-chart">
+              <h2>Gender Ratio</h2>
+
+              <DoughnutChart 
+                labels={["Female","Male"]}
+                data={[12,19]}
+                backgroundColor={[
+                  "hsl(340,82%,56%)",
+                  "rgba(53,162,235,0.8)"
+                ]}
+                cutout={90}
+              />
+
+              <p><BiMaleFemale /></p>
             </div>
 
-            <div className="dashboard-categories">
-                <h2>Inventories</h2>
-                {
-                  data.categories.map((item) => (
-                      <CategoryItem 
-                        heading={item.heading}
-                        value={item.value}
-                        color={`hsl(${item.value * 4},${item.value}%,60%)`}
-                        key={item.heading}
-                      />
-                  ))
-                }
-            </div>
-        </section>
+
+        </div>
+
+        {/* Table */}
+
       </main>
     </div>
   )
@@ -92,28 +117,28 @@ const Widget = ({ heading, value, percent, color, amount }: widgetProps) => {
 
       <div className="widget-circle"
         style={{
-          background : `conic-gradient(${color} ${(Math.abs(percent)/100) * 360}deg, white 0 )`
+          background: `conic-gradient(${color} ${(Math.abs(percent) / 100) * 360}deg, white 0 )`
         }}>
-        <span style={{color : color}}>{percent}%</span>
+        <span style={{ color: color }}>{percent}%</span>
       </div>
     </article>
   )
 }
 
-interface CategoryItemProps{
-  color : string;
-  value : number;
+interface CategoryItemProps {
+  color: string;
+  value: number;
   heading: string;
 }
 
-const CategoryItem = ({color,value,heading} : CategoryItemProps) => {
+const CategoryItem = ({ color, value, heading }: CategoryItemProps) => {
   return (
     <div className="category-item">
       <h5>{heading}</h5>
       <div>
         <div style={{
-          backgroundColor : color,
-          width : `${value}%`
+          backgroundColor: color,
+          width: `${value}%`
         }}></div>
       </div>
       <span>{value}%</span>
