@@ -1,6 +1,6 @@
 import AdminSidebar from "./AdminSidebar";
-import BarChart from "./Chart";
+import {BarChart,DoughnutChart} from "./Chart";
 import Loader from "./Loader";
 
 
-export {Loader, AdminSidebar, BarChart}
+export {Loader, AdminSidebar, BarChart, DoughnutChart}
