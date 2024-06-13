@@ -2,6 +2,7 @@ import { FaRegBell, FaSearch } from "react-icons/fa"
 import { AdminSidebar } from "../../components"
 import userImg from "../../assets/images/user.png";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
+import data from "../../assets/data.json";
 
 const Dashboard = () => {
 
@@ -19,6 +20,7 @@ const Dashboard = () => {
           <img src={userImg} alt="user" />
         </div>
 
+        {/* Widget Container */}
         <section className="widget-container">
           <Widget percent={40} amount={true} value={340000} heading="Revenue" color="rgb(0,115,255)" />
 
@@ -27,6 +29,28 @@ const Dashboard = () => {
           <Widget percent={80} value={30000} heading="Transactions" color="rgb(255,196,0)" />
           
           <Widget percent={30} value={1000} heading="Products" color="rgb(75,0,255)" />
+        </section>
+
+        {/* Graph Container */}
+        <section className="graph-container">
+            <div className="revenue-chart">
+              <h2>Revenue & Transactions</h2>
+              {/* Graph */}
+            </div>
+
+            <div className="dashboard-categories">
+                <h2>Inventories</h2>
+                {
+                  data.categories.map((item) => (
+                      <CategoryItem 
+                        heading={item.heading}
+                        value={item.value}
+                        color={`hsl(${item.value * 4},${item.value}%,60%)`}
+                        key={item.heading}
+                      />
+                  ))
+                }
+            </div>
         </section>
       </main>
     </div>
@@ -66,6 +90,27 @@ const Widget = ({ heading, value, percent, color, amount }: widgetProps) => {
         <span style={{color : color}}>{percent}%</span>
       </div>
     </article>
+  )
+}
+
+interface CategoryItemProps{
+  color : string;
+  value : number;
+  heading: string;
+}
+
+const CategoryItem = ({color,value,heading} : CategoryItemProps) => {
+  return (
+    <div className="category-item">
+      <h5>{heading}</h5>
+      <div>
+        <div style={{
+          backgroundColor : color,
+          width : `${value}%`
+        }}></div>
+      </div>
+      <span>{value}%</span>
+    </div>
   )
 }
 
