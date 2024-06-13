@@ -1,5 +1,5 @@
 import { FaRegBell, FaSearch } from "react-icons/fa"
-import { AdminSidebar } from "../../components"
+import { AdminSidebar, BarChart } from "../../components"
 import userImg from "../../assets/images/user.png";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 import data from "../../assets/data.json";
@@ -35,7 +35,14 @@ const Dashboard = () => {
         <section className="graph-container">
             <div className="revenue-chart">
               <h2>Revenue & Transactions</h2>
-              {/* Graph */}
+              <BarChart 
+                data1={[300,144,433,655,237,755,190]}
+                data2={[200,444,575,655,437,385,690]}
+                title1="Revenue"
+                title2="Transaction"
+                bgColor1="rgb(0,115,255)"
+                bgColor2="rgb(53,162,235,0.8)"
+               />
             </div>
 
             <div className="dashboard-categories">
