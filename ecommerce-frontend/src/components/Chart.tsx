@@ -50,13 +50,24 @@ export const BarChart = ({
         plugins: {
           legend: {
             display : false,
-            position: 'top' as const,
           },
           title: {
-            display: true,
-            text: 'Chart.js Bar Chart',
+            display: false,
           },
         },
+        scales : {
+            y : {
+              beginAtZero : true,
+              grid : {
+                  display : false
+              }
+            },
+            x : {
+                grid : {
+                  display : false
+                }
+            }
+        }
       };
       
     const data : ChartData< "bar", number[], string > = {
@@ -65,12 +76,18 @@ export const BarChart = ({
             {
                 label : title1,
                 data : data1,
-                backgroundColor : bgColor1
+                backgroundColor : bgColor1,
+                barThickness : "flex",
+                barPercentage : 1,
+                categoryPercentage : 0.4
             },
             {
                 label : title2,
                 data : data2,
-                backgroundColor : bgColor2
+                backgroundColor : bgColor2,
+                barThickness : "flex",
+                barPercentage : 1,
+                categoryPercentage : 0.4
             },
         ]
     }
