@@ -70,73 +70,105 @@
       }
     }
   }
-}
 
-.graph-container {
-  @include flex(row,unset,unset,2rem);
-  padding: 0 2rem 2rem 0;
-  
-  > div{
-    background: white;
-    border-radius: 10px;
-  }
+  .graph-container {
+    @include flex(row, unset, unset, 2rem);
+    padding: 0 2rem 2rem 0;
 
-  > .revenue-chart{
+    > div {
+      background: white;
+      border-radius: 10px;
+    }
+
+    > .revenue-chart {
       width: 100%;
       padding: 1rem 3rem;
 
-      > h2{
-          @include heading;
-          margin: 1rem 0 2rem 0.25rem;
-          text-align: center;
+      > h2 {
+        @include heading;
+        margin: 1rem 0 2rem 0.25rem;
+        text-align: center;
       }
-  }
-
-  > .dashboard-categories{
-    width: 100%;
-    max-width: 16rem;
-    @include flex(column,center,unset,0);
-    padding-bottom: 2rem;
-
-    > h2{
-      @include heading;
-      text-align: center;
-      margin: 1.5rem 0 2rem 0;
     }
 
-    > div{
-      overflow-y: auto;
-      padding-left: 0.5rem;
-    }
-
-    > .category-item{
+    > .dashboard-categories {
       width: 100%;
-      @include flex(row,space-between);
-      padding: 1rem;
+      max-width: 16rem;
+      @include flex(column, center, unset, 0);
+      padding-bottom: 2rem;
 
-      > h5{
-        letter-spacing: 1px;
-        font-weight: 300;
+      > h2 {
+        @include heading;
+        text-align: center;
+        margin: 1.5rem 0 2rem 0;
       }
 
-      > div{
+      > div {
+        overflow-y: auto;
+        padding-left: 0.5rem;
+      }
+
+      > .category-item {
+        width: 100%;
+        @include flex(row, space-between);
+        padding: 1rem;
+
+        > h5 {
+          letter-spacing: 1px;
+          font-weight: 300;
+        }
+
+        > div {
           margin-left: auto;
           width: 6rem;
-          background: rgb(217,217,217);
+          background: rgb(217, 217, 217);
           border-radius: 20px;
           height: 0.5rem;
           flex: none;
 
-          > div{
+          > div {
             height: 100%;
             border-radius: 20px;
           }
-      }
+        }
 
-      > span{
-        font-size: 0.8rem;
-        font-weight: 700;
+        > span {
+          font-size: 0.8rem;
+          font-weight: 700;
+        }
       }
     }
+  }
+
+  .transaction-container {
+      display: flex;
+      gap: 2rem;
+      padding: 0 2rem 2rem 0;
+      height: 30rem;
+
+      > div {
+          background-color: white;
+          box-shadow: 0 10px 10px rgba(0,0,0,0.132);
+          border-radius: 10px;
+      }
+
+      > .gender-chart{
+          width: 100%;
+          max-width: 20rem;
+          padding: 1rem;
+          position: relative;
+
+          > h2{
+            text-align: center;
+            margin: 1.5rem 0 2rem 0;
+            @include heading;
+          }
+
+          > p{
+            @include posCenter;
+            font-size: 2rem;
+            color : rgba(0,0,0,0.634);
+          }
+      }
   }
 }
