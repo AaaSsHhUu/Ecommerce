@@ -36,8 +36,8 @@ const Dashboard = () => {
             <div className="revenue-chart">
               <h2>Revenue & Transactions</h2>
               <BarChart 
-                data1={[300,144,433,655,237,755,190]}
-                data2={[200,444,575,655,437,385,690]}
+                data1={[300,144,433,655,237,655,490]}
+                data2={[200,444,575,755,437,785,690]}
                 title1="Revenue"
                 title2="Transaction"
                 bgColor1="rgb(0,115,255)"
