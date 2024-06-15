@@ -1,5 +1,5 @@
 import { FaRegBell, FaSearch } from "react-icons/fa"
-import { AdminSidebar, BarChart, DoughnutChart } from "../../components"
+import { AdminSidebar, BarChart, DoughnutChart, Table } from "../../components"
 import userImg from "../../assets/images/user.png";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 import data from "../../assets/data.json";
@@ -79,10 +79,11 @@ const Dashboard = () => {
               <p><BiMaleFemale /></p>
             </div>
 
+          {/* Table */}
+          <Table  data={data.transaction}/>
 
         </div>
 
-        {/* Table */}
 
       </main>
     </div>
