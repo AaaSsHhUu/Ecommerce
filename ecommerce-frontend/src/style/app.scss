@@ -133,3 +133,51 @@ a {
     }
   }
 
+.table-pagination{
+    @include flex(column,unset,center,1rem);
+    padding : 2rem;
+
+    > .page-info{
+      @include flex(row,center,center,1rem);
+
+      > button{
+        padding: 0.5rem 1rem;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background-color: rgba(0,115,255);
+        color: white;
+        &:disabled{
+          background-color: rgba(0,115,255,0.1);
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    > .goto-page{
+        @include flex(row,center,center,0);
+        > input{
+          border: none;
+          outline: none;
+          width: 100px;
+          background: #eee;
+          padding: 0.6rem 1rem;
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+          &:focus{
+            outline: 2px solid black;
+          }
+        }
+        > button{
+          padding: 0.5rem 1rem;
+          background: black;
+          color: white;
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+          &:hover{
+            opacity: 0.8;
+          }
+        }
+    }
+}
