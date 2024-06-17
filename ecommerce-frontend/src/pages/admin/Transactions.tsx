@@ -2,6 +2,7 @@ import { ReactElement, useState, useCallback } from "react";
 import { AdminSidebar } from "../../components"
 import { Column } from "react-table";
 import TableHOC from "../../components/TableHOC";
+import { Link } from "react-router-dom";
 
 const Transactions = () => {
   interface DataType{
@@ -9,11 +10,20 @@ const Transactions = () => {
     amount : number;
     discount : number;
     quantity : number;
-    status : string;
+    status : ReactElement;
     action : ReactElement;
   }
 
-  const arr : DataType[] = [];
+  const arr : DataType[] = [
+    {
+      user : "Demo",
+      amount : 4400,
+      discount : 400,
+      quantity : 3,
+      status : <span className="red">Processing</span>,
+      action : <Link to="/admin/transaction/snunsxa">Manage</Link>
+    }
+  ];
 
   const [data] = useState<DataType[]>(arr);
 
