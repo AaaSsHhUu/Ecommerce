@@ -18,3 +18,56 @@
         opacity: 0.8;
     }
 }
+
+// New Product Form Styling
+
+.product-managment{
+    @include flex(row,center,center);
+
+    > article{
+        // border: 1px solid gray;
+        overflow: hidden;
+        max-width: 70%;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+        height: 70vh;
+        display: flex;        
+        border-radius: 10px;
+
+        > .form-head{
+            @include flex(row,unset,center,0);
+            background-color: blue;
+            color: white;
+            padding: 0 1rem;
+            font-size: 1.5rem;
+            >h2{
+                text-align: center;
+            }
+        }
+        
+        > form{
+            padding: 2rem 1rem;
+            @include flex(column,unset,center);
+
+            > div{
+                width: 100%;
+            }
+            >button{
+                padding: 0.5rem 1rem;
+                background: blue;
+                color: white;
+                border-radius: 10px;
+                margin-top: 2rem;
+                border: none;
+                outline: none;
+                font-size: 1.1rem;
+                cursor: pointer;
+                &:hover{
+                    background: rgb(0,144,255);
+                }
+            }
+        }
+    }
+
+
+    
+}
