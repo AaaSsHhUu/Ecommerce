@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useState,useCallback } from "react";
 import { AdminSidebar } from "../../components"
 import TableHOC from "../../components/TableHOC";
 import { Column } from "react-table";
@@ -56,12 +56,56 @@ const arr : DataType[] = [
     stock : 7,
     action : <Link to={"/admin/products/asjodwwiuije"}>Manage</Link>
   },
+  {
+    photo : <img src={img1} alt="macbook one" />,
+    name : "Macbook One",
+    price : 2399,
+    stock : 3,
+    action : <Link to={"/admin/products/asjodwije"}>Manage</Link>
+  },
+  {
+    photo : <img src={img2} alt="macbook two" />,
+    name : "Macbook Two",
+    price : 2599,
+    stock : 7,
+    action : <Link to={"/admin/products/asjodwwiuije"}>Manage</Link>
+  },
+  {
+    photo : <img src={img1} alt="macbook one" />,
+    name : "Macbook One",
+    price : 2399,
+    stock : 3,
+    action : <Link to={"/admin/products/asjodwije"}>Manage</Link>
+  },
+  {
+    photo : <img src={img2} alt="macbook two" />,
+    name : "Macbook Two",
+    price : 2599,
+    stock : 7,
+    action : <Link to={"/admin/products/asjodwwiuije"}>Manage</Link>
+  },
+  {
+    photo : <img src={img1} alt="macbook one" />,
+    name : "Macbook One",
+    price : 2399,
+    stock : 3,
+    action : <Link to={"/admin/products/asjodwije"}>Manage</Link>
+  },
+  {
+    photo : <img src={img2} alt="macbook two" />,
+    name : "Macbook Two",
+    price : 2599,
+    stock : 7,
+    action : <Link to={"/admin/products/asjodwwiuije"}>Manage</Link>
+  },
 ];
 
 const Product = () => {
 
   const [data] = useState<DataType[]>(arr);
-  const Table = TableHOC<DataType>(columns,data,"dashboard-product-box","Products")
+  const Table = useCallback(
+    TableHOC<DataType>(columns,data,"dashboard-product-box","Products",data.length>6)
+  ,[])
 
   return (
     <div className="adminContainer">
