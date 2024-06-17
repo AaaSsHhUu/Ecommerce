@@ -7,7 +7,7 @@ import { BiMaleFemale } from "react-icons/bi";
 
 const Dashboard = () => {
   return (
-    <div className="adminContainer">
+    <div className="admin-container">
       {/* Sidebar */}
       <AdminSidebar />
 

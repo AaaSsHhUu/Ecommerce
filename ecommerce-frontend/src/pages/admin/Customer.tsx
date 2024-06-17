@@ -74,7 +74,7 @@ const Customer = () => {
   ),[])
 
   return (
-    <div className="adminContainer">
+    <div className="admin-container">
         {/* Sidebar */}
         <AdminSidebar />
 

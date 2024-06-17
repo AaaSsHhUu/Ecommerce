@@ -29,7 +29,7 @@ a {
   color: rgb(0, 195, 0);
 }
 
-.adminContainer {
+.admin-container {
   @include grid(1fr 4fr, 2rem);
   height: 100vh;
   background-color: rgb(247, 247, 247);
