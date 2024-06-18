@@ -32,7 +32,9 @@
         min-height: 70vh;
         display: flex;        
         border-radius: 10px;
+        background: #fff;
 
+        // for add product form
         > .form-head{
             @include flex(row,unset,center,0);
             background-color: blue;
@@ -41,6 +43,36 @@
             font-size: 1.5rem;
             >h2{
                 text-align: center;
+            }
+        }
+
+        // for product update form
+        .product-info{
+            @include flex(column,center,unset,1rem);
+            padding: 1rem;
+            width: 50%;
+            text-align: center;
+            position: relative;
+            background: #eee;
+            > .stock{
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                color: green;
+            }
+            > strong{
+                font-weight: 300;
+                text-align: left;
+            }
+            > p{
+                @include heading;
+            }
+            > h3{
+                font-size: 2rem;
+            }
+            > img{
+                max-width: 100%;
+                margin: 1rem 0;
             }
         }
         
