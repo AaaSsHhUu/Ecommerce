@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { AdminSidebar } from "../../../components"
 import TextField from '@mui/material/TextField';
 
@@ -27,6 +27,10 @@ const NewProduct = () => {
     }
   }
 
+  const submitHandler = (e : FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+  }
+
   return (
     <>
         <div className="admin-container">
@@ -37,7 +41,7 @@ const NewProduct = () => {
                     <div className="form-head">
                         <h2>Create New Product</h2>
                     </div>
-                    <form>
+                    <form onSubmit={submitHandler}>
                         {/* Name */}
                         <div>
                             <TextField id="outlined-basic"
