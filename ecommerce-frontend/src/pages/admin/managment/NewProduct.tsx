@@ -9,8 +9,22 @@ const NewProduct = () => {
   const [stock,setStock] = useState<number>();
   const [photo,setPhoto]   = useState<string>();
 
-  const changeImageHandler = (e : ChangeEvent) => {
+  const changeImageHandler = (e : ChangeEvent<HTMLInputElement>) => {
+    const file : File | undefined = e.target.files?.[0];
+    console.log("file : ", file);
+    
+    const reader: FileReader = new FileReader();
 
+    if(file){
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            if(typeof reader.result === "string"){
+                console.log("reader.result : ", reader.result);
+                
+                setPhoto(reader.result);
+            }
+        }
+    }
   }
 
   return (
@@ -67,12 +81,12 @@ const NewProduct = () => {
                              type="file"
                              sx={{width : "100%"}}
                              variant="outlined"
-                             onChange={(e) => setPhoto(e.target.value)}
+                             onChange={changeImageHandler}
                              required
                             />
                         </div>
                         {
-                          photo && <img src={photo} alt="Product Image" />
+                          photo && <img src={photo} className="preview-image" alt="Product Image" />
                         }
                         <button type="submit">Create</button>
                     </form>
