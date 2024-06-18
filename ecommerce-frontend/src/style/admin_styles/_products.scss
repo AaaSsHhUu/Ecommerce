@@ -29,7 +29,7 @@
         overflow: hidden;
         max-width: 70%;
         box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
-        height: 70vh;
+        min-height: 70vh;
         display: flex;        
         border-radius: 10px;
 
@@ -64,6 +64,9 @@
                 &:hover{
                     background: rgb(0,144,255);
                 }
+            }
+            >.preview-image{
+                width: 10rem;
             }
         }
     }
