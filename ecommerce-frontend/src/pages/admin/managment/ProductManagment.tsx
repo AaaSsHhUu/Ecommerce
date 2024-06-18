@@ -1,13 +1,18 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { AdminSidebar } from "../../../components";
 import TextField from '@mui/material/TextField';
 
 const ProductManagment = () => {
-  const img = "https://m.media-amazon.com/images/I/71jDjaFd2cL._AC_UL320_.jpg"
-  const [name,setName] = useState<string>("Nike Shoes");
-  const [price,setPrice] = useState<number>(2000);
-  const [stock,setStock] = useState<number>(1);
-  const [photo,setPhoto]   = useState<string>(img);
+  const initials = {
+    name : "Nike Shoes",
+    price : 2000,
+    stock : 50,
+    photo : "https://m.media-amazon.com/images/I/71jDjaFd2cL._AC_UL320_.jpg"
+  }
+  const [nameUpdate,setNameUpdate] = useState<string>(initials.name);
+  const [priceUpdate,setPriceUpdate] = useState<number>(initials.price);
+  const [stockUpdate,setStockUpdate] = useState<number>(initials.stock);
+  const [photoUpdate,setPhotoUpdate]   = useState<string>("");
 
   const changeImageHandler = (e : ChangeEvent<HTMLInputElement>) => {
     const file : File | undefined = e.target.files?.[0];
@@ -21,11 +26,16 @@ const ProductManagment = () => {
             if(typeof reader.result === "string"){
                 console.log("reader.result : ", reader.result);
                 
-                setPhoto(reader.result);
+                setPhotoUpdate(reader.result);
             }
         }
     }
   }  
+
+  const submitHandler = (e : FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+  }
+
   return (
     <>
         <div className="admin-container">
@@ -34,25 +44,25 @@ const ProductManagment = () => {
             <main className="product-managment">
                 <article>
                     <div className="product-info">
-                        {stock > 0 && <span className="stock">{stock} Available</span>}
+                        {stockUpdate > 0 && <span className="stock">{stockUpdate} Available</span>}
                         <strong>ID - cjnsijdcniqjwned</strong>
-                        <img src={photo} alt="product" />
-                        <p>{name}</p>
+                        <img src={initials.photo} alt="product" />
+                        <p>{nameUpdate}</p>
                         {
-                          stock > 0  ? <span className="green">Availbale</span> : <span className="red">Not Available</span>
+                          stockUpdate > 0  ? <span className="green">Availbale</span> : <span className="red">Not Available</span>
                         }
-                        <h3>${price}</h3>
+                        <h3>${priceUpdate}</h3>
                     </div>
-                    <form>
+                    <form onSubmit={submitHandler}> 
                         {/* Name */}
                         <div>
                             <TextField id="outlined-basic"
                              label="Name" 
                              variant="outlined"
-                             value={name}
+                             value={nameUpdate}
                              sx={{width : "100%"}}
                              type="text"
-                             onChange={(e) => setName(e.target.value)}
+                             onChange={(e) => setNameUpdate(e.target.value)}
                              required
                             />
                         </div>
@@ -63,8 +73,8 @@ const ProductManagment = () => {
                              variant="outlined"
                              sx={{width : "100%"}}
                              type="number"
-                             value={price}
-                             onChange={(e) => setPrice(Number(e.target.value))}
+                             value={priceUpdate}
+                             onChange={(e) => setPriceUpdate(Number(e.target.value))}
                              required
                             />
                         </div>
@@ -74,9 +84,9 @@ const ProductManagment = () => {
                              label="Stock" 
                              variant="outlined"
                              sx={{width : "100%"}}
-                             value={stock}
+                             value={stockUpdate}
                              type="number"
-                             onChange={(e) => setStock(Number(e.target.value))}
+                             onChange={(e) => setStockUpdate(Number(e.target.value))}
                              required
                             />
                         </div>
@@ -91,6 +101,9 @@ const ProductManagment = () => {
                              required
                             />
                         </div>
+                        {
+                          photoUpdate && <img src={photoUpdate} className="preview-image" alt="selected image" />
+                        }
                         <button type="submit">Update</button>
                     </form>
                 </article>
