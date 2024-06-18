@@ -21,7 +21,7 @@ const Transactions = () => {
       discount : 400,
       quantity : 3,
       status : <span className="red">Processing</span>,
-      action : <Link to="/admin/transaction/snunsxa">Manage</Link>
+      action : <Link to="/admin/transactions/snunsxa">Manage</Link>
     }
   ];
 
