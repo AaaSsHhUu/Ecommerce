@@ -103,6 +103,66 @@
         }
     }
 
+    // for transaction-managment page
+    > section{
+        background: white;
+        padding: 2rem;
+        min-height: 80vh;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        > h2{
+            text-align: center;
+            @include heading;
+            margin-bottom: 1rem;
+        }
+        > .transaction-product-card{
+            @include flex(row,unset,center,1rem);
+            > img{
+                @include square(4rem);
+                object-fit: contain;
+                border-radius: 5px;
+                background: #eee;
+            }
+            > span{
+                margin-left: auto;
+            }
+        }
+    }
 
+    // for shipping-info-card
+    > .shipping-info-card{
+        min-height: 80vh;
+        overflow-y: auto;
+        max-width: 300px;
+        @include flex(column,unset,unset,0);
+        padding: 2rem 1rem 0 1.5rem;
+        text-align: start;
+        > h1{
+            @include heading(2px);
+            text-align: center;
+        }
+        >h5{
+            margin: 1rem 0 0 0;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        >p{
+            font-size: 0.95rem;
+        }
+        > button{
+            background: rgb(0,144,255);
+            color: #fff;
+            border: none;
+            outline: none;
+            padding: 0.5rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+    }
     
 }
