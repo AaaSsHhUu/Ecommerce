@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
-import { Cart, Customer, Dashboard, Home, NewProduct, Product, ProductManagment, Search, TransactionManagment, Transactions } from "./pages";
+import { BarChart, Cart, Customer, Dashboard, Home, LineChart, NewProduct, PieChart, Product, ProductManagment, Search, TransactionManagment, Transactions } from "./pages";
 import { Loader } from "./components";
 
 function App() {
@@ -19,7 +19,10 @@ function App() {
           <Route path="/admin/customer" element={<Customer />} />
 
           {/* Charts */}
-
+          <Route path="/admin/chart/bar" element={<BarChart />} />
+          <Route path="/admin/chart/pie" element={<PieChart />} />
+          <Route path="/admin/chart/line" element={<LineChart />} />
+          
           {/* Apps */}
 
           {/* Managment */}
