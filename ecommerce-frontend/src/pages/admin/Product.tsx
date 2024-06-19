@@ -47,56 +47,56 @@ const arr : DataType[] = [
     name : "Macbook One",
     price : 2399,
     stock : 3,
-    action : <Link to={"/admin/products/asjodwije"}>Manage</Link>
+    action : <Link to={"/admin/product/asjodwije"}>Manage</Link>
   },
   {
     photo : <img src={img2} alt="macbook two" />,
     name : "Macbook Two",
     price : 2599,
     stock : 7,
-    action : <Link to={"/admin/products/asjodwwiuije"}>Manage</Link>
+    action : <Link to={"/admin/product/asjodwwiuije"}>Manage</Link>
   },
   {
     photo : <img src={img1} alt="macbook one" />,
     name : "Macbook One",
     price : 2399,
     stock : 3,
-    action : <Link to={"/admin/products/asjodwije"}>Manage</Link>
+    action : <Link to={"/admin/product/asjodwije"}>Manage</Link>
   },
   {
     photo : <img src={img2} alt="macbook two" />,
     name : "Macbook Two",
     price : 2599,
     stock : 7,
-    action : <Link to={"/admin/products/asjodwwiuije"}>Manage</Link>
+    action : <Link to={"/admin/product/asjodwwiuije"}>Manage</Link>
   },
   {
     photo : <img src={img1} alt="macbook one" />,
     name : "Macbook One",
     price : 2399,
     stock : 3,
-    action : <Link to={"/admin/products/asjodwije"}>Manage</Link>
+    action : <Link to={"/admin/product/asjodwije"}>Manage</Link>
   },
   {
     photo : <img src={img2} alt="macbook two" />,
     name : "Macbook Two",
     price : 2599,
     stock : 7,
-    action : <Link to={"/admin/products/asjodwwiuije"}>Manage</Link>
+    action : <Link to={"/admin/product/asjodwwiuije"}>Manage</Link>
   },
   {
     photo : <img src={img1} alt="macbook one" />,
     name : "Macbook One",
     price : 2399,
     stock : 3,
-    action : <Link to={"/admin/products/asjodwije"}>Manage</Link>
+    action : <Link to={"/admin/product/asjodwije"}>Manage</Link>
   },
   {
     photo : <img src={img2} alt="macbook two" />,
     name : "Macbook Two",
     price : 2599,
     stock : 7,
-    action : <Link to={"/admin/products/asjodwwiuije"}>Manage</Link>
+    action : <Link to={"/admin/product/asjodwwiuije"}>Manage</Link>
   },
 ];
 
@@ -117,7 +117,7 @@ const Product = () => {
           {Table()}
         </main>
 
-        <Link to={"/admin/products/new"} className="create-product-btn">{<FaPlus />}</Link>
+        <Link to={"/admin/product/new"} className="create-product-btn">{<FaPlus />}</Link>
     </div>
   )
 }

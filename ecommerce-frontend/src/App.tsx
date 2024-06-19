@@ -14,18 +14,18 @@ function App() {
           <Route path="/cart" element={<Cart />} />
 
           <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/products" element={<Product />} />
-          <Route path="/admin/transactions" element={<Transactions />} />
-          <Route path="/admin/customers" element={<Customer />} />
+          <Route path="/admin/product" element={<Product />} />
+          <Route path="/admin/transaction" element={<Transactions />} />
+          <Route path="/admin/customer" element={<Customer />} />
 
           {/* Charts */}
 
           {/* Apps */}
 
           {/* Managment */}
-          <Route path="/admin/products/new" element={<NewProduct />} />
-          <Route path="/admin/products/:id" element={<ProductManagment />} />
-          <Route path="/admin/transactions/:id" element={<TransactionManagment />} />
+          <Route path="/admin/product/new" element={<NewProduct />} />
+          <Route path="/admin/product/:id" element={<ProductManagment />} />
+          <Route path="/admin/transaction/:id" element={<TransactionManagment />} />
 
         </Routes>
       </Suspense>

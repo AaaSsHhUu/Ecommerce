@@ -5,7 +5,7 @@ import { Link, Location, useLocation } from "react-router-dom";
 
 const AdminSidebar = () => {
 
-  const location = useLocation();
+  const location = useLocation(); // for accessing pathname
 
   return (
     <aside>
@@ -17,11 +17,11 @@ const AdminSidebar = () => {
               {/* Dashboard */}
                 <Li text="Dashboard" url="/admin/dashboard" Icon={RiDashboardFill} location={location} />
               {/* Products */}
-                <Li text="Products" url="/admin/products" Icon={RiShoppingBag3Fill} location={location} />
+                <Li text="Product" url="/admin/product" Icon={RiShoppingBag3Fill} location={location} />
               {/* Customers */}
-                <Li text="Customers" url="/admin/customers" Icon={RiFileTextFill} location={location} />
+                <Li text="Customer" url="/admin/customer" Icon={RiFileTextFill} location={location} />
               {/* Transactions */}
-                <Li text="Transactions" url="/admin/transactions" Icon={RiMoneyRupeeCircleFill} location={location} />
+                <Li text="Transaction" url="/admin/transaction" Icon={RiMoneyRupeeCircleFill} location={location} />
             </ul>
         </div>
 
