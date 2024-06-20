@@ -35,11 +35,11 @@ const BarCharts = () => {
 
             <section>
               <BarChart 
-                data1={[200,444,356,764,565,408,908,345,104,412,683,250,786,167]} 
+                data1={[200,444,356,764,565,408,908,345,104,412,683,250]} 
                 data2={[]} 
                 title1="Products" 
                 title2="" 
-                bgColor1="hsl(260,50%,30%)" 
+                bgColor1="hsl(180,40%,50%)" 
                 bgColor2=""
                 labels={months} 
                 horizontal={true}
