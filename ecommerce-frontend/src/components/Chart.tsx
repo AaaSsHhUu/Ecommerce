@@ -10,7 +10,7 @@ import {
     ChartData,
     ChartOptions
 } from "chart.js";
-import { Bar, Doughnut } from "react-chartjs-2";
+import { Bar, Doughnut, Pie } from "react-chartjs-2";
 
 
 ChartJS.register(
@@ -25,6 +25,7 @@ ChartJS.register(
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
+// ------------------------ Bar Chart --------------------------
 interface BarChartProps{
     horizontal ?: boolean;
     data1 : number[];
@@ -97,6 +98,8 @@ export const BarChart = ({
     return <Bar width={horizontal ? "200%" : ""} options={options} data={data} />
 };
 
+// ------------------------ Doughnut Chart --------------------------
+
 interface DoughnutChartProps{
     labels : string[];
     data : number[];
@@ -141,6 +144,46 @@ export const DoughnutChart = ({
 
     return (
       <Doughnut data={doughnutData} options={doughnutOptions} />
+    )
+}
+
+// ------------------------ Pie Chart --------------------------
+
+interface PieChartProps{
+    labels : string[];
+    data : number[];
+    backgroundColor : string[];
+    offset ?: number[];
+}
+
+export const PieChart = ({
+    labels,
+    data,
+    backgroundColor,
+    offset
+} : PieChartProps) => {
+
+    const pieData : ChartData<"pie",number[],string> = {
+        labels,
+        datasets : [{
+          data,
+          backgroundColor,
+          borderWidth : 1,
+          offset
+        }],
+    };
+
+    const pieOptions : ChartOptions<"pie"> = {
+        responsive : true,
+        plugins : {
+            legend : {
+                display : false,
+            }
+        },
+    };
+
+    return (
+      <Pie data={pieData} options={pieOptions} />
     )
 }
 
