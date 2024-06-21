@@ -29,7 +29,7 @@
     padding: 2rem 2rem 2rem 0;
     // flex-wrap: wrap;
     > .widget {
-      width: 25rem;
+      width: 24rem;
       background: white;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.132);
       padding: 2rem;
@@ -78,6 +78,7 @@
     > div {
       background: white;
       border-radius: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.132);
     }
 
     > .revenue-chart {
