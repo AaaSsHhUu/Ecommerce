@@ -1,0 +1,43 @@
+@media screen and (width <= 1100px){
+    .admin-container{
+        overflow: auto;
+    }
+
+    // Dashboard
+    .dashboard{
+        > .graph-container{
+            @include flex(column,unset,center,2rem);
+            
+            > .dashboard-categories{
+                max-width: 100%;
+                padding: 0 4rem 2rem 4rem;
+
+                >.category-item{
+                    > h5{
+                        font-size: 1.025rem;
+                    }
+                }
+            }
+        }
+
+        > .transaction-container{
+            flex-direction: column;
+            align-items: center;
+            height: unset;
+        }
+    }
+}
+
+@media screen and (width <= 1060px) {
+    .admin-container{
+        grid-template-columns: 1fr !important;
+    }
+    .dashboard{
+        > .graph-container, .transaction-container{
+            padding: 2rem;
+        }
+        > .widget-container{
+            grid-template-columns: 1fr !important;        
+        }
+    }
+}
