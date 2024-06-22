@@ -6,13 +6,18 @@ const Header = () => {
     const users = { _id : "djd", role : "admin" }
 
     const [isOpen, setIsOpen] = useState(false);
+
+    const logoutHandler = () => {
+        setIsOpen(false);
+        // log out logic
+    }
   return (
     <nav className="header">
-        <Link to={"/"}>Home</Link>
-        <Link to={"/search"}>
+        <Link to={"/"} onClick={() => setIsOpen(false)}>Home</Link>
+        <Link to={"/search"} onClick={() => setIsOpen(false)}>
             <FaSearch />
         </Link>
-        <Link to={"/cart"}>
+        <Link to={"/cart"} onClick={() => setIsOpen(false)}>
             <FaShoppingBag />
         </Link>
         {
@@ -26,12 +31,12 @@ const Header = () => {
                         <div>
                             {
                                 users?.role === "admin" && (
-                                    <Link to={"/admin/dashboard"}>Admin</Link>
+                                    <Link to={"/admin/dashboard"} onClick={() => setIsOpen(false)}>Admin</Link>
                                 )
                             }
 
                             <Link to={"/orders"}>Orders</Link>
-                            <button>
+                            <button onClick={logoutHandler}>
                                 <FaSignOutAlt />
                             </button>
                         </div>
