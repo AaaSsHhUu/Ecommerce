@@ -1,7 +1,7 @@
 import { Column } from "react-table"
 import { AdminSidebar } from "../../components"
 import { ReactElement, useCallback, useState } from "react";
-import TableHOC from "../../components/TableHOC";
+import TableHOC from "../../components/admin/TableHOC";
 import { FaTrash } from "react-icons/fa";
 
 const Customer = () => {

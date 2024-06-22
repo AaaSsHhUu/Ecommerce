@@ -1,7 +1,7 @@
 import { ReactElement, useState, useCallback } from "react";
 import { AdminSidebar } from "../../components"
 import { Column } from "react-table";
-import TableHOC from "../../components/TableHOC";
+import TableHOC from "../../components/admin/TableHOC";
 import { Link } from "react-router-dom";
 
 const Transactions = () => {
