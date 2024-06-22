@@ -1,14 +1,44 @@
+import { useState, useEffect } from "react";
 import { IconType } from "react-icons";
 import { FaChartBar, FaChartLine, FaChartPie } from "react-icons/fa";
-import { RiDashboardFill, RiShoppingBag3Fill, RiFileTextFill, RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { HiMenuAlt4 } from "react-icons/hi";
+import { RiDashboardFill, RiFileTextFill, RiMoneyRupeeCircleFill, RiShoppingBag3Fill } from "react-icons/ri";
 import { Link, Location, useLocation } from "react-router-dom";
 
 const AdminSidebar = () => {
 
   const location = useLocation(); // for accessing pathname
 
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isPhoneActive, setIsPhoneActive] = useState<boolean>(window.innerWidth < 1060 )
+
+  const resizeHandler = () => {
+      setIsPhoneActive(window.innerWidth < 1060);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize",resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize",resizeHandler)
+    }
+  },[])
+
   return (
-    <aside>
+    <>
+
+      {isPhoneActive && <button id="hamburger" onClick={() => setShowModal(true)}>
+        <HiMenuAlt4 />  
+      </button>}
+
+      <aside style={isPhoneActive ? {
+        width : "20rem",
+        height : "100vh",
+        position : "fixed",
+        left : showModal ? "0" : "-20rem",
+        top : 0,
+        transition : "all 0.5s"
+      } : {}}>
         <h2>Logo</h2>
 
         <div>
@@ -35,8 +65,10 @@ const AdminSidebar = () => {
               {/* Line Chart */}
                 <Li text="Line" url="/admin/chart/line" Icon={FaChartLine} location={location} />
             </ul>
+            {isPhoneActive && <button id="close-sidebar-btn" onClick={() => setShowModal(false)}>Close</button>}
         </div>
-    </aside>
+      </aside>
+    </>
   )
 }
 
