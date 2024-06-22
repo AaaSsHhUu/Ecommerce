@@ -1,10 +1,21 @@
 import { AdminSidebar, DoughnutChart, PieChart } from "../../../components"
 import {categories} from "../../../assets/data.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const PieCharts = () => {
 
   const [isPhoneActive, setIsPhoneActive] = useState<boolean>(window.innerWidth < 500 )
+
+  const resizeHandler = () => {
+      setIsPhoneActive(window.innerWidth < 500)
+  }
+  useEffect(() => {
+      window.addEventListener("resize", resizeHandler)
+
+      return () => {
+          window.removeEventListener("resize", resizeHandler)
+      }
+  },[])
 
   return (
     <>
