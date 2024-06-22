@@ -1,12 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
 import { BarCharts, Cart, Customer, Dashboard, Home, LineCharts, NewProduct, PieCharts, Product, ProductManagment, Search, TransactionManagment, Transactions } from "./pages";
-import { Loader } from "./components";
+import { Header, Loader } from "./components";
 
 function App() {
 
   return (
     <Router>
+      {/* Header */}
+      <Header />
+
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />
