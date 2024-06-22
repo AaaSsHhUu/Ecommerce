@@ -11,6 +11,7 @@
         margin: 4rem auto;
 
         > div{
+            @include flex(row,center,unset);
             max-width: 25rem;
             margin: auto;
             margin-top: 6rem;
