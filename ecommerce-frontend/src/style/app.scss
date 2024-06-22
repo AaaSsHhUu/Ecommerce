@@ -71,122 +71,122 @@ a {
     }
   }
 }
-  .table {
-    border-collapse: collapse;
-    width: 100%;
-    th,
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    font-weight: bold;
+    color: #0000009e;
+    font-size: 1.1rem;
+    font-weight: 400;
+    padding: 2rem 1rem;
+  }
+
+  tbody {
+    tr {
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.093);
+    }
+
     td {
-      padding: 8px;
-      text-align: left;
-      vertical-align: middle;
-    }
-  
-    th {
-      font-weight: bold;
-      color: #0000009e;
-      font-size: 1.1rem;
-      font-weight: 400;
-      padding: 2rem 1rem;
-    }
-  
-    tbody {
-      tr {
-        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.093);
+      padding: 1rem;
+
+      img {
+        width: 4rem;
+        height: 4rem;
+        object-fit: contain;
+        border-radius: 10px;
       }
-  
-      td {
-        padding: 1rem;
-  
-        img {
-          width: 4rem;
-          height: 4rem;
-          object-fit: contain;
-          border-radius: 10px;
+      a {
+        text-decoration: none;
+        background-color: rgba(44, 104, 255, 0.455);
+        color: rgba(44, 104, 255);
+        padding: 0.25rem 0.5rem;
+        border-radius: 10px;
+      }
+      button {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.1rem;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        cursor: pointer;
+        color: rgb(255, 44, 44);
+        &:hover {
+          opacity: 0.6;
         }
-        a {
-          text-decoration: none;
-          background-color: rgba(44, 104, 255, 0.455);
-          color: rgba(44, 104, 255);
-          padding: 0.25rem 0.5rem;
-          border-radius: 10px;
-        }
-        button {
-          width: 2rem;
-          height: 2rem;
-          font-size: 1.1rem;
-          border: none;
-          outline: none;
-          background-color: transparent;
-          cursor: pointer;
-          color: rgb(255, 44, 44);
-          &:hover {
-            opacity: 0.6;
-          }
-        }
-  
-        &:first-child {
-          border-left: none;
-        }
-  
-        &:last-child {
-          border-right: none;
-        }
+      }
+
+      &:first-child {
+        border-left: none;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+
+.table-pagination {
+  @include flex(column, unset, center, 1rem);
+  padding: 2rem;
+
+  > .page-info {
+    @include flex(row, center, center, 1rem);
+
+    > button {
+      padding: 0.5rem 1rem;
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: rgba(0, 115, 255);
+      color: white;
+      &:disabled {
+        background-color: rgba(0, 115, 255, 0.1);
+        cursor: not-allowed;
       }
     }
   }
 
-.table-pagination{
-    @include flex(column,unset,center,1rem);
-    padding : 2rem;
-
-    > .page-info{
-      @include flex(row,center,center,1rem);
-
-      > button{
-        padding: 0.5rem 1rem;
-        border: none;
-        outline: none;
-        border-radius: 10px;
-        cursor: pointer;
-        background-color: rgba(0,115,255);
-        color: white;
-        &:disabled{
-          background-color: rgba(0,115,255,0.1);
-          cursor: not-allowed;
-        }
+  > .goto-page {
+    @include flex(row, center, center, 0);
+    > input {
+      border: none;
+      outline: none;
+      width: 100px;
+      background: #eeeeee;
+      padding: 0.5rem 1rem;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      &:focus {
+        outline: 2px solid black;
       }
     }
-
-    > .goto-page{
-        @include flex(row,center,center,0);
-        > input{
-          border: none;
-          outline: none;
-          width: 100px;
-          background: #eeeeee;
-          padding: 0.5rem 1rem;
-          border-top-left-radius: 10px;
-          border-bottom-left-radius: 10px;
-          &:focus{
-            outline: 2px solid black;
-          }
-        }
-        > button{
-          padding: 0.5rem 1rem;
-          background: black;
-          color: white;
-          border-top-right-radius: 10px;
-          border-bottom-right-radius: 10px;
-          border: none;
-          outline: none;
-          &:hover{
-            opacity: 0.8;
-          }
-        }
+    > button {
+      padding: 0.5rem 1rem;
+      background: black;
+      color: white;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border: none;
+      outline: none;
+      &:hover {
+        opacity: 0.8;
+      }
     }
+  }
 }
 
-#hamburger{
+#hamburger {
   display: grid;
   place-items: center;
   @include square(3rem);
@@ -194,7 +194,7 @@ a {
   border: none;
   outline: none;
   cursor: pointer;
-  color: rgba(44,104,255);
+  color: rgba(44, 104, 255);
   position: fixed;
   top: 1rem;
   left: 1rem;
@@ -203,7 +203,7 @@ a {
   z-index: 9;
 }
 
-#close-sidebar-btn{
+#close-sidebar-btn {
   width: 80%;
   margin: 2rem;
   padding: 0.5rem 1rem;
@@ -212,6 +212,26 @@ a {
   border: none;
   outline: none;
   border-radius: 10px;
-  background: rgb(0,144,255);
+  background: rgb(0, 144, 255);
   cursor: pointer;
+}
+
+.loader {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > div {
+    @include square(20vw);
+    border-radius: 50%;
+    border-bottom: 5px solid black;
+    animation: spin 0.5s linear infinite;
+  }
+}
+
+@keyframes spin{
+  to{
+    transform: rotateZ(360deg);
+  }
 }
