@@ -202,3 +202,16 @@ a {
   border-radius: 50%;
   z-index: 9;
 }
+
+#close-sidebar-btn{
+  width: 80%;
+  margin: 2rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background: rgb(0,144,255);
+  cursor: pointer;
+}
