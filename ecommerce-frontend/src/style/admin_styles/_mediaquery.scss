@@ -36,8 +36,65 @@
         > .graph-container, .transaction-container{
             padding: 2rem;
         }
+        
+    }
+
+    .dashboard-product-box{
+        > h2{
+            text-align: center;
+        }
+    }
+}
+
+@media screen and (width < 850px){
+    .dashboard{
         > .widget-container{
-            grid-template-columns: 1fr !important;        
+            justify-content: center;
+            grid-template-columns: 1fr !important; 
+            padding: 2rem;  
+        }
+    }
+
+    .product-managment{
+        margin: 2rem 0;
+        > article{
+            flex-direction: column;
+            > .product-info{
+                width: 100%;
+            }
+
+            > .form-head{
+                display: none;
+                padding: 1rem 1.5rem;
+            }
+            > form{
+                gap: 2rem;
+            }
+        }
+    }
+
+    .chart-container{
+        padding: 1rem 0;
+        > h1{
+            margin: 0;
+            text-align: center;
+        }
+        > section{
+            margin: 8rem auto;
+        }
+    }
+}
+
+@media screen and (width <= 500px){
+    .widget{
+        max-width: 80vw;
+    }
+
+    .chart-container{
+        > section{
+            > h2{
+                font-size: 1.25rem;
+            }
         }
     }
 }
