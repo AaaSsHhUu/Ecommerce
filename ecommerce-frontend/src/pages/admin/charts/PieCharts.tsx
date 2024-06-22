@@ -1,13 +1,17 @@
 import { AdminSidebar, DoughnutChart, PieChart } from "../../../components"
 import {categories} from "../../../assets/data.json";
+import { useState } from "react";
 
 const PieCharts = () => {
+
+  const [isPhoneActive, setIsPhoneActive] = useState<boolean>(window.innerWidth < 500 )
+
   return (
     <>
       <div className="admin-container">
         <AdminSidebar />
         <main className="chart-container">
-          <h1>Pie & Doughnut Charts</h1>
+          <h1>Pie & Doughnut {isPhoneActive && <br />} Charts</h1>
 
           <section>
             <div>
@@ -27,7 +31,7 @@ const PieCharts = () => {
                 legends={false}
                 backgroundColor={categories.map(i => `hsl(${i.value * 4},${i.value}%,50%)`)} 
                 offset={[0, 0, 0, 80]}
-                cutout={110}
+                cutout={isPhoneActive ? 70 : 110}
               />
             </div>
             <h2>Product Category Ratio</h2>
@@ -44,7 +48,7 @@ const PieCharts = () => {
                   "rgb(53, 162, 255)"
                 ]} 
                 offset={[0, 50]}
-                cutout={130}
+                cutout={isPhoneActive ? 70 : 130}
               />
             </div>
             <h2>Stock Availability</h2>
