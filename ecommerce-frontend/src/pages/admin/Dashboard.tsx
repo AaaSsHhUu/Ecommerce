@@ -80,7 +80,7 @@ const Dashboard = () => {
             </div>
 
           {/* Table */}
-          <Table  data={data.transaction}/>
+          <Table data={data.transaction}/>
 
         </div>
 

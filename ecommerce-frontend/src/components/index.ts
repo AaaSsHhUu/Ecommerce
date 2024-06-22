@@ -1,7 +1,7 @@
 import AdminSidebar from "./admin/AdminSidebar";
 import { BarChart, DoughnutChart, PieChart, LineChart } from "./admin/Chart";
 import Loader from "./admin/Loader";
-import Table from "./admin/TableHOC";
+import Table from "./admin/DashboardTable";
 
 export {
   Loader,
