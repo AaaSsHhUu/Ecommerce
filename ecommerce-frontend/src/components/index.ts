@@ -6,6 +6,7 @@ import Table from "./admin/DashboardTable";
 
 // App Components
 import Header from "./Header";
+import ProductCard from "./ProductCard";
 
 export {
   Loader,
@@ -16,4 +17,5 @@ export {
   LineChart,
   Table,
   Header,
+  ProductCard
 };
