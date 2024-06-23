@@ -26,8 +26,24 @@ const Home = () => {
             <ProductCard 
               productId="product-1" 
               name="Macbook Air" 
-              price={3423} 
+              price={113423} 
               photo="https://m.media-amazon.com/images/I/71O14N5GYLL._AC_UY218_.jpg" 
+              handler={addToCartHandler}
+              stock={10}
+            />
+            <ProductCard 
+              productId="product-2" 
+              name="Shoes" 
+              price={1423} 
+              photo="https://m.media-amazon.com/images/I/61Ps2D+ktAL._AC_UL320_.jpg" 
+              handler={addToCartHandler}
+              stock={10}
+            />
+            <ProductCard 
+              productId="product-3" 
+              name="Suits" 
+              price={5423} 
+              photo="https://m.media-amazon.com/images/I/61ivByMZpyL._AC_UY218_.jpg" 
               handler={addToCartHandler}
               stock={10}
             />
