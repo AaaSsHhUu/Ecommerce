@@ -1,5 +1,8 @@
 .dashboard {
   overflow-y: auto;
+  &::-webkit-scrollbar{
+    display: none;
+  }
   > .bar {
     height: 4rem;
     @include flex(row, unset);
