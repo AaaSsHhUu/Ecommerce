@@ -1,6 +1,7 @@
 @import "./admin_styles/mixin";
 
 @import "./home";
+@import "./cart";
 
 // Admin Styles
 @import "./admin_styles/dashboard";
@@ -14,7 +15,7 @@
   font-weight: 400;
 }
 
-body{
+body {
   user-select: none;
 }
 
@@ -43,31 +44,47 @@ $color1: white;
 $color2: rgb(46, 46, 46);
 $color3: rgb(0, 104, 136);
 
-.header{
-    @include flex(row,flex-end,stretch,1.2rem);
-    padding: 1rem;
+.header {
+  @include flex(row, space-between, center, 1.2rem);
+  padding: 1rem 4%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.125);
+  
 
-    > a { 
+  .logo{
+    @include flex(row,center,center,0.5rem);
+    font-size: 2rem;
+    color: rgb(0,145,255);
+    > h1{
+      font-size: 2rem;
+    }
+  }
+
+  > .nav-links {
+    @include flex(row,unset,center,1rem);
+    > a {
+      @include flex(row, unset, center, 5px);
       color: $color2;
       letter-spacing: 2px;
       font-size: 1.2rem;
-      &:hover{
+      &:hover {
         color: $color3;
       }
     }
 
-    > button{
-        border: none;
-        outline: none;
-        font-size: 1.2rem;
-        background: transparent;
-        cursor: pointer;
-        &:hover{
-          color: $color3;
-        }
+    > button {
+      border: none;
+      outline: none;
+      font-size: 1.2rem;
+      background: transparent;
+      cursor: pointer;
+      transform: translateY(5px);
+      &:hover {
+        color: $color3;
+      }
+      
     }
 
-    > dialog{
+    > dialog {
       border: 1px solid #ccc;
       border-radius: 5px;
       padding: 10px;
@@ -76,23 +93,12 @@ $color3: rgb(0, 104, 136);
       top: 8%;
       left: calc(100% - 100px);
 
-      > div{
-         @include flex(column, flex-start,center,0.25rem);
+      > div {
+        @include flex(column, flex-start, center, 0.25rem);
       }
     }
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .admin-container {
   @include grid(1fr 4fr, 2rem);
@@ -293,8 +299,8 @@ $color3: rgb(0, 104, 136);
   }
 }
 
-@keyframes spin{
-  to{
+@keyframes spin {
+  to {
     transform: rotateZ(360deg);
   }
 }
