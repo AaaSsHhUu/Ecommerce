@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
 import { CartItem } from "../components";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const subtotal = 4000;
@@ -8,6 +9,22 @@ const Cart = () => {
     {
       productId : "abcdefgh",
       photo : "https://m.media-amazon.com/images/I/71O14N5GYLL._AC_UY218_.jpg",
+      name : "Macbook Air" ,
+      price : 130000,
+      stock : 10,
+      quantity : 1     
+    },
+    {
+      productId : "abcdefgh",
+      photo : "https://m.media-amazon.com/images/I/61Ps2D+ktAL._AC_UL320_.jpg",
+      name : "Macbook Air" ,
+      price : 130000,
+      stock : 10,
+      quantity : 1     
+    },
+    {
+      productId : "abcdefgh",
+      photo : "https://m.media-amazon.com/images/I/61I22cL7v+L._AC_UL320_.jpg",
       name : "Macbook Air" ,
       price : 130000,
       stock : 10,
@@ -35,9 +52,16 @@ const Cart = () => {
     <div className="cart">
       <main>
         {
-          cartItems.map((item,idx) => (
-              <CartItem key={idx} cartItem={item} />
-          ))
+          cartItems.length > 0 ? 
+          (
+            cartItems.map((item,idx) => (
+            <CartItem key={idx} cartItem={item} />
+            ))
+          )
+          :
+          (
+            <h1>Cart is Empty</h1>
+          )
         }
       </main>
 
@@ -45,7 +69,7 @@ const Cart = () => {
         <p>Subtotal : ₹{subtotal}</p>
         <p>Shipping Charges : ₹{shippingCharges}</p>
         <p>Tax : ₹{tax}</p>
-        <p>Discount : <em>₹{discount}</em></p>
+        <p>Discount : <em className="green">₹{discount}</em></p>
         <p><b>Total : ₹{total}</b></p>
 
         <input type="text"
@@ -66,6 +90,11 @@ const Cart = () => {
               Invalid Coupon <VscError />
             </span>
           )
+        }
+
+        {
+          cartItems.length > 0 && 
+          <Link to={"/shipping"} className="checkout-btn">Checkout</Link>
         }
       </aside>
     </div>
