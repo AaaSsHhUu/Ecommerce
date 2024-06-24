@@ -16,6 +16,7 @@ const TransactionManagment = lazy(() => import("./admin/managment/TransactionMan
 const BarCharts = lazy(() => import("./admin/charts/BarCharts"));
 const PieCharts = lazy(() => import("./admin/charts/PieCharts"));
 const LineCharts = lazy(() => import("./admin/charts/LineCharts"));
+const Login = lazy(() => import("./Login"));
 
-export {Home, Cart, Search,Dashboard, Product, Transactions, Customer, NewProduct, ProductManagment, TransactionManagment, BarCharts, PieCharts, LineCharts, Shipping };
+export {Home, Cart, Search,Dashboard, Product, Transactions, Customer, NewProduct, ProductManagment, TransactionManagment, BarCharts, PieCharts, LineCharts, Shipping, Login };
 
