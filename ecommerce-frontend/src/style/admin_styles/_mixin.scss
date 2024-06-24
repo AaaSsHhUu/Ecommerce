@@ -38,3 +38,7 @@
     height: $size;
     width: $size;
 }
+
+@mixin baseShadow($x : 0, $y : 0, $spread : 10px){
+    box-shadow: $x $y $spread rgba(0,0,0,0.384);
+}
