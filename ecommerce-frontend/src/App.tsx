@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
-import { BarCharts, Cart, Customer, Dashboard, Home, LineCharts, NewProduct, PieCharts, Product, ProductManagment, Search, TransactionManagment, Transactions } from "./pages";
+import { BarCharts, Cart, Customer, Dashboard, Home, LineCharts, NewProduct, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions } from "./pages";
 import { Header, Loader } from "./components";
 
 function App() {
@@ -15,7 +15,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/shipping" element={<Shipping />} />
 
+        {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="/admin/product" element={<Product />} />
           <Route path="/admin/transaction" element={<Transactions />} />
