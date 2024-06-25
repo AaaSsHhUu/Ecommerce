@@ -1,0 +1,78 @@
+.search-page {
+  @include flex(row, flex-start, stretch, 2rem);
+  min-height: calc(100vh - 6.5vh);
+
+  > aside {
+    min-width: 20rem;
+    padding: 2rem;
+    @include flex(column, flex-start, stretch, 0.5rem);
+    @include baseShadow(5px, 5px, 10px);
+    > h2 {
+      @include heading;
+    }
+
+    > div {
+      width: 100%;
+      padding: 1rem 0;
+
+      > h4 {
+        font-weight: 500;
+        font-size: 1.1rem;
+      }
+
+      > select {
+        /* Remove default styling */
+        // appearance: none;
+        padding: 0.5rem 1rem;
+        width: 80%;
+        border-radius: 5px;
+        font-size: 1rem;
+        margin: 0.5rem 0;
+        position: relative;
+      }
+
+      > input {
+        width: 80%;
+        padding: 0.5rem 0;
+      }
+    }
+  }
+
+  > main {
+    padding: 1rem;
+    width: 100%;
+    > h1 {
+      @include heading(2px);
+    }
+
+    > input {
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      margin: 1rem;
+      font-size: 1.2rem;
+      display: block;
+      border: none;
+      outline: none;
+    }
+
+    > .product-container {
+      @include flex(row, flex-start, flex-start);
+      flex-wrap: wrap;
+      height: calc(100% - 10rem);
+      overflow-y: auto;
+    }
+
+    > article {
+      @include flex;
+      > button {
+        @include flex;
+        @include btn(black,white);
+        border-radius: 10px;
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
