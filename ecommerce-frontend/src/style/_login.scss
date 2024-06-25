@@ -1,3 +1,60 @@
 .login{
-    
+    max-height: calc(100vh - 80px);
+    width: 40vw;
+    margin: 2rem auto;
+    @include baseShadow();
+    border-radius: 10px;
+    @include flex(column,unset,center,1);
+    padding-top: 1rem;
+    > h1{
+        @include heading(2px);
+    }
+
+    > form{
+        width: 100%;
+        padding: 1rem;
+        @include flex(column,unset,center,2rem);
+
+        >div{
+            width: 80%;
+            @include flex(row,center,center,0);
+
+            > button{
+                @include btn(black,white,1rem);
+                font-size : 1.1rem;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+
+        > .login-btn{
+            @include btn(black,white,1rem);
+            font-size: 1rem;
+            text-transform: uppercase;
+            border-radius: 10px;
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+
+        > .login-links{
+            @include flex(column,center,center,0);
+
+            >.google-link{
+                @include flex(row,unset,center,0.5rem);
+                padding: 0.5rem 1rem;
+                font-size: 1.1rem;
+                > svg{
+                    font-size: 2rem;
+                }
+                background: #eee;
+                border-radius: 10px;
+                cursor: pointer;
+                &:hover{
+                    background: #ccc;
+                }
+            }
+        }
+    }
 }
+
