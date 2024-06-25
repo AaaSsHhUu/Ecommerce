@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { FaHome, FaSearch, FaShoppingBag, FaSignInAlt, FaSignOutAlt, FaUser, FaUserCircle } from "react-icons/fa"
+import { FaHome, FaSearch, FaShoppingBag, FaSignInAlt, FaSignOutAlt, FaUserCircle } from "react-icons/fa"
 import { IoLogoBitbucket } from "react-icons/io"
 import { Link } from "react-router-dom"
 
 const Header = () => {
-    const users = { _id: "djd", role: "admin" }
+    const users = { _id: "", role: "admin" }
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -45,7 +45,7 @@ const Header = () => {
 
                                         <Link to={"/orders"}>Orders</Link>
                                         <button onClick={logoutHandler}>
-                                            <FaSignOutAlt />
+                                            <FaSignOutAlt />Logout
                                         </button>
                                     </div>
                                 </dialog>
@@ -54,7 +54,7 @@ const Header = () => {
                         :
                         (
                             <Link to={"/login"}>
-                                <FaSignInAlt />
+                                <FaSignInAlt />Login
                             </Link>
                         )
                 }
