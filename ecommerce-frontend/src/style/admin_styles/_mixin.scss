@@ -43,7 +43,7 @@
     box-shadow: $x $y $spread rgba(0,0,0,0.384);
 }
 
-@mixin btn($p : 0.5rem 1rem,$bg,$color){
+@mixin btn($bg,$color,$p : 0.5rem 1rem){
     background-color: $bg;
     padding: $p;
     cursor: pointer;
