@@ -4,6 +4,7 @@
 @import "./cart";
 @import "./shipping";
 @import "./login";
+@import "./search";
 
 // Admin Styles
 @import "./admin_styles/dashboard";
@@ -50,7 +51,7 @@ $color3: rgb(0, 104, 136);
   @include flex(row, space-between, center, 1.2rem);
   padding: 1rem 4%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.125);
-  
+  z-index: 100;
 
   .logo{
     @include flex(row,center,center,0.5rem);
