@@ -55,16 +55,14 @@
         }
         > .shipping-btn{
             margin-top: 1rem;
-            padding: 1rem;
             font-size: 1rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            background: rgb(0,125,255);
-            color: white;
-            border: none;
-            outline: none;
-            cursor: pointer;
+            @include btn(black,white,1rem);
             border-radius: 5px;
+            &:hover{
+                background: rgb(0,0,0,0.8);
+            }
         }
     }
 }
