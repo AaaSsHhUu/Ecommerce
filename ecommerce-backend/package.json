@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "start": "node ./dist/app.js",
+      "build" : "tsc",
+      "watch" : "tsc -w",
+      "dev" : "nodemon ./dist/app.js"
   },
   "keywords": [],
   "author": "Ashu Negi",
