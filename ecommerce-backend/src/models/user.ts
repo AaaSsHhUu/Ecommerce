@@ -1,19 +1,20 @@
-import mongoose from "mongoose";
-import validator from "validator";
+import mongoose, { CallbackError } from "mongoose";
+import {z} from "zod";
 
-interface IUser extends Document{
-    _id : string;
-    photo : string;
-    role : "user" | "admin";
-    name : string;
-    gender : "male" | "female";
-    dob : Date;
-    email : string;
-    createdAt : Date;
-    updatedAt : Date;
-    // virtual Attribute
-    age : number;
-}
+export const UserSchemaValidation = z.object({
+    _id : z.string(),
+    photo : z.string().min(1,"Please Add one photo"),
+    role : z.enum(["admin","user"]).default("user"),
+    name : z.string().min(1,"Please Enter name"),
+    email : z.string().email("Invalid Email format"),
+    gender : z.enum(["male", "female"]),
+    dob : z.date(),
+    createdAt : z.date().optional(),
+    updatedAt : z.date().optional()
+})
+
+type UserInput = z.infer<typeof UserSchemaValidation>
+
 
 const userSchema = new mongoose.Schema({
     _id : {
@@ -46,12 +47,11 @@ const userSchema = new mongoose.Schema({
         type : String,
         unique : [true,"Email already exist"],
         required : [true, "Please enter your email"],
-        validator : validator.default.isEmail
     },
 },{timestamps : true})
 
 
-userSchema.virtual("age").get(function(this : IUser){
+userSchema.virtual("age").get(function(this : UserInput){
     const today = new Date();
     const dob = this.dob;
 
@@ -64,5 +64,6 @@ userSchema.virtual("age").get(function(this : IUser){
     return age;
 })
 
-const User = mongoose.model<IUser>("User",userSchema);
+
+const User = mongoose.model<UserInput>("User",userSchema);
 export default User;
