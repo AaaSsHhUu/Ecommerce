@@ -1,26 +1,20 @@
-import mongoose, { CallbackError } from "mongoose";
+import mongoose from "mongoose";
 import {z} from "zod";
 
 export const UserSchemaValidation = z.object({
-    _id : z.string(),
     photo : z.string().min(1,"Please Add one photo"),
     role : z.enum(["admin","user"]).default("user"),
     name : z.string().min(1,"Please Enter name"),
     email : z.string().email("Invalid Email format"),
+    password : z.string().min(8, "Password should atleast have 8 letters"),
     gender : z.enum(["male", "female"]),
-    dob : z.date(),
-    createdAt : z.date().optional(),
-    updatedAt : z.date().optional()
+    dob : z.string().or(z.date()).transform(val => new Date(val)),
 })
 
 type UserInput = z.infer<typeof UserSchemaValidation>
 
 
 const userSchema = new mongoose.Schema({
-    _id : {
-        type : String,
-        required : [true, "Please give id"]
-    },
     photo : {
         type : String,
         required : [true, "Please add photo"]
@@ -48,6 +42,10 @@ const userSchema = new mongoose.Schema({
         unique : [true,"Email already exist"],
         required : [true, "Please enter your email"],
     },
+    password : {
+        type : String,
+        required : [true, "Please Provide password"]
+    }
 },{timestamps : true})
 
 
