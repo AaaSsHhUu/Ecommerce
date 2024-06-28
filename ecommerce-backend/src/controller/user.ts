@@ -9,12 +9,17 @@ export const createUser = asyncHandler(
     
         // Zod validation check
         const {success} = UserSchemaValidation.safeParse(userBody);
-        console.log("zod success : ",success);
             
         if(!success){
             throw new ErrorHandler("Invalid Input",400);
         }
     
+        const userExist = await User.findOne({email : userBody.email});
+
+        if(userExist){
+            throw new ErrorHandler("User with this email already exist",400);
+        }
+
         const user = await User.create(userBody);
         if(!user){
             throw new ErrorHandler("Some error occured while creating user",500);
