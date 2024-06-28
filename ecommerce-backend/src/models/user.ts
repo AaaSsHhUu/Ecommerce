@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import {z} from "zod";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const UserSchemaValidation = z.object({
     photo : z.string().min(1,"Please Add one photo"),
@@ -60,6 +62,15 @@ userSchema.virtual("age").get(function(this : UserInput){
         age--;
     }
     return age;
+})
+
+userSchema.pre("save", async function (next){
+    if(this.isModified("password")){
+        this.password = await bcrypt.hash(this.password,10);        
+    }
+    else{
+        next();
+    }
 })
 
 
