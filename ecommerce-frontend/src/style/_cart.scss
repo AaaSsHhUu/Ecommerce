@@ -19,6 +19,10 @@
     width: 30%;
     padding: 4rem;
     @include flex(column, center, stretch, 1.5rem);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.28);
+    position: sticky;
+    right: 1rem;
+    top: 5rem;
 
     > input {
       padding: 1rem;
@@ -66,6 +70,7 @@
     font-size: 1.1rem;
     > a {
       font-weight: 400;
+      color: #000;
       &:hover {
         text-decoration: underline;
       }
@@ -77,7 +82,7 @@
 
   
   > div {
-    @include flex(row, center, center, 10px);
+    @include flex(row, center, baseline, 10px);
     > button {
       padding: 5px 10px;
       border: none;
@@ -99,10 +104,9 @@
     background: transparent;
     font-size: 1rem;
     cursor: pointer;
+    color: rgb(233,23,23);
     &:hover{
-        color: rgb(179, 0, 0);
+      color: rgb(148, 7, 7);
     }
   }
-
-  
 }

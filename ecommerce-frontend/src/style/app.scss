@@ -28,10 +28,6 @@ body {
   box-sizing: border-box;
 }
 
-a {
-  text-decoration: none;
-  color: #000;
-}
 
 .red {
   color: red;
@@ -45,7 +41,7 @@ a {
 
 $color1: white;
 $color2: rgb(46, 46, 46);
-$color3: rgb(0, 104, 136);
+$color3: rgb(233, 23, 23);
 
 .header {
   @include flex(row, space-between, center, 1.2rem);
@@ -56,21 +52,40 @@ $color3: rgb(0, 104, 136);
   .logo{
     @include flex(row,center,center,0.5rem);
     font-size: 2rem;
-    color: rgb(0,145,255);
-    > h1{
-      font-size: 2rem;
+    color: $color3;
+    > a{
+      text-decoration: none;
+      > h1{
+        font-size: 1.5rem;
+        color: $color3
+      }
     }
   }
 
   > .nav-links {
-    @include flex(row,unset,center,1rem);
+    @include flex(row,unset,center,2rem);
     > a {
       @include flex(row, unset, center, 5px);
       color: $color2;
       letter-spacing: 2px;
-      font-size: 1.2rem;
-      &:hover {
+      font-size: 1rem;
+      position: relative;
+      text-decoration: none;
+      &::after{
+        content: "";
+        position: absolute;
+        height: 2px;
+        background: $color3;
+        width: 0;
+        left: 0;
+        bottom: -5px;
+        transition: all 0.3s;
+      }
+      &:hover{
         color: $color3;
+      }
+      &:hover::after{
+        width: 100%;
       }
     }
 
