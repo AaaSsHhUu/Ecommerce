@@ -24,10 +24,34 @@ export const createUser = asyncHandler(
         if(!user){
             throw new ErrorHandler("Some error occured while creating user",500);
         }
-    
+
+        // generating token and sending it in cookies
+        const token = user.generateToken();
+        res.cookie("token",token,{
+            httpOnly : true,
+            secure : process.env.NODE_ENV === "production",
+            maxAge : 2 * 24 * 60 ^ 60 * 1000
+        })
         return res.status(201).json({
             success : true,
             user
+        })
+    }
+)
+
+// Get all users
+// Admin route
+export const getAllUsers = asyncHandler(
+    async (req: Request, res : Response, next : NextFunction) => {
+        const users = await User.find();
+
+        if(!users){
+            throw new ErrorHandler("No user found",404);
+        }
+
+        return res.status(201).json({
+            success : true,
+            users
         })
     }
 )
