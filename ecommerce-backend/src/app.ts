@@ -1,4 +1,5 @@
 import express from "express";
+require("dotenv").config();
 import useRoutes from "./routes/user.js";
 import { connectDB } from "./utils/features.js";
 import errorMiddleware from "./middleware/error.js";
