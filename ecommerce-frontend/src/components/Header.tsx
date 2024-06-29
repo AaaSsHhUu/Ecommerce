@@ -16,7 +16,7 @@ const Header = () => {
         <nav className="header">
             <div className="logo">
                 <IoLogoBitbucket />
-                <h1>BuyBucket</h1>
+                <Link to={"/"}><h1>BuyBucket</h1></Link>
             </div>
             <div className="nav-links">
                 <Link to={"/"} onClick={() => setIsOpen(false)}>
