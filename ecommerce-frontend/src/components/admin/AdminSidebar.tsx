@@ -39,7 +39,6 @@ const AdminSidebar = () => {
         top : 0,
         transition : "all 0.5s"
       } : {}}>
-        <h2>Logo</h2>
 
         <div>
             <h5>Dashboard</h5>
