@@ -1,8 +1,10 @@
 import express from "express";
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 import useRoutes from "./routes/user.js";
 import { connectDB } from "./utils/features.js";
 import errorMiddleware from "./middleware/error.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 4000;
@@ -12,6 +14,7 @@ connectDB();
 
 // middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/api/v1/", (req,res) => {
     res.send("This is root route")
