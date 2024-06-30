@@ -1,20 +1,13 @@
-import mongoose from "mongoose";
-import {z} from "zod";
+import mongoose,{Document} from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import {SigninInput, SignupInput} from "../types/schema.js"
 
-export const UserSchemaValidation = z.object({
-    photo : z.string().min(1,"Please Add one photo"),
-    role : z.enum(["admin","user"]).default("user"),
-    name : z.string().min(1,"Please Enter name"),
-    email : z.string().email("Invalid Email format"),
-    password : z.string().min(8, "Password should atleast have 8 letters"),
-    gender : z.enum(["male", "female"]),
-    dob : z.string().or(z.date()).transform(val => new Date(val)),
-})
-
-type UserInput = z.infer<typeof UserSchemaValidation>
-
+export interface IUser extends Document {
+    generateToken() : string;
+    isPasswordCorrect(password : string) : Promise<boolean>;
+    age : number,
+}
 
 const userSchema = new mongoose.Schema({
     photo : {
@@ -41,7 +34,7 @@ const userSchema = new mongoose.Schema({
     },
     email : {
         type : String,
-        unique : [true,"Email already exist"],
+        unique : true,
         required : [true, "Please enter your email"],
     },
     password : {
@@ -51,7 +44,7 @@ const userSchema = new mongoose.Schema({
 },{timestamps : true})
 
 
-userSchema.virtual("age").get(function(this : UserInput){
+userSchema.virtual("age").get(function(this){
     const today = new Date();
     const dob = this.dob;
 
@@ -67,12 +60,28 @@ userSchema.virtual("age").get(function(this : UserInput){
 userSchema.pre("save", async function (next){
     if(this.isModified("password")){
         this.password = await bcrypt.hash(this.password,10);        
+        next();
     }
     else{
         next();
     }
 })
 
+// Adding methods in userSchema
+userSchema.methods.isPasswordCorrect = async function (password : string){
+    return await bcrypt.compare(password,this.password);
+}
 
-const User = mongoose.model<UserInput>("User",userSchema);
+userSchema.methods.generateToken = async function(){
+    const token = jwt.sign(
+        {id : this._id},
+        process.env.JWT_SECRET as string ,
+        {expiresIn : "2d"}
+    )
+
+    return token;
+}
+
+
+const User = mongoose.model<IUser>("User",userSchema);
 export default User;
