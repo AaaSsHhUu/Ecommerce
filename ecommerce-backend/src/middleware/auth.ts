@@ -13,15 +13,28 @@ export const isAuthenticated = async (req : Request,res : Response,next : NextFu
                 throw new ErrorHandler("Authentication token required",401);
             }
 
-            const decodedData = await jwt.verify(token,process.env.JWT_SECRET as string) as {_id : string};
+            const decodedData = await jwt.verify(token,process.env.JWT_SECRET as string) as {id : string};
             // console.log("decoded data : ", decodedData);
             
-            const user = await User.findById(decodedData._id).select("-password");
-            // req.user = user;
-            res.json({
-                message : "Authentication successfull"
-            })
+            const user = await User.findById(decodedData.id).select("-password");
+            // console.log("user after authentication : ",user);
+            
+            req.user = user as IUser;
+            next();
         }catch (error) {
            next(error) ;
         }
+}
+
+export const isAuthorized = (role : "user" | "admin") => {
+    return async (req : Request,res : Response,next : NextFunction) => {
+        // console.log("req.user : ", req.user);
+        
+        if(req.user && req.user.role === role){
+            next();
+        }
+        else{
+            next(new ErrorHandler("Unauthorized", 403));
+        }
+    }
 }
