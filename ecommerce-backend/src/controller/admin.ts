@@ -55,3 +55,28 @@ export const deleteUser = asyncHandler(
         })
     }
 )
+
+// Update user
+export const updateUserProfile = asyncHandler(
+    async (req : Request, res : Response, next : NextFunction) => {
+        const id = req.params.id;
+        const updationData = {
+            name : req.body.name,
+            email : req.body.email,
+            role : req.body.role
+        }
+        const user = await User.findByIdAndUpdate(id,updationData,{
+            new : true, 
+            runValidators : true
+        })
+
+        if(!user){
+            throw new ErrorHandler("Some error occured while updating new user profile",500);
+        }
+
+        return res.status(200).json({
+            success : true,
+            updatedUser : user
+        })
+    }
+)
