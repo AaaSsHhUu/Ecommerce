@@ -1,11 +1,10 @@
 import express from "express";
-import { createUser, getAllUsers } from "../controller/user.js";
+import { createUser, loginUser } from "../controller/user.js";
+// import { isAuthenticated } from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.post("/new", createUser);
-
-// Admin routes
-router.get("/user/all", getAllUsers);
+router.post("/login", loginUser);
 
 export default router;

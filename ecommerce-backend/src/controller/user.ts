@@ -78,20 +78,3 @@ export const loginUser = asyncHandler(
     })
 
 })
-
-// Get all users
-// Admin route
-export const getAllUsers = asyncHandler(
-    async (req: Request, res : Response, next : NextFunction) => {
-        const users = await User.find();
-
-        if(!users){
-            throw new ErrorHandler("No user found",404);
-        }
-
-        return res.status(201).json({
-            success : true,
-            users
-        })
-    }
-)
