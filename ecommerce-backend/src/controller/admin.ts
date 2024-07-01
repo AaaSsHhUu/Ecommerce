@@ -6,9 +6,10 @@ import ErrorHandler from "../utils/errorHandler.js";
 // Get user by id
 export const getUser = asyncHandler(
     async (req : Request, res : Response, next : NextFunction) => {
-        const id = req.params._id;
+        const id = req.params.id;
+        
         const user = await User.findById(id).select("-password");
-
+        
         if(!user){
             throw new ErrorHandler("User not found",404);
         }
@@ -21,7 +22,6 @@ export const getUser = asyncHandler(
 )
 
 // Get all users
-// Admin route
 export const getAllUsers = asyncHandler(
     async (req: Request, res : Response, next : NextFunction) => {
         const users = await User.find();
@@ -38,3 +38,20 @@ export const getAllUsers = asyncHandler(
     }
 )
 
+// Delete user
+export const deleteUser = asyncHandler(
+    async (req : Request, res : Response, next : NextFunction) => {
+        const id = req.params.id;
+
+        const user = await User.findByIdAndDelete(id);
+
+        if(!user){
+            throw new ErrorHandler("Some error occured while deleting the user",500);
+        }
+
+        return res.status(201).json({
+            success : true,
+            deletedUser : user
+        })
+    }
+)
