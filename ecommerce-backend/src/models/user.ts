@@ -1,20 +1,7 @@
-import mongoose,{Document} from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import {SigninInput, SignupInput} from "../types/schema.js"
-
-export interface IUser extends Document {
-    photo : string;
-    role : "user" | "admin";
-    name : string;
-    gender : "male" | "female";
-    dob : Date;
-    email : string;
-    password : string;
-    generateToken() : string;
-    isPasswordCorrect(password : string) : Promise<boolean>;
-    age : number,
-}
+import {IUser} from "../types/types.js"
 
 const userSchema = new mongoose.Schema({
     photo : {

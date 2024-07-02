@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler.js"
 import jwt from "jsonwebtoken";
-import User, { IUser } from "../models/user.js";
+import User from "../models/user.js";
 import { asyncHandler } from "./error.js";
+import { IUser } from "../types/types.js";
 
 export const isAuthenticated = async (req : Request,res : Response,next : NextFunction) => {
         try {
