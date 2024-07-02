@@ -26,15 +26,15 @@ export const isAuthenticated = async (req : Request,res : Response,next : NextFu
         }
 }
 
-export const isAuthorized = (role : "user" | "admin") => {
+export const isAdmin= () => {
     return async (req : Request,res : Response,next : NextFunction) => {
         // console.log("req.user : ", req.user);
         
-        if(req.user && req.user.role === role){
+        if(req.user && req.user.role === "admin"){
             next();
         }
         else{
-            next(new ErrorHandler("Unauthorized", 403));
+            next(new ErrorHandler("You can't access this route", 403));
         }
     }
 }
