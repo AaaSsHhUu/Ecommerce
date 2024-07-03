@@ -19,7 +19,8 @@ const productSchema = new mongoose.Schema({
     },
     category : {
         type : String,
-        required : [true, "Please Enter product category"]
+        required : [true, "Please Enter product category"],
+        trim : true
     }
 },{
     timestamps : true
