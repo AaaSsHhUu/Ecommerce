@@ -1,5 +1,6 @@
 import {z} from "zod";
 
+// users
 export const signupValidation = z.object({
     photo : z.string().min(1,"Please Add one photo"),
     role : z.enum(["admin","user"]).default("user"),
@@ -13,6 +14,14 @@ export const signupValidation = z.object({
 export const signinValidation = z.object({
     email : z.string().email("Enter valid email address"),
     password : z.string()
+})
+
+// Product
+export const newProductValidation = z.object({
+    name : z.string(),
+    price : z.number().min(100,"Price should be more than 100"),
+    stock : z.number().min(1, "Stock cannot be less than 1"),
+    category : z.string()
 })
 
 // type inference
