@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler.js"
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
-import { asyncHandler } from "./error.js";
 import { IUser } from "../types/types.js";
 
 export const isAuthenticated = async (req : Request,res : Response,next : NextFunction) => {
@@ -21,21 +20,20 @@ export const isAuthenticated = async (req : Request,res : Response,next : NextFu
             // console.log("user after authentication : ",user);
             
             req.user = user as IUser;
-            next();
+            // console.log("req.user", req.user);
+            
+            return next();
         }catch (error) {
-           next(error) ;
+           return next(new ErrorHandler("some error error in Authentication" + error,400)) ;
         }
 }
 
-export const isAdmin= () => {
-    return async (req : Request,res : Response,next : NextFunction) => {
-        // console.log("req.user : ", req.user);
-        
-        if(req.user && req.user.role === "admin"){
-            next();
+export const isAdmin = async (req : Request, res : Response, next : NextFunction) => {
+        if(!req.user){
+            return next(new ErrorHandler("You are not logged in",400))
         }
-        else{
-            next(new ErrorHandler("You can't access this route", 403));
+        if(req.user.role !== "admin"){
+            return next(new ErrorHandler("You are not allowed to access this page",403));
         }
+        return next();
     }
-}
