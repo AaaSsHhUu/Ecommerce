@@ -14,23 +14,22 @@ export const createProduct = asyncHandler(
         } = req.body;
         const photo = req.file;
         
-        console.log(name);
-        console.log(price);
-        console.log(stock);
-        console.log(category);
-        console.log(photo);
+        // console.log("req.file", req.file);
+        // console.log("req.body", req.body);
         
-        const {success} = newProductValidation.safeParse({name,price,stock,category});
+        
+        const {success} = newProductValidation.safeParse(req.body);
+        
         if(!success){
-            throw new ErrorHandler("Invalid Inputs for Product",400);
+            throw new ErrorHandler("Invalid Inputs",400);
         }
-        console.log("success : ", success);
+        // console.log("success : ", success);
         
         const product = await Product.create({
             name,
             category : category.toLowerCase(),
-            stock,
-            price,
+            stock : Number(stock),
+            price : Number(price),
             photo : photo?.path
         })
 

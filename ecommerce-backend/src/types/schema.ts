@@ -19,8 +19,8 @@ export const signinValidation = z.object({
 // Product
 export const newProductValidation = z.object({
     name : z.string(),
-    price : z.number().min(100,"Price should be more than 100"),
-    stock : z.number().min(1, "Stock cannot be less than 1"),
+    price : z.string(),
+    stock : z.string(),
     category : z.string()
 })
 

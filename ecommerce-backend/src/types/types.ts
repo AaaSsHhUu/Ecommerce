@@ -22,7 +22,7 @@ export interface IUser extends Document {
 
 export interface NewProductRequestBody extends Document{
     name : string;
-    price : number;
-    stock : number;
+    price : string;
+    stock : string;
     category : string;
 }
