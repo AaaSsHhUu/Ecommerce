@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express"
+import {Document} from "mongoose";
 
 export type ControllerType = (
     req : Request,
@@ -17,4 +18,11 @@ export interface IUser extends Document {
     generateToken() : string;
     isPasswordCorrect(password : string) : Promise<boolean>;
     age : number,
+}
+
+export interface NewProductRequestBody extends Document{
+    name : string;
+    price : number;
+    stock : number;
+    category : string;
 }
