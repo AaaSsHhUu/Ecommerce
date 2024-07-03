@@ -1,4 +1,4 @@
-import { IUser } from "../models/user.ts";
+import { IUser } from "../types/types.ts";
 
 declare module "express"{
     interface Request{
