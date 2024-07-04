@@ -3,6 +3,7 @@ import {Request, Response, NextFunction} from "express";
 import { newProductValidation } from "../types/schema.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import Product from "../models/product.js";
+import {rm} from "fs";
 
 export const createProduct = asyncHandler(
     async (req : Request, res : Response, next : NextFunction) => {
@@ -14,16 +15,18 @@ export const createProduct = asyncHandler(
         } = req.body;
         const photo = req.file;
         
-        // console.log("req.file", req.file);
-        // console.log("req.body", req.body);
-        
-        
         const {success} = newProductValidation.safeParse(req.body);
         
+        if(!photo){
+            throw new ErrorHandler("Please provide photo",400);
+        }
+        
         if(!success){
+            rm(photo?.path,() => {
+                console.log("Image deleted");
+            })
             throw new ErrorHandler("Invalid Inputs",400);
         }
-        // console.log("success : ", success);
         
         const product = await Product.create({
             name,
