@@ -80,3 +80,20 @@ export const getAllCategories = asyncHandler(
         })
     }
 )
+
+// get all products --Admin
+
+export const getAllProducts = asyncHandler(
+    async(req : Request, res : Response, next : NextFunction) => {
+        const products = await Product.find();
+
+        if(!products){
+            throw new ErrorHandler("No Product found",404);
+        }
+
+        return res.status(200).json({
+            success : true,
+            products
+        })
+    }
+)
