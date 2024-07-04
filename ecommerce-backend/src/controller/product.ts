@@ -47,3 +47,20 @@ export const createProduct = asyncHandler(
         })
     }
 )
+
+// Get lastest Products
+export const getLatestProducts = asyncHandler(
+    async(req : Request, res : Response, next : NextFunction) => {
+        const products = await Product.find().sort({createdAt : -1}).limit(5);
+
+        if(!products){
+            throw new ErrorHandler("Some error occured while fetching products",500);
+        }
+
+        return res.status(200).json({
+            success : true,
+            products
+        })
+    }
+)
+
