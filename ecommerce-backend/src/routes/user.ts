@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/signup", createUser);
 router.post("/login", loginUser);
 
-router.get("/all", isAdmin ,getAllUsers);
+router.get("/all",isAuthenticated, isAdmin ,getAllUsers);
 router.route("/:id").get(isAdmin, getUser).delete(isAdmin, deleteUser).put(isAdmin, updateUserProfile);
 
 export default router;
