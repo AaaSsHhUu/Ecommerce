@@ -1,5 +1,5 @@
 import express,{Router} from "express";
-import { createProduct, getAllCategories, getAllProducts, getLatestProducts } from "../controller/product.js";
+import { createProduct, getAllCategories, getAllProducts, getLatestProducts, getOneProduct } from "../controller/product.js";
 import { isAdmin, isAuthenticated } from "../middleware/auth.js";
 import { upload } from "../middleware/multer.js";
 
@@ -9,5 +9,7 @@ router.post("/new", isAuthenticated, isAdmin, upload.single("photo"), createProd
 router.get("/latest", getLatestProducts);
 router.get("/categories", getAllCategories);
 router.get("/all", getAllProducts);
+
+router.route("/:id").get(getOneProduct)
 
 export default router;

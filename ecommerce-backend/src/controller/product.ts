@@ -81,7 +81,7 @@ export const getAllCategories = asyncHandler(
     }
 )
 
-// get all products --Admin
+// get all products 
 
 export const getAllProducts = asyncHandler(
     async(req : Request, res : Response, next : NextFunction) => {
@@ -94,6 +94,24 @@ export const getAllProducts = asyncHandler(
         return res.status(200).json({
             success : true,
             products
+        })
+    }
+)
+
+// getProduct by id
+export const getOneProduct = asyncHandler(
+    async(req : Request, res : Response, next : NextFunction) => {
+        const id = req.params.id;
+
+        const product = await Product.findById(id);
+        
+        if(!product){
+            throw new ErrorHandler("Product not found", 404);
+        }
+
+        return res.status(200).json({
+            success : true,
+            product
         })
     }
 )
