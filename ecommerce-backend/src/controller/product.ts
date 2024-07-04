@@ -64,3 +64,19 @@ export const getLatestProducts = asyncHandler(
     }
 )
 
+// Get all categories
+
+export const getAllCategories = asyncHandler(
+    async (req : Request, res : Response, next : NextFunction) => {
+        const categories = await Product.distinct("category");
+
+        if(!categories){
+            throw new ErrorHandler("No categories found", 404);
+        }
+
+        return res.status(200).json({
+            success : true,
+            categories
+        })
+    }
+)
