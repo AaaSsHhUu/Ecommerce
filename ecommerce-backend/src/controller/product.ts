@@ -115,3 +115,21 @@ export const getOneProduct = asyncHandler(
         })
     }
 )
+
+// delete product
+export const deleteProduct = asyncHandler(
+    async(req : Request, res : Response, next : NextFunction) => {
+        const id = req.params.id;
+        const product = await Product.findByIdAndDelete(id);
+
+        if(!product){
+            throw new ErrorHandler("Some error occured while deleting product", 500);
+        }
+
+        return res.status(200).json({
+            success : true,
+            product
+        })
+
+    }
+)
