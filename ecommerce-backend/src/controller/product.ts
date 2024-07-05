@@ -4,6 +4,7 @@ import { newProductValidation } from "../types/schema.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import Product from "../models/product.js";
 import { rm } from "fs";
+import {SearchQueryInputs, BaseQuery} from "../types/types.js";
 
 export const createProduct = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -78,7 +79,7 @@ export const getAllCategories = asyncHandler(
 
 // get all products
 
-export const getAllProducts = asyncHandler(
+export const getAdminProducts = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const products = await Product.find();
 
@@ -172,3 +173,50 @@ export const updateProduct = asyncHandler(
     });
   }
 );
+
+
+// Get all products in search
+
+export const getAllProducts = asyncHandler(
+  async(req : Request, res : Response, next : NextFunction) => {
+    const {search, category, price, page, sort } : SearchQueryInputs = req.query;
+    
+    const limit = Number(process.env.PRODUCT_PER_PAGE) || 8;
+    const skip = (Number(page) - 1) * (limit);
+
+    let baseQuery : BaseQuery = {};
+
+    if(search){
+      baseQuery.name = {
+          $regex : search,
+          $options : "i"
+      }
+    }
+
+    if(price){
+      baseQuery.price = {
+        $lte : Number(price)
+      }
+    }
+
+    if(category){
+      baseQuery.category = category;
+    }
+
+    const products = await Product.find(baseQuery).sort(
+        sort && {price : sort === "asc" ? 1 : -1} 
+    ).limit(limit).skip(skip);
+
+    const totalPages = Math.ceil(products.length / limit);
+
+    if(!products){
+      throw new ErrorHandler("Products not found", 404);
+    }
+
+    return res.status(200).json({
+      success : true,
+      products
+    })
+
+  }
+)
