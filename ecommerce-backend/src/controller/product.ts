@@ -5,6 +5,7 @@ import ErrorHandler from "../utils/errorHandler.js";
 import Product from "../models/product.js";
 import { rm } from "fs";
 import {SearchQueryInputs, BaseQuery, NewProductRequestBody} from "../types/types.js";
+import { myCache } from "../app.js";
 // import {faker} from "@faker-js/faker";
 
 export const createProduct = asyncHandler(
@@ -48,7 +49,16 @@ export const createProduct = asyncHandler(
 // Get lastest Products
 export const getLatestProducts = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const products = await Product.find().sort({ createdAt: -1 }).limit(5);
+    let products = [];
+
+    if(myCache.has("lastest-products")){
+      products = JSON.parse(myCache.get("lastest-products") as string)
+    }
+    else{
+      products = await Product.find().sort({ createdAt: -1 }).limit(5);
+      myCache.set("latest-products", JSON.stringify(products));
+    }
+
 
     if (!products) {
       throw new ErrorHandler("Some error occured while fetching products", 500);
