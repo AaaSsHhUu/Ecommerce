@@ -26,3 +26,22 @@ export interface NewProductRequestBody extends Document{
     stock : string;
     category : string;
 }
+
+export type SearchQueryInputs = {
+    search ?: string;
+    page ? : number;
+    category ?: string;
+    price ?: number;
+    sort ?: "asc" | "dsc";
+}
+
+export interface BaseQuery{
+    name ?: {
+        $regex ?: string;
+        $options ?: string;
+    };
+    price ?: {
+        $lte : number;
+    };
+    category ?: string;
+}
