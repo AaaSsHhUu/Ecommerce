@@ -127,7 +127,7 @@ export const deleteProduct = asyncHandler(
       });
     }
 
-    await Product.deleteOne({ id });
+    await Product.deleteOne({_id : id});
     return res.status(200).json({
       success: true,
       message: "Product deleted successfully",
