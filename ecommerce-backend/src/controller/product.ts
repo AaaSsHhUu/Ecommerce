@@ -203,11 +203,13 @@ export const getAllProducts = asyncHandler(
       baseQuery.category = category;
     }
 
-    const products = await Product.find(baseQuery).sort(
-        sort && {price : sort === "asc" ? 1 : -1} 
-    ).limit(limit).skip(skip);
+    // Promise.all -> Creates a Promise that is resolved with an array of results when all of the provided Promises resolve (or rejected when any Promise is rejected).
+    const [products, filteredProducts] = await Promise.all([
+        Product.find(baseQuery).sort(sort && {price : sort === "asc" ? 1 : -1}).limit(limit).skip(skip),
+        Product.find(baseQuery)
+    ])
 
-    const totalPages = Math.ceil(products.length / limit);
+    const totalPages = Math.ceil(filteredProducts.length / limit);
 
     if(!products){
       throw new ErrorHandler("Products not found", 404);
@@ -215,7 +217,8 @@ export const getAllProducts = asyncHandler(
 
     return res.status(200).json({
       success : true,
-      products
+      products,
+      totalPages
     })
 
   }
