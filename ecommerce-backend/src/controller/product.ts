@@ -4,7 +4,8 @@ import { newProductValidation } from "../types/schema.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import Product from "../models/product.js";
 import { rm } from "fs";
-import {SearchQueryInputs, BaseQuery} from "../types/types.js";
+import {SearchQueryInputs, BaseQuery, NewProductRequestBody} from "../types/types.js";
+// import {faker} from "@faker-js/faker";
 
 export const createProduct = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -223,3 +224,37 @@ export const getAllProducts = asyncHandler(
 
   }
 )
+
+// const createRandomProducts = async (count : number = 10) => {
+    
+//     const products = [];
+//     for(let i=0;i < count; i++){
+//       const product = {
+//         name : faker.commerce.productName(),
+//         photo : "uploads\\a406ff9e-6542-4b0c-9451-5172ebeeb9e7.jpg",
+//         price : faker.commerce.price({min : 1000, max : 100000, dec : 0}),
+//         stock : faker.commerce.price({min : 10, max : 100, dec : 0}),
+//         category : faker.commerce.department(),
+//         createdAt : new Date(faker.date.past()),
+//         updatedAt : new Date(faker.date.recent()),
+//         _v : 0
+//       }
+
+//       products.push(product);
+//     }
+
+//     await Product.create(products);
+//     console.log("Successfully created");
+// }
+
+// const deleteRandomProduct = async (count : number = 10) => {
+//   const products = await Product.find().skip(10);
+//   for(let i=0; i < count ; i++){
+//         const product = products[i];
+//         await Product.deleteOne({_id : product.id});
+//     }
+
+//     console.log("Successfully deleted products");
+// }
+
+// deleteRandomProduct(40);
