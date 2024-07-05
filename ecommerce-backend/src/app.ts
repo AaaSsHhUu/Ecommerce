@@ -4,6 +4,7 @@ dotenv.config();
 import { connectDB } from "./utils/features.js";
 import errorMiddleware from "./middleware/error.js";
 import cookieParser from "cookie-parser";
+import NodeCache from "node-cache";
 
 // Routes
 import userRoutes from "./routes/user.js";
@@ -14,6 +15,8 @@ const port = 4000;
 
 // Database connection
 connectDB();
+
+export const myCache = new NodeCache();
 
 // middlewares
 app.use(express.json());
