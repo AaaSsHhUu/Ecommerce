@@ -31,7 +31,7 @@ export const createUser = asyncHandler(
         res.cookie("token",token,{
             httpOnly : true,
             secure : process.env.NODE_ENV === "production",
-            maxAge : 2 * 24 * 60 ^ 60 * 1000
+            maxAge : 1 * 24 * 60 ^ 60 * 1000
         })
         return res.status(201).json({
             success : true,
@@ -68,7 +68,7 @@ export const loginUser = asyncHandler(
     res.cookie("token",token,{
         httpOnly : true,
         secure : process.env.NODE_ENV === "production",
-        maxAge : 2 * 24 * 60 * 60 * 1000
+        maxAge : 1 * 24 * 60 * 60 * 1000
     })
     
     return res.json({
