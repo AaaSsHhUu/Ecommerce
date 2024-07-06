@@ -6,6 +6,7 @@ import Product from "../models/product.js";
 import { rm } from "fs";
 import {SearchQueryInputs, BaseQuery, NewProductRequestBody} from "../types/types.js";
 import { myCache } from "../app.js";
+import { invalidateCache } from "../utils/features.js";
 // import {faker} from "@faker-js/faker";
 
 export const createProduct = asyncHandler(
@@ -37,6 +38,9 @@ export const createProduct = asyncHandler(
     if (!product) {
       throw new ErrorHandler("Some error occured while creating product", 500);
     }
+
+    // Revalidating cache data 
+    await invalidateCache({product : true})
 
     return res.status(201).json({
       success: true,
@@ -160,6 +164,9 @@ export const deleteProduct = asyncHandler(
     }
 
     await Product.deleteOne({_id : id});
+
+    await invalidateCache({product : true});
+
     return res.status(200).json({
       success: true,
       message: "Product deleted successfully",
@@ -197,6 +204,8 @@ export const updateProduct = asyncHandler(
 
     const updatedProduct = await product.save();
 
+    await invalidateCache({product : true});
+    
     return res.status(200).json({
       success: true,
       message: "Product updated successfully",
