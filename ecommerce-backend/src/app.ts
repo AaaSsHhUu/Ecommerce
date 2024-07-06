@@ -16,7 +16,9 @@ const port = 4000;
 // Database connection
 connectDB();
 
-export const myCache = new NodeCache();
+export const myCache = new NodeCache({stdTTL : 600, checkperiod : 600}); // both in seconds
+// stdTTL -> standard time to live
+// checkperiod -> time at which the cache will check for expired items and remove them
 
 // middlewares
 app.use(express.json());
