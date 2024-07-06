@@ -50,7 +50,7 @@ export const createProduct = asyncHandler(
 export const getLatestProducts = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     let products = [];
-
+    // Revalidate cache data on create, update, delete or new order(as stock changes) requests on product
     if(myCache.has("lastest-products")){
       products = JSON.parse(myCache.get("lastest-products") as string)
     }
@@ -58,7 +58,6 @@ export const getLatestProducts = asyncHandler(
       products = await Product.find().sort({ createdAt: -1 }).limit(5);
       myCache.set("latest-products", JSON.stringify(products));
     }
-
 
     if (!products) {
       throw new ErrorHandler("Some error occured while fetching products", 500);
@@ -75,7 +74,15 @@ export const getLatestProducts = asyncHandler(
 
 export const getAllCategories = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const categories = await Product.distinct("category");
+
+    let categories = [];
+
+    if(myCache.has("categories")){
+        categories = JSON.parse(myCache.get("categories") as string);
+    }else{
+        categories = await Product.distinct("category");
+        myCache.set("categories",JSON.stringify(categories));
+    }
 
     if (!categories) {
       throw new ErrorHandler("No categories found", 404);
@@ -88,11 +95,18 @@ export const getAllCategories = asyncHandler(
   }
 );
 
-// get all products
-
+// get all admin products
 export const getAdminProducts = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const products = await Product.find();
+
+    let products;
+
+    if(myCache.has("admin-products")){
+      products = JSON.parse(myCache.get("admin-products") as string);
+    }else{
+      products = await Product.find();
+      myCache.set("admin-products",JSON.stringify(products));
+    }
 
     if (!products) {
       throw new ErrorHandler("No Product found", 404);
@@ -105,12 +119,18 @@ export const getAdminProducts = asyncHandler(
   }
 );
 
-// getProduct by id
+// get single Product by id
 export const getOneProduct = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
-
-    const product = await Product.findById(id);
+    let product;
+    
+    if(myCache.has(`product-${id}`)){
+        product = JSON.parse(myCache.get(`product-${id}`) as string);
+    }else{
+        product = await Product.findById(id);
+        myCache.set(`product-${id}`, JSON.stringify(product));
+    }
 
     if (!product) {
       throw new ErrorHandler("Product not found", 404);
