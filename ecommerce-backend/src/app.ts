@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({
+    path : "./.env"
+});
 import { connectDB } from "./utils/features.js";
 import errorMiddleware from "./middleware/error.js";
 import cookieParser from "cookie-parser";
@@ -9,12 +11,13 @@ import NodeCache from "node-cache";
 // Routes
 import userRoutes from "./routes/user.js";
 import productRoutes from "./routes/product.js";
+import orderRoutes from "./routes/order.js";
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 // Database connection
-connectDB();
+connectDB(process.env.DB_URL as string);
 
 export const myCache = new NodeCache({stdTTL : 600, checkperiod : 600}); // both in seconds
 // stdTTL -> standard time to live
@@ -30,6 +33,7 @@ app.get("/api/v1/", (req,res) => {
 // Using Routes
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/product", productRoutes);
+app.use("/api/v1/order", orderRoutes);
 
 
 
