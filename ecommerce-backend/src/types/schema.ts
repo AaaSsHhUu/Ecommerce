@@ -53,8 +53,11 @@ export const newOrderSchema = z.object({
 })
 
 // type inference
+// user
 export type SignupInput = z.infer<typeof signupValidation>
 export type SigninInput = z.infer<typeof signinValidation>
 
-export type ShippingInfoInputs = z.infer<typeof shippingInfoSchema>
-export type NewOrderRequestBody = z.infer<typeof newOrderSchema>
+// product
+export type OrderItemType = z.infer<typeof orderItemsSchema>
+export type ShippingInfoType = z.infer<typeof shippingInfoSchema>
+export type NewOrderRequestBodyType = z.infer<typeof newOrderSchema>
