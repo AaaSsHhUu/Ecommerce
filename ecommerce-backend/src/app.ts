@@ -12,6 +12,7 @@ import NodeCache from "node-cache";
 import userRoutes from "./routes/user.js";
 import productRoutes from "./routes/product.js";
 import orderRoutes from "./routes/order.js";
+import morgan from "morgan";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -24,6 +25,7 @@ export const myCache = new NodeCache({stdTTL : 600, checkperiod : 600}); // both
 // checkperiod -> time at which the cache will check for expired items and remove them
 
 // middlewares
+app.use(morgan("dev"))
 app.use(express.json());
 app.use(cookieParser());
 
