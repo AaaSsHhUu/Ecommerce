@@ -24,6 +24,37 @@ export const newProductValidation = z.object({
     category : z.string()
 })
 
+export const shippingInfoSchema = z.object({
+    address : z.string(),
+    city : z.string(),
+    state : z.string(),
+    country : z.string(),
+    pinCode : z.number()
+})
+
+export const orderItemsSchema = z.object({
+    name : z.string(),
+    photo : z.string(),
+    price : z.number(),
+    quantity : z.number(),
+    productId : z.string()
+})
+
+export const newOrderSchema = z.object({
+    shippingInfo : shippingInfoSchema,
+    user : z.string(),
+    subTotal : z.number(),
+    tax : z.number(),
+    shipingCharges : z.number(),
+    discount : z.number(),
+    total : z.number(),
+    status : z.enum(["Processing" || "Shipped" || "Delivered"]).optional().default("Processing"),
+    orderItems : z.array(orderItemsSchema)
+})
+
 // type inference
 export type SignupInput = z.infer<typeof signupValidation>
 export type SigninInput = z.infer<typeof signinValidation>
+
+export type ShippingInfoInputs = z.infer<typeof shippingInfoSchema>
+export type NewOrderRequestBody = z.infer<typeof newOrderSchema>
