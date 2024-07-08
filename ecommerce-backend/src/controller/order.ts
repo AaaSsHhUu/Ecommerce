@@ -64,7 +64,7 @@ export const newOrder = asyncHandler(
 
     await reduceStock(orderItems);
 
-    await invalidateCache({ product: true, order: true, admin: true });
+    await invalidateCache({ product: true, order: true, admin: true, userId : user });
 
     return res.status(201).json({
       message: "Order Placed successfully",
@@ -171,7 +171,7 @@ export const processOrder = asyncHandler(
 
         await order.save();
 
-        await invalidateCache({product : false, order : true, admin : true})
+        await invalidateCache({product : false, order : true, admin : true, userId : order.user})
 
         return res.status(200).json({
             success : true,
@@ -191,7 +191,7 @@ export const deleteOrder = asyncHandler(
             throw new ErrorHandler("Something went wrong while deleting order, Please try again",500);
         }
 
-        invalidateCache({product : false, order : true, admin : true})
+        invalidateCache({product : false, order : true, admin : true, userId : order.user})
 
         return res.status(200).json({
             success : true,
