@@ -22,8 +22,6 @@ export const newOrder = asyncHandler(
       total,
     } = req.body;
 
-    console.log("req body : ", req.body);
-
     // Zod validation check
     const { success, error } = newOrderSchema.safeParse({
       shippingInfo,
@@ -38,11 +36,6 @@ export const newOrder = asyncHandler(
 
     if (!success) {
       throw new ErrorHandler(error.message, 400);
-    }
-
-    // Checking if user id is valid
-    if (!mongoose.isValidObjectId(user)) {
-      throw new ErrorHandler("Invalid user id", 400);
     }
 
     // checking if there exist a user with given id
@@ -153,6 +146,7 @@ export const getSingleOrder = asyncHandler(
     }
 )
 
+// process order
 export const processOrder = asyncHandler(
     async (req : Request, res : Response, next : NextFunction) => {
         const {id} = req.params;
@@ -184,5 +178,24 @@ export const processOrder = asyncHandler(
             message : "Order processed successfully"
         })
 
+    }
+)
+
+// deleting order
+export const deleteOrder = asyncHandler(
+    async(req : Request, res : Response, next : NextFunction) => {
+        const {id} = req.params;
+
+        const order = await Order.findByIdAndDelete(id);
+        if(!order){
+            throw new ErrorHandler("Something went wrong while deleting order, Please try again",500);
+        }
+
+        invalidateCache({product : false, order : true, admin : true})
+
+        return res.status(200).json({
+            success : true,
+            message : "Order deleted successfully"
+        })
     }
 )
