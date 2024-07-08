@@ -127,3 +127,28 @@ export const allOrders = asyncHandler(
 
   }
 );
+
+// Get single order
+export const getSingleOrder = asyncHandler(
+    async(req : Request, res : Response, next : NextFunction) => {
+        const {id} = req.params;
+        const key = `order-${id}`;
+        let order;
+
+        if(myCache.has(key)){
+            order = JSON.parse(myCache.get(key) as string);
+        }
+        else{
+            order = await Order.findById(id).populate("user","name");
+            if(!order){
+                throw new ErrorHandler("Order not found with given id",404);
+            }
+            myCache.set(key, JSON.stringify(order));
+        }
+
+        return res.status(200).json({
+            success : true,
+            order
+        })
+    }
+)
