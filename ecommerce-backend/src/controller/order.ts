@@ -152,3 +152,37 @@ export const getSingleOrder = asyncHandler(
         })
     }
 )
+
+export const processOrder = asyncHandler(
+    async (req : Request, res : Response, next : NextFunction) => {
+        const {id} = req.params;
+
+        const order = await Order.findById(id);
+
+        if(!order){
+            throw new ErrorHandler("Order not found", 404);
+        }
+
+        switch(order.status){
+            case "Processing":
+                order.status = "Shipped";
+                break;
+            case "Shipped" :
+                order.status = "Delivered";
+                break;
+            default :
+                order.status = "Delivered";
+                break;
+        }
+
+        await order.save();
+
+        await invalidateCache({product : false, order : true, admin : true})
+
+        return res.status(200).json({
+            success : true,
+            message : "Order processed successfully"
+        })
+
+    }
+)
