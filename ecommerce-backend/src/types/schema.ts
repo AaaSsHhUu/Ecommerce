@@ -45,7 +45,7 @@ export const newOrderSchema = z.object({
     user : z.string(),
     subTotal : z.number(),
     tax : z.number(),
-    shipingCharges : z.number(),
+    shippingCharges : z.number(),
     discount : z.number(),
     total : z.number(),
     status : z.enum(["Processing" || "Shipped" || "Delivered"]).optional().default("Processing"),
