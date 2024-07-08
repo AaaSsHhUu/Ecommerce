@@ -4,6 +4,7 @@ import Product from "../models/product.js";
 import { myCache } from "../app.js";
 import { OrderItemType } from "../types/schema.js";
 import ErrorHandler from "./errorHandler.js";
+import Order from "../models/order.js";
 
 export const connectDB = async (uri : string) => {
     mongoose.connect(uri,{dbName : "Ecommerce"})
@@ -11,7 +12,7 @@ export const connectDB = async (uri : string) => {
     .catch((err) => console.log("Error while connecting DB : ",err))
 }
 
-export const invalidateCache = async ({product,order,admin} : InvalidateCacheProps) => {
+export const invalidateCache = async ({product,order,admin,userId} : InvalidateCacheProps) => {
     
     if(product){
         const productKeys : string[] = ["latest-products", "categories", "admin-products"];
@@ -20,6 +21,17 @@ export const invalidateCache = async ({product,order,admin} : InvalidateCachePro
             productKeys.push(`product-${i._id}`);
         })
         myCache.del(productKeys);
+    }
+
+    if(order){
+        const orderKeys : string[] = ["all-orders", `my-order-${userId}`];
+        const orders = await Order.find().select("_id");
+
+        orders.forEach((i) => {
+            orderKeys.push(`order-${i._id}`);
+        })
+
+        myCache.del(orderKeys);
     }
 }
 
