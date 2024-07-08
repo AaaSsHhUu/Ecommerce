@@ -6,7 +6,9 @@ import Order from "../models/order.js";
 import { invalidateCache, reduceStock } from "../utils/features.js";
 import User from "../models/user.js";
 import mongoose from "mongoose";
+import { myCache } from "../app.js";
 
+// new order
 export const newOrder = asyncHandler(
     async (req : Request, res : Response, next : NextFunction) => {
         const {shippingInfo,orderItems, user, subTotal, shippingCharges , tax, discount, total} = req.body;
@@ -52,6 +54,34 @@ export const newOrder = asyncHandler(
 
         return res.status(201).json({
             message : "Order Placed successfully",
+        })
+    }
+)
+
+
+// my-order 
+export const myOrder = asyncHandler(
+    async (req : Request, res : Response, next : NextFunction) => {
+        const {id} = req.params;
+
+        const key = `my-order-${id}`;
+
+        let orders = [];
+
+        if(myCache.has(key)){
+            orders = JSON.parse(myCache.get(key) as string);
+        }
+        else{
+            orders = await Order.find({user : id});
+            if(!orders){
+                throw new ErrorHandler("No orders found", 404);
+            }
+            myCache.set(key, JSON.stringify(orders));
+        }
+
+        return res.status(201).json({
+            success : true,
+            orders
         })
     }
 )
