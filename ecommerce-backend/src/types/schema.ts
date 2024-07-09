@@ -52,7 +52,13 @@ export const newOrderSchema = z.object({
     orderItems : z.array(orderItemsSchema)
 })
 
+export const couponSchema = z.object({
+    coupon : z.string().min(6, "Coupon should have atleast 6 letters"),
+    amount : z.number()
+})
+
 // type inference
+
 // user
 export type SignupInput = z.infer<typeof signupValidation>
 export type SigninInput = z.infer<typeof signinValidation>
