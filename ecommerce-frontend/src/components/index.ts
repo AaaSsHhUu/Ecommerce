@@ -8,6 +8,7 @@ import Table from "./admin/DashboardTable";
 import Header from "./Header";
 import ProductCard from "./ProductCard";
 import CartItem from "./CartItem";
+import Carousel from "./Carousel";
 
 export {
   Loader,
@@ -19,5 +20,6 @@ export {
   Table,
   Header,
   ProductCard,
-  CartItem
+  CartItem,
+  Carousel
 };
