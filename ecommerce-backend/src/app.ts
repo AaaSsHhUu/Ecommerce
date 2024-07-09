@@ -7,12 +7,13 @@ import { connectDB } from "./utils/features.js";
 import errorMiddleware from "./middleware/error.js";
 import cookieParser from "cookie-parser";
 import NodeCache from "node-cache";
+import morgan from "morgan";
 
 // Routes
 import userRoutes from "./routes/user.js";
 import productRoutes from "./routes/product.js";
 import orderRoutes from "./routes/order.js";
-import morgan from "morgan";
+import paymentRoutes from "./routes/payment.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -36,6 +37,7 @@ app.get("/api/v1/", (req,res) => {
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/order", orderRoutes);
+app.use("/api/v1/payment", paymentRoutes);
 
 
 
