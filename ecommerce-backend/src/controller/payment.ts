@@ -47,6 +47,7 @@ export const applyCoupon = asyncHandler(
     }
 )
 
+//  Getting all coupons --Admin
 export const allCoupons = asyncHandler(
     async( req : Request , res : Response , next : NextFunction)=>{
         const coupons = await Coupon.find();
@@ -58,6 +59,24 @@ export const allCoupons = asyncHandler(
         return res.status(200).json({
             success : true,
             coupons
+        })
+    }
+)
+
+// Deleting coupon
+export const deleteCoupon = asyncHandler(
+    async(req : Request , res : Response , next : NextFunction) => {
+        const {id} = req.params;
+
+        const coupon = await Coupon.findByIdAndDelete(id);
+
+        if(!coupon){
+            throw new ErrorHandler("Invalid ID", 400);
+        }
+
+        return res.status(200).json({
+            success : true,
+            message : "Coupon deleted successfully"
         })
     }
 )
