@@ -46,3 +46,18 @@ export const applyCoupon = asyncHandler(
         })
     }
 )
+
+export const allCoupons = asyncHandler(
+    async( req : Request , res : Response , next : NextFunction)=>{
+        const coupons = await Coupon.find();
+
+        if(!coupons){
+            throw new ErrorHandler("No coupons found",404);
+        }
+
+        return res.status(200).json({
+            success : true,
+            coupons
+        })
+    }
+)
