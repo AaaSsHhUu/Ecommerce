@@ -4,6 +4,7 @@ import Coupon from "../models/coupon.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import { couponSchema } from "../types/schema.js";
 
+// Create new Coupon
 export const newCoupon = asyncHandler(
     async(req : Request, res : Response , next : NextFunction) => {
         const {coupon, amount} = req.body;
@@ -24,6 +25,24 @@ export const newCoupon = asyncHandler(
         return res.status(201).json({
             success : true,
             message :  `Coupon ${coupon} generated successfully`
+        })
+    }
+)
+
+// apply coupon
+export const applyCoupon = asyncHandler(
+    async(req : Request, res : Response, next : NextFunction) => {
+        const { coupon } = req.query;
+
+        const discount = await Coupon.findOne({coupon : coupon});
+
+        if(!discount){
+            throw new ErrorHandler("Invalid Coupon code",400);
+        }
+
+        return res.status(200).json({
+            success : true,
+            discount : discount.amount
         })
     }
 )
