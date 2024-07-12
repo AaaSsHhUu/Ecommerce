@@ -17,6 +17,9 @@ export const getDashboardStats = asyncHandler(
         else{
             const today = new Date();
 
+            const sixMonthAgo = new Date();
+            sixMonthAgo.setMonth(sixMonthAgo.getMonth() - 6);
+
             const thisMonth = {
                 start : new Date(today.getFullYear(), today.getMonth(), 1),
                 end : today
@@ -68,17 +71,27 @@ export const getDashboardStats = asyncHandler(
                 }
             })
 
+            const lastSixMonthOrderPromise = Order.find({
+                createdAt : {
+                    $gte : sixMonthAgo,
+                    $lte : today
+                }
+            })
+
             const [
                 thisMonthProducts, lastMonthProducts, 
                 thisMonthUsers, lastMonthUsers, 
                 thisMonthOrders, lastMonthOrders,
-                productCount, userCount, allOrders
+                productCount, userCount, allOrders,
+                lastSixMonthOrder,
+                categories
             ] = await Promise.all([
                 thisMonthProductsPromise, lastMonthProductsPromise,
                 thisMonthUsersPromise, lastMonthUsersPromise,
                 thisMonthOrdersPromise, lastMonthOrdersPromise,
-                Product.countDocuments(), User.countDocuments(),
-                Order.find().select("total")
+                Product.countDocuments(), User.countDocuments(), Order.find().select("total"),
+                lastSixMonthOrderPromise,
+                Product.distinct("category")
             ])
 
             // Calculating Revenue generated between last month and current month
@@ -109,10 +122,41 @@ export const getDashboardStats = asyncHandler(
                 order : allOrders.length
             }
 
+            // Calculating data for dashboard chart arrays (Transaction and Revenue)
+            const orderMonthCount = new Array(6).fill(0);
+            const orderMonthRevenue = new Array(6).fill(0);
 
+            lastSixMonthOrder.forEach((order) => {
+                const creationDate = order.createdAt;
+                const monthDiff = creationDate.getMonth() - today.getMonth()
+
+                if(monthDiff < 6){
+                    orderMonthCount[5 - monthDiff] += 1;
+                    orderMonthRevenue[5 - monthDiff] += order.total;
+                }
+            })
+
+            // calculating category and their count
+            const categoryCountPromise = categories.map((category) => Product.countDocuments({category}))
+
+            const categoryCount = await Promise.all(categoryCountPromise);
+
+            const inventory : Record<string, number>[] = [];
+            // Record : It allows you to define an object where the keys are of a specific type and the values are of another specific type
+
+            categories.forEach((category, idx) => {
+                inventory.push({
+                    [category] : categoryCount[idx]                    
+                })
+            })
             stats = {
+                inventory,
                 percentage,
-                count
+                count,
+                chart : {
+                    order : orderMonthCount,
+                    revenue : orderMonthRevenue
+                }
             }
 
         }
