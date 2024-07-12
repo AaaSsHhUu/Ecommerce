@@ -202,7 +202,7 @@ export const getPieCharts = asyncHandler(
         let charts;
 
         if(myCache.has("admin-pie-charts")){
-            chartData = JSON.parse(myCache.get("admin-pie-charts") as string);
+            charts = JSON.parse(myCache.get("admin-pie-charts") as string);
         }
         else{
             const [processingOrder, shippedOrder, deliveredOrder] = await Promise.all([
