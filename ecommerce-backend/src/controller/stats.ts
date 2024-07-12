@@ -195,9 +195,38 @@ export const getDashboardStats = asyncHandler(
         })
     }
 )
+
+// Calculating Data for Pie Charts in Admin Dashboard
 export const getPieCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
-        
+        let charts;
+
+        if(myCache.has("admin-pie-charts")){
+            chartData = JSON.parse(myCache.get("admin-pie-charts") as string);
+        }
+        else{
+            const [processingOrder, shippedOrder, deliveredOrder] = await Promise.all([
+                Order.countDocuments({status : "Processing"}),
+                Order.countDocuments({status : "Shipped"}),
+                Order.countDocuments({status : "Delivered"}),
+            ])
+
+            const orderFullfillment = {
+                processing : processingOrder,
+                shipped : shippedOrder,
+                delivered : deliveredOrder
+            }
+            
+            charts = {
+                orderFullfillment,
+            }
+
+            myCache.set("admin-pie-charts", JSON.stringify(charts))
+        }
+
+        return res.status(200).json({
+            charts
+        })
     }
 )
 export const getBarCharts = asyncHandler(
