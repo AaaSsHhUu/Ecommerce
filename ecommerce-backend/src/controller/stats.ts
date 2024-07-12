@@ -185,6 +185,8 @@ export const getDashboardStats = asyncHandler(
                 latestTransaction : latestTransactionInfo
             }
 
+            myCache.set("admin-stats", JSON.stringify(stats));
+
         }
 
         return res.status(200).json({
