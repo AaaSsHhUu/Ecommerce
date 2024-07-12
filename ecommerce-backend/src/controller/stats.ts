@@ -146,7 +146,7 @@ export const getDashboardStats = asyncHandler(
 
             categories.forEach((category, idx) => {
                 inventory.push({
-                    [category] : categoryCount[idx]                    
+                    [category] : Math.round((categoryCount[idx] / productCount) * 100)
                 })
             })
             stats = {
