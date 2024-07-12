@@ -84,14 +84,16 @@ export const getDashboardStats = asyncHandler(
                 thisMonthOrders, lastMonthOrders,
                 productCount, userCount, allOrders,
                 lastSixMonthOrder,
-                categories
+                categories,
+                femaleUserCount
             ] = await Promise.all([
                 thisMonthProductsPromise, lastMonthProductsPromise,
                 thisMonthUsersPromise, lastMonthUsersPromise,
                 thisMonthOrdersPromise, lastMonthOrdersPromise,
                 Product.countDocuments(), User.countDocuments(), Order.find().select("total"),
                 lastSixMonthOrderPromise,
-                Product.distinct("category")
+                Product.distinct("category"),
+                User.countDocuments({gender : "female"})
             ])
 
             // Calculating Revenue generated between last month and current month
@@ -149,6 +151,13 @@ export const getDashboardStats = asyncHandler(
                     [category] : Math.round((categoryCount[idx] / productCount) * 100)
                 })
             })
+
+            const userRatio = {
+                male : userCount - femaleUserCount,
+                female : femaleUserCount
+            }
+
+
             stats = {
                 inventory,
                 percentage,
@@ -156,7 +165,8 @@ export const getDashboardStats = asyncHandler(
                 chart : {
                     order : orderMonthCount,
                     revenue : orderMonthRevenue
-                }
+                },
+                userRatio
             }
 
         }
