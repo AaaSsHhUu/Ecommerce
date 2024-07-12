@@ -78,6 +78,9 @@ export const getDashboardStats = asyncHandler(
                 }
             })
 
+            // Getting Latest transaction for dashboard table
+            const latestTransactionPromise = Order.find({}).select("orderItems discount total status").limit(4);
+
             const [
                 thisMonthProducts, lastMonthProducts, 
                 thisMonthUsers, lastMonthUsers, 
@@ -85,7 +88,8 @@ export const getDashboardStats = asyncHandler(
                 productCount, userCount, allOrders,
                 lastSixMonthOrder,
                 categories,
-                femaleUserCount
+                femaleUserCount,
+                latestTransaction
             ] = await Promise.all([
                 thisMonthProductsPromise, lastMonthProductsPromise,
                 thisMonthUsersPromise, lastMonthUsersPromise,
@@ -93,7 +97,8 @@ export const getDashboardStats = asyncHandler(
                 Product.countDocuments(), User.countDocuments(), Order.find().select("total"),
                 lastSixMonthOrderPromise,
                 Product.distinct("category"),
-                User.countDocuments({gender : "female"})
+                User.countDocuments({gender : "female"}),
+                latestTransactionPromise
             ])
 
             // Calculating Revenue generated between last month and current month
@@ -157,6 +162,16 @@ export const getDashboardStats = asyncHandler(
                 female : femaleUserCount
             }
 
+            // lastest transaction modification
+            const latestTransactionInfo = latestTransaction.map(i => (
+                {
+                    _id : i._id,
+                    discount : i.discount,
+                    amount : i.total,
+                    quantity : i.orderItems.length,
+                    status : i.status
+                }
+            ))
 
             stats = {
                 inventory,
@@ -166,7 +181,8 @@ export const getDashboardStats = asyncHandler(
                     order : orderMonthCount,
                     revenue : orderMonthRevenue
                 },
-                userRatio
+                userRatio,
+                latestTransaction : latestTransactionInfo
             }
 
         }
