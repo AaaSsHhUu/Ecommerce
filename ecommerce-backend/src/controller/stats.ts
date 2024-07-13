@@ -4,7 +4,7 @@ import { myCache } from "../app.js";
 import Product from "../models/product.js";
 import User from "../models/user.js";
 import Order from "../models/order.js";
-import { calculatePercentage, getInventory } from "../utils/features.js";
+import { calculatePercentage, generateChartDataArr, getInventory } from "../utils/features.js";
 
 export const getDashboardStats = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
@@ -325,6 +325,12 @@ export const getBarCharts = asyncHandler(
                 lastSixMonthsUsersPromise,
                 lastTwelveMonthsOrdersPromise
             ])
+
+            const productsCount = generateChartDataArr({length:  6 , docArr : lastSixMonthsProducts, today : today});
+            
+            const usersCount = generateChartDataArr({length : 6, docArr : lastSixMonthsUsers, today : today})
+
+            const ordersCount = generateChartDataArr({length : 12, docArr : lastTwelveMonthsOrders, today : today})
 
             myCache.set("admin-bar-chart", JSON.stringify(charts));
         }
