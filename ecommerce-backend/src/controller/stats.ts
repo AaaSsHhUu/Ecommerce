@@ -135,7 +135,7 @@ export const getDashboardStats = asyncHandler(
 
             lastSixMonthOrder.forEach((order) => {
                 const creationDate = order.createdAt;
-                const monthDiff = creationDate.getMonth() - today.getMonth()
+                const monthDiff = (creationDate.getMonth() - today.getMonth() + 12) % 12; // to get the correct difference of months 
 
                 if(monthDiff < 6){
                     orderMonthCount[5 - monthDiff] += 1;
