@@ -4,7 +4,7 @@ import { myCache } from "../app.js";
 import Product from "../models/product.js";
 import User from "../models/user.js";
 import Order from "../models/order.js";
-import { calculatePercentage } from "../utils/features.js";
+import { calculatePercentage, getInventory } from "../utils/features.js";
 
 export const getDashboardStats = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
@@ -143,19 +143,7 @@ export const getDashboardStats = asyncHandler(
                 }
             })
 
-            // calculating category and their count
-            const categoryCountPromise = categories.map((category) => Product.countDocuments({category}))
-
-            const categoryCount = await Promise.all(categoryCountPromise);
-
-            const inventory : Record<string, number>[] = [];
-            // Record : It allows you to define an object where the keys are of a specific type and the values are of another specific type
-
-            categories.forEach((category, idx) => {
-                inventory.push({
-                    [category] : Math.round((categoryCount[idx] / productCount) * 100)
-                })
-            })
+            const categoryCount : Record<string, number>[] = await getInventory({categories, productCount})
 
             const userRatio = {
                 male : userCount - femaleUserCount,
@@ -174,7 +162,7 @@ export const getDashboardStats = asyncHandler(
             ))
 
             stats = {
-                inventory,
+                categoryCount,
                 percentage,
                 count,
                 chart : {
