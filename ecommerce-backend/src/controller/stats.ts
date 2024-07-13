@@ -198,14 +198,17 @@ export const getPieCharts = asyncHandler(
                 "total", "subTotal", "tax", "discount", "shippingCharges"
             ])
 
-            const [processingOrder, shippedOrder, deliveredOrder, categories, productCount, outOfStock, allOrders] = await Promise.all([
+            const [ processingOrder, shippedOrder, deliveredOrder, categories, productCount, outOfStock, allOrders, usersAge, adminUsers, customerUsers ] = await Promise.all([
                 Order.countDocuments({status : "Processing"}),
                 Order.countDocuments({status : "Shipped"}),
                 Order.countDocuments({status : "Delivered"}),
                 Product.distinct("category"),
                 Product.countDocuments(),
                 Product.countDocuments({ stock : 0 }),
-                allOrdersPromise
+                allOrdersPromise,
+                User.find().select("dob"),
+                User.countDocuments({role : "admin"}),
+                User.countDocuments({role : "user"})
             ])
 
             const orderFullfillment = {
@@ -248,11 +251,20 @@ export const getPieCharts = asyncHandler(
                 marketingCost
             }
 
+            // calculating different age groups
+            const usersAgeGroups = {
+                teen : usersAge.filter(user => user.age < 20),
+                adult : usersAge.filter(user => user.age >= 20 && user.age < 40),
+                old : usersAge.filter(user => user.age >= 40)
+            }
+
+
             charts = {
                 orderFullfillment,
                 productCategoriesInfo,
                 stockAvailability,
-                revenueDistribution
+                revenueDistribution,
+                usersAgeGroups,
             }
 
             myCache.set("admin-pie-charts", JSON.stringify(charts))
