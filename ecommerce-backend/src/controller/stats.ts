@@ -283,11 +283,72 @@ export const getPieCharts = asyncHandler(
 )
 export const getBarCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
-        
+        let charts;
+
+        if(myCache.has("admin-bar-chart")){
+            charts = JSON.parse(myCache.get("admin-bar-chart") as string);
+        }
+        else{
+
+            const today = new Date();
+
+            const sixMonthsAgo = new Date();
+            sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+            const twelveMonthsAgo = new Date();
+            twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
+
+            // Products in last six months
+            const lastSixMonthsProductsPromise = Product.find({
+                createdAt : {
+                    $gte : sixMonthsAgo,
+                    $lte : today
+                }
+            })
+
+            const lastSixMonthsUsersPromise = User.find({
+                createdAt : {
+                    $gte : sixMonthsAgo,
+                    $lte : today
+                }
+            })
+
+            const lastTwelveMonthsOrdersPromise = Order.find({
+                createdAt : {
+                    $gte : twelveMonthsAgo,
+                    $lte : today
+                }
+            })
+
+            const [lastSixMonthsProducts, lastSixMonthsUsers, lastTwelveMonthsOrders] = await Promise.all([
+                lastSixMonthsProductsPromise,
+                lastSixMonthsUsersPromise,
+                lastTwelveMonthsOrdersPromise
+            ])
+
+            myCache.set("admin-bar-chart", JSON.stringify(charts));
+        }
+
+        return res.status(200).json({
+            charts
+        })
     }
 )
 export const getLineCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
-        
+        let charts;
+
+        if(myCache.has("admin-line-chart")){
+            charts = JSON.parse(myCache.get("admin-line-chart") as string);
+        }
+        else{
+
+
+            myCache.set("admin-line-chart", JSON.stringify(charts));
+        }
+
+        return res.status(200).json({
+            charts
+        })
     }
 )
