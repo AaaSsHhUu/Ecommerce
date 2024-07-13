@@ -258,6 +258,11 @@ export const getPieCharts = asyncHandler(
                 old : usersAge.filter(user => user.age >= 40)
             }
 
+            // calculating roles
+            const adminAndCustomer = {
+                admin : adminUsers,
+                customer : customerUsers
+            }
 
             charts = {
                 orderFullfillment,
@@ -265,6 +270,7 @@ export const getPieCharts = asyncHandler(
                 stockAvailability,
                 revenueDistribution,
                 usersAgeGroups,
+                adminAndCustomer
             }
 
             myCache.set("admin-pie-charts", JSON.stringify(charts))
