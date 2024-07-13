@@ -18,6 +18,7 @@ export interface IUser extends Document {
     generateToken() : string;
     isPasswordCorrect(password : string) : Promise<boolean>;
     age : number,
+    createdAt : Date
 }
 
 export interface NewProductRequestBody extends Document{
