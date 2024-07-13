@@ -67,3 +67,21 @@ export const calculatePercentage = (thisMonth : number, lastMonth : number) => {
     const percentage = ((thisMonth - lastMonth)/lastMonth) * 100;
     return Number(percentage.toFixed(0));
 }
+
+export const getInventory = async ({categories, productCount} : {categories : string[], productCount : number}) => {
+    // calculating category and their count
+    const categoryCountPromise = categories.map((category) => Product.countDocuments({category}))
+
+    const categoryCount = await Promise.all(categoryCountPromise);
+
+    const inventory : Record<string, number>[] = [];
+    // Record : It allows you to define an object where the keys are of a specific type and the values are of another specific type
+
+    categories.forEach((category, idx) => {
+        inventory.push({
+            [category] : Math.round((categoryCount[idx] / productCount) * 100)
+        })
+    })
+
+    return inventory;
+}
