@@ -277,6 +277,7 @@ export const getPieCharts = asyncHandler(
         }
 
         return res.status(200).json({
+            success : true,
             charts
         })
     }
@@ -332,10 +333,17 @@ export const getBarCharts = asyncHandler(
 
             const ordersCount = generateChartDataArr({length : 12, docArr : lastTwelveMonthsOrders, today : today})
 
+            charts = {
+                user : usersCount,
+                product : productsCount,
+                order : ordersCount
+            }
+
             myCache.set("admin-bar-chart", JSON.stringify(charts));
         }
 
         return res.status(200).json({
+            success : true,
             charts
         })
     }
