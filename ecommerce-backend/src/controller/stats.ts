@@ -193,10 +193,19 @@ export const getPieCharts = asyncHandler(
             charts = JSON.parse(myCache.get("admin-pie-charts") as string);
         }
         else{
-            const [processingOrder, shippedOrder, deliveredOrder] = await Promise.all([
+
+            const allOrdersPromise = Order.find({}).select([
+                "total", "subTotal", "tax", "discount", "shippingCharges"
+            ])
+
+            const [processingOrder, shippedOrder, deliveredOrder, categories, productCount, outOfStock, allOrders] = await Promise.all([
                 Order.countDocuments({status : "Processing"}),
                 Order.countDocuments({status : "Shipped"}),
                 Order.countDocuments({status : "Delivered"}),
+                Product.distinct("category"),
+                Product.countDocuments(),
+                Product.countDocuments({ stock : 0 }),
+                allOrdersPromise
             ])
 
             const orderFullfillment = {
@@ -204,9 +213,46 @@ export const getPieCharts = asyncHandler(
                 shipped : shippedOrder,
                 delivered : deliveredOrder
             }
+
+            const productCategoriesInfo = await getInventory({categories, productCount})
             
+            const stockAvailability = {
+                inStock : productCount - outOfStock,
+                outOfStock 
+            }
+
+            const grossIncome = allOrders.reduce((total, order) => {
+                return total = total + (order.total || 0)
+            }, 0)
+
+            const discount = allOrders.reduce((total, order) => {
+                return total = total + (order.discount || 0)
+            }, 0)
+
+            const burnt = allOrders.reduce((total, order) => {
+                return total = total + (order.tax || 0)
+            }, 0)
+
+            const shippingCharges = allOrders.reduce((total, order) => {
+                return total = total + (order.shippingCharges || 0)
+            }, 0)
+
+            const marketingCost = grossIncome * (30/100);
+
+            const netMargin = grossIncome - discount - burnt - shippingCharges - marketingCost;
+            const revenueDistribution = {
+                netMargin,
+                discount,
+                shippingCharges,
+                burnt,
+                marketingCost
+            }
+
             charts = {
                 orderFullfillment,
+                productCategoriesInfo,
+                stockAvailability,
+                revenueDistribution
             }
 
             myCache.set("admin-pie-charts", JSON.stringify(charts))
