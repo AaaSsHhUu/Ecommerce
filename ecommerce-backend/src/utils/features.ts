@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { InvalidateCacheProps } from "../types/types.js";
 import Product from "../models/product.js";
 import { myCache } from "../app.js";
@@ -28,11 +28,11 @@ export const invalidateCache = async ({
       "admin-products",
     ];
 
-    if(typeof productId === "string"){
-      productKeys.push(`product-${productId}`)
+    if (typeof productId === "string") {
+      productKeys.push(`product-${productId}`);
     }
-    if(typeof productId === "object"){
-        productId.forEach(i => productKeys.push(`product-${i}`))
+    if (typeof productId === "object") {
+      productId.forEach((i) => productKeys.push(`product-${i}`));
     }
 
     myCache.del(productKeys);
@@ -62,26 +62,61 @@ export const reduceStock = async (orderItem: OrderItemType[]) => {
   }
 };
 
-export const calculatePercentage = (thisMonth : number, lastMonth : number) => {
-    if(lastMonth === 0) return thisMonth*100;
-    const percentage = (thisMonth / lastMonth) * 100;
-    return Number(percentage.toFixed(0));
+export const calculatePercentage = (thisMonth: number, lastMonth: number) => {
+  if (lastMonth === 0) return thisMonth * 100;
+  const percentage = (thisMonth / lastMonth) * 100;
+  return Number(percentage.toFixed(0));
+};
+
+export const getInventory = async ({
+  categories,
+  productCount,
+}: {
+  categories: string[];
+  productCount: number;
+}) => {
+  // calculating category and their count
+  const categoryCountPromise = categories.map((category) =>
+    Product.countDocuments({ category })
+  );
+
+  const categoryCount = await Promise.all(categoryCountPromise);
+
+  const inventory: Record<string, number>[] = [];
+  // Record : It allows you to define an object where the keys are of a specific type and the values are of another specific type
+
+  categories.forEach((category, idx) => {
+    inventory.push({
+      [category]: Math.round((categoryCount[idx] / productCount) * 100),
+    });
+  });
+
+  return inventory;
+};
+
+
+interface MyDocument extends Document{
+    createdAt : Date
 }
 
-export const getInventory = async ({categories, productCount} : {categories : string[], productCount : number}) => {
-    // calculating category and their count
-    const categoryCountPromise = categories.map((category) => Product.countDocuments({category}))
+type generateChartArrProps = {
+  length : number, 
+  docArr : MyDocument[],
+  today : Date
+}
 
-    const categoryCount = await Promise.all(categoryCountPromise);
-
-    const inventory : Record<string, number>[] = [];
-    // Record : It allows you to define an object where the keys are of a specific type and the values are of another specific type
-
-    categories.forEach((category, idx) => {
-        inventory.push({
-            [category] : Math.round((categoryCount[idx] / productCount) * 100)
-        })
-    })
-
-    return inventory;
+// Method for creating data array for charts
+export const generateChartDataArr = ({length, docArr, today} : generateChartArrProps ) => {
+    const data : number[] = new Array(length).fill(0);
+    
+    docArr.forEach((i) => {
+      const creationDate = i.createdAt;
+      const monthDiff = (creationDate.getMonth() - today.getMonth() + 12) % 12; // to get the correct difference of months
+    
+      if (monthDiff < length) {
+        data[length - 1 - monthDiff] += 1;
+      }
+    });
+    
+    return data;
 }
