@@ -305,21 +305,21 @@ export const getBarCharts = asyncHandler(
                     $gte : sixMonthsAgo,
                     $lte : today
                 }
-            })
+            }).select("createdAt");
 
             const lastSixMonthsUsersPromise = User.find({
                 createdAt : {
                     $gte : sixMonthsAgo,
                     $lte : today
                 }
-            })
+            }).select("createdAt");
 
             const lastTwelveMonthsOrdersPromise = Order.find({
                 createdAt : {
                     $gte : twelveMonthsAgo,
                     $lte : today
                 }
-            })
+            }).select("createdAt");
 
             const [lastSixMonthsProducts, lastSixMonthsUsers, lastTwelveMonthsOrders] = await Promise.all([
                 lastSixMonthsProductsPromise,
