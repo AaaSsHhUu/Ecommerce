@@ -1,8 +1,10 @@
 import express from "express";
-import { allCoupons, applyCoupon, deleteCoupon, newCoupon } from "../controller/payment.js";
+import { allCoupons, applyCoupon, createPaymentIntent, deleteCoupon, newCoupon } from "../controller/payment.js";
 import { isAdmin, isAuthenticated } from "../middleware/auth.js";
 
 const router = express.Router();
+
+router.post("/new", createPaymentIntent);
 
 router.post("/coupon/new",isAuthenticated, isAdmin, newCoupon);
 
