@@ -327,16 +327,16 @@ export const getBarCharts = asyncHandler(
                 lastTwelveMonthsOrdersPromise
             ])
 
-            const productsCount = generateChartDataArr({length:  6 , docArr : lastSixMonthsProducts, today : today});
+            const productsData = generateChartDataArr({length:  6 , docArr : lastSixMonthsProducts, today : today});
             
-            const usersCount = generateChartDataArr({length : 6, docArr : lastSixMonthsUsers, today : today})
+            const usersData = generateChartDataArr({length : 6, docArr : lastSixMonthsUsers, today : today})
 
-            const ordersCount = generateChartDataArr({length : 12, docArr : lastTwelveMonthsOrders, today : today})
+            const ordersData = generateChartDataArr({length : 12, docArr : lastTwelveMonthsOrders, today : today})
 
             charts = {
-                user : usersCount,
-                product : productsCount,
-                order : ordersCount
+                user : productsData,
+                product : usersData,
+                order : ordersData
             }
 
             myCache.set("admin-bar-chart", JSON.stringify(charts));
@@ -348,6 +348,8 @@ export const getBarCharts = asyncHandler(
         })
     }
 )
+
+
 export const getLineCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
         let charts;
@@ -361,38 +363,38 @@ export const getLineCharts = asyncHandler(
             const twelveMonthsAgo = new Date();
             twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
 
-            const lastTwelveMonthsOrdersPromise = Order.find({
+            const baseQuery = {
                 createdAt : {
                     $gte : twelveMonthsAgo,
                     $lte : today
                 }
-            }).select("createdAt");
-
-            const lastTwelveMonthsProductsPromise = Product.find({
-                createdAt : {
-                    $gte : twelveMonthsAgo,
-                    $lte : today
-                }
-            }).select("createdAt");
-
-            const lastTwelveMonthsUsersPromise = User.find({
-                createdAt : {
-                    $gte : twelveMonthsAgo,
-                    $lte : today
-                }
-            }).select("createdAt");
+            }
+            
+            const lastTwelveMonthsProductsPromise = Product.find(baseQuery).select("createdAt");
+            const lastTwelveMonthsUsersPromise = User.find(baseQuery).select("createdAt");
+            const lastTwelveMonthsOrdersPromise = Order.find(baseQuery).select(["createdAt", "discount", "total"]);
 
             const [
-                lastTwelveMonthsOrders,
                 lastTwelveMonthsProducts,
-                lastTwelveMonthsUsers
+                lastTwelveMonthsUsers,
+                lastTwelveMonthsOrders,
             ] = await Promise.all([
-                lastTwelveMonthsOrdersPromise,
                 lastTwelveMonthsProductsPromise,
-                lastTwelveMonthsUsersPromise
+                lastTwelveMonthsUsersPromise,
+                lastTwelveMonthsOrdersPromise,
             ])
 
-            
+            const productsData = generateChartDataArr({length : 12, docArr : lastTwelveMonthsProducts, today : today});
+            const usersData = generateChartDataArr({length : 12, docArr : lastTwelveMonthsUsers, today : today});
+            const discount = generateChartDataArr({length : 12, docArr : lastTwelveMonthsOrders, today : today, field : "discount"});
+            const revenue = generateChartDataArr({length : 12, docArr : lastTwelveMonthsOrders, today , field : "total"});
+
+            charts = {
+                product : productsData,
+                user : usersData,
+                discount,
+                revenue
+            }
 
             myCache.set("admin-line-chart", JSON.stringify(charts));
         }
