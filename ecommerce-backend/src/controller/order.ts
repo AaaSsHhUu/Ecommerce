@@ -5,7 +5,6 @@ import ErrorHandler from "../utils/errorHandler.js";
 import Order from "../models/order.js";
 import { invalidateCache, reduceStock } from "../utils/features.js";
 import User from "../models/user.js";
-import mongoose from "mongoose";
 import { myCache } from "../app.js";
 
 // new order
