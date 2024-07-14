@@ -96,17 +96,20 @@ export const getInventory = async ({
 
 
 interface MyDocument extends Document{
-    createdAt : Date
+    createdAt : Date;
+    discount ?: number;
+    total ?: number;
 }
 
 type generateChartArrProps = {
   length : number, 
   docArr : MyDocument[],
-  today : Date
+  today : Date;
+  field ?: "discount" | "total";
 }
 
 // Method for creating data array for charts
-export const generateChartDataArr = ({length, docArr, today} : generateChartArrProps ) => {
+export const generateChartDataArr = ({length, docArr, today, field} : generateChartArrProps ) => {
     const data : number[] = new Array(length).fill(0);
     
     docArr.forEach((i) => {
@@ -114,7 +117,7 @@ export const generateChartDataArr = ({length, docArr, today} : generateChartArrP
       const monthDiff = (creationDate.getMonth() - today.getMonth() + 12) % 12; // to get the correct difference of months
     
       if (monthDiff < length) {
-        data[length - 1 - monthDiff] += 1;
+        data[length - 1 - monthDiff] += field ? i[field]! : 1;
       }
     });
     
