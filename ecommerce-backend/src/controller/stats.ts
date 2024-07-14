@@ -81,6 +81,7 @@ export const getDashboardStats = asyncHandler(
             // Getting Latest transaction for dashboard table
             const latestTransactionPromise = Order.find({}).select("orderItems discount total status").limit(4);
 
+            // Getting all the data required for Dashboard page
             const [
                 thisMonthProducts, lastMonthProducts, 
                 thisMonthUsers, lastMonthUsers, 
@@ -188,6 +189,7 @@ export const getPieCharts = asyncHandler(
                 "total", "subTotal", "tax", "discount", "shippingCharges"
             ])
 
+            // Getting all the data required for Pie chart page
             const [ processingOrder, shippedOrder, deliveredOrder, categories, productCount, outOfStock, allOrders, usersAge, adminUsers, customerUsers ] = await Promise.all([
                 Order.countDocuments({status : "Processing"}),
                 Order.countDocuments({status : "Shipped"}),
@@ -272,6 +274,8 @@ export const getPieCharts = asyncHandler(
         })
     }
 )
+
+// Calculating Data for Bar Charts
 export const getBarCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
         let charts;
@@ -311,6 +315,7 @@ export const getBarCharts = asyncHandler(
                 }
             }).select("createdAt");
 
+            // Getting all the data required for Bar chart page
             const [lastSixMonthsProducts, lastSixMonthsUsers, lastTwelveMonthsOrders] = await Promise.all([
                 lastSixMonthsProductsPromise,
                 lastSixMonthsUsersPromise,
@@ -339,13 +344,13 @@ export const getBarCharts = asyncHandler(
     }
 )
 
-
+// Calculating Data for Line Charts
 export const getLineCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
         let charts;
 
         if(myCache.has("admin-line-charts")){
-            charts = JSON.parse(myCache.get("admin-line-chart") as string);
+            charts = JSON.parse(myCache.get("admin-line-charts") as string);
         }
         else{
 
@@ -360,6 +365,7 @@ export const getLineCharts = asyncHandler(
                 }
             }
             
+            // Getting all the data required for Line chart page
             const lastTwelveMonthsProductsPromise = Product.find(baseQuery).select("createdAt");
             const lastTwelveMonthsUsersPromise = User.find(baseQuery).select("createdAt");
             const lastTwelveMonthsOrdersPromise = Order.find(baseQuery).select(["createdAt", "discount", "total"]);
