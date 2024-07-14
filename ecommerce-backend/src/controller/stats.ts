@@ -130,18 +130,8 @@ export const getDashboardStats = asyncHandler(
             }
 
             // Calculating data for dashboard chart arrays (Transaction and Revenue)
-            const orderMonthCount = new Array(6).fill(0);
-            const orderMonthRevenue = new Array(6).fill(0);
-
-            lastSixMonthOrder.forEach((order) => {
-                const creationDate = order.createdAt;
-                const monthDiff = (creationDate.getMonth() - today.getMonth() + 12) % 12; // to get the correct difference of months 
-
-                if(monthDiff < 6){
-                    orderMonthCount[5 - monthDiff] += 1;
-                    orderMonthRevenue[5 - monthDiff] += order.total;
-                }
-            })
+            const orderMonthCount = generateChartDataArr({length : 6, docArr : lastMonthOrders, today})
+            const orderMonthRevenue = generateChartDataArr({length : 6, docArr : lastMonthOrders, today, field : "total"});
 
             const categoryCount : Record<string, number>[] = await getInventory({categories, productCount})
 
@@ -385,8 +375,11 @@ export const getLineCharts = asyncHandler(
             ])
 
             const productsData = generateChartDataArr({length : 12, docArr : lastTwelveMonthsProducts, today : today});
+
             const usersData = generateChartDataArr({length : 12, docArr : lastTwelveMonthsUsers, today : today});
+            
             const discount = generateChartDataArr({length : 12, docArr : lastTwelveMonthsOrders, today : today, field : "discount"});
+            
             const revenue = generateChartDataArr({length : 12, docArr : lastTwelveMonthsOrders, today , field : "total"});
 
             charts = {
