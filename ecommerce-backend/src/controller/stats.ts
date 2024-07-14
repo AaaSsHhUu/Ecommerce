@@ -276,8 +276,8 @@ export const getBarCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
         let charts;
 
-        if(myCache.has("admin-bar-chart")){
-            charts = JSON.parse(myCache.get("admin-bar-chart") as string);
+        if(myCache.has("admin-bar-charts")){
+            charts = JSON.parse(myCache.get("admin-bar-charts") as string);
         }
         else{
 
@@ -329,7 +329,7 @@ export const getBarCharts = asyncHandler(
                 order : ordersData
             }
 
-            myCache.set("admin-bar-chart", JSON.stringify(charts));
+            myCache.set("admin-bar-charts", JSON.stringify(charts));
         }
 
         return res.status(200).json({
@@ -344,7 +344,7 @@ export const getLineCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
         let charts;
 
-        if(myCache.has("admin-line-chart")){
+        if(myCache.has("admin-line-charts")){
             charts = JSON.parse(myCache.get("admin-line-chart") as string);
         }
         else{
@@ -389,7 +389,7 @@ export const getLineCharts = asyncHandler(
                 revenue
             }
 
-            myCache.set("admin-line-chart", JSON.stringify(charts));
+            myCache.set("admin-line-charts", JSON.stringify(charts));
         }
 
         return res.status(200).json({
