@@ -357,6 +357,42 @@ export const getLineCharts = asyncHandler(
         }
         else{
 
+            const today = new Date();
+            const twelveMonthsAgo = new Date();
+            twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
+
+            const lastTwelveMonthsOrdersPromise = Order.find({
+                createdAt : {
+                    $gte : twelveMonthsAgo,
+                    $lte : today
+                }
+            }).select("createdAt");
+
+            const lastTwelveMonthsProductsPromise = Product.find({
+                createdAt : {
+                    $gte : twelveMonthsAgo,
+                    $lte : today
+                }
+            }).select("createdAt");
+
+            const lastTwelveMonthsUsersPromise = User.find({
+                createdAt : {
+                    $gte : twelveMonthsAgo,
+                    $lte : today
+                }
+            }).select("createdAt");
+
+            const [
+                lastTwelveMonthsOrders,
+                lastTwelveMonthsProducts,
+                lastTwelveMonthsUsers
+            ] = await Promise.all([
+                lastTwelveMonthsOrdersPromise,
+                lastTwelveMonthsProductsPromise,
+                lastTwelveMonthsUsersPromise
+            ])
+
+            
 
             myCache.set("admin-line-chart", JSON.stringify(charts));
         }
