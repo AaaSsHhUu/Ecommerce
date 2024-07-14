@@ -8,6 +8,7 @@ import errorMiddleware from "./middleware/error.js";
 import cookieParser from "cookie-parser";
 import NodeCache from "node-cache";
 import morgan from "morgan";
+import Stripe from "stripe";
 
 // Routes
 import userRoutes from "./routes/user.js";
@@ -18,10 +19,12 @@ import dashboardRoutes from "./routes/stats.js"
 
 const app = express();
 const port = process.env.PORT || 4000;
+const stripeKey = process.env.STRIPE_KEY || "";
 
 // Database connection
 connectDB(process.env.DB_URL as string);
 
+export const stripe = new Stripe(stripeKey);
 export const myCache = new NodeCache({stdTTL : 600, checkperiod : 600}); // both in seconds
 // stdTTL -> standard time to live
 // checkperiod -> time at which the cache will check for expired items and remove them
