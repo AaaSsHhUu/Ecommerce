@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
-import { BarCharts, Cart, Customer, Dashboard, Home, LineCharts, Login, NewProduct, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions } from "./pages";
+import { BarCharts, Cart, Customer, Dashboard, Home, LineCharts, Login, NewProduct, PieCharts, Product, ProductManagment, Search, Shipping, Signup, TransactionManagment, Transactions } from "./pages";
 import { Header, Loader } from "./components";
+import {Toaster} from "react-hot-toast";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
         {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<Dashboard />} />
@@ -38,6 +40,7 @@ function App() {
 
         </Routes>
       </Suspense>
+      <Toaster position="top-center" />
     </Router>
   )
 }
