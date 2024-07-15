@@ -6,7 +6,6 @@ import {IUser} from "../types/types.js"
 const userSchema = new mongoose.Schema({
     photo : {
         type : String,
-        required : [true, "Please add photo"]
     },
     role : {
         type : String,
