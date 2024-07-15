@@ -2,13 +2,13 @@ import {z} from "zod";
 
 // users
 export const signupValidation = z.object({
-    photo : z.string().min(1,"Please Add one photo"),
-    role : z.enum(["admin","user"]).default("user"),
+    photo : z.string().min(1,"Please Add one photo").optional(),
+    role : z.enum(["admin","user"]).default("user").optional(),
     name : z.string().min(1,"Please Enter name"),
     email : z.string().email("Invalid Email format"),
     password : z.string().min(8, "Password should atleast have 8 letters"),
     gender : z.enum(["male", "female"]),
-    dob : z.string().or(z.date()).transform(val => new Date(val)),
+    dob : z.date().or(z.string().transform(val => new Date(val))),
 })
 
 export const signinValidation = z.object({
