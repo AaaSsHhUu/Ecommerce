@@ -8,7 +8,7 @@ export const userAPI = createApi({
     baseQuery : fetchBaseQuery({baseUrl : `${import.meta.env.VITE_SERVER}/api/v1/user`}),
     endpoints : (builder) => ({
         // /api/v1/user/signup
-        signup : builder.mutation<SignupResponse, SignupInfo>({ // <Response, Query>
+        signup : builder.mutation<SignupResponse, SignupInfo>({ // < Response, Query >
             query : (user) => ({
                 url : "/signup",
                 method : "POST",
@@ -26,4 +26,4 @@ export const userAPI = createApi({
     })
 })
 
-export const {useSignupMutation} = userAPI;
+export const {useSignupMutation, useLoginMutation} = userAPI;
