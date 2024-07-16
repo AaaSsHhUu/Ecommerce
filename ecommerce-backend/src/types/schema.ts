@@ -2,6 +2,7 @@ import {z} from "zod";
 
 // users
 export const signupValidation = z.object({
+    _id : z.string(),
     photo : z.string().min(1,"Please Add one photo").optional(),
     role : z.enum(["admin","user"]).default("user").optional(),
     name : z.string().min(1,"Please Enter name"),
@@ -56,14 +57,3 @@ export const couponSchema = z.object({
     coupon : z.string().min(6, "Coupon should have atleast 6 letters"),
     amount : z.number()
 })
-
-// type inference
-
-// user
-export type SignupInput = z.infer<typeof signupValidation>
-export type SigninInput = z.infer<typeof signinValidation>
-
-// product
-export type OrderItemType = z.infer<typeof orderItemsSchema>
-export type ShippingInfoType = z.infer<typeof shippingInfoSchema>
-export type NewOrderRequestBodyType = z.infer<typeof newOrderSchema>
