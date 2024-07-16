@@ -35,7 +35,7 @@ export const createUser = asyncHandler(
         })
         return res.status(201).json({
             success : true,
-            user
+            message : `Welcome ${user.name} to BigBucket`
         })
     }
 )
