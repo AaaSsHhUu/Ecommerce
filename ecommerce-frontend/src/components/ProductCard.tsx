@@ -1,4 +1,5 @@
 import { FaPlus } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 type ProductCardProps = {
     productId : string;
@@ -9,20 +10,33 @@ type ProductCardProps = {
     handler : () => void
 }
 
+const handleBuyProduct = () => {
+    console.log("Buy");
+}
+
+const handleAddToCart = () => {
+  console.log("Added to cart");
+  
+}
+
 const ProductCard = ({productId,name,price,photo,stock,handler} : ProductCardProps) => {
   return (
-    <div className="product-card">
+    <Link to={"/"} className="product-card">
         <img src={photo} alt={name} />
-        <p>{name}</p>
-        <span>₹{price}</span>
 
-        <div>
-            <button onClick={() => handler()}>
-                <FaPlus />
-            </button>
+        {/* Add to cart button */}
+        <div className="cart-btn" onClick={handleAddToCart} ><FaPlus /></div>
+
+        <div className="product-details">
+            <div className="description">
+                <h3 className="product-name">
+                  {name.length > 7 ? name.slice(0,7) + "..." : name}
+                </h3>
+                <h2 className="product-price">₹{price.toLocaleString("en-IN")}</h2>
+            </div>
+            <button className="buy-btn" onClick={handleBuyProduct}>Buy now</button>
         </div>
-    </div>
-
+    </Link>
   )
 }
 
