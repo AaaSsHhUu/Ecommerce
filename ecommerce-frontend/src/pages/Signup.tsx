@@ -1,71 +1,67 @@
-import { MouseEvent, useState } from "react"
-import {SignupInput} from "../../../ecommerce-backend/src/types/schema";
+import { useState, MouseEvent } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { SignupInfo } from "../types/types";
 
 const Signup = () => {
-    const [signupInfo, setSignupInfo] = useState<SignupInput>({
-        name : "",
-        email : "",
-        password : "",
-        gender : "male",
-        dob : new Date()
-    })
+  const [signupInfo, setSignupInfo] = useState<SignupInfo>({
+    name: "",
+    email: "",
+    password: "",
+    gender: "",
+    dob: "",
+    photo: ""
+  })
+  const [showPassword, setShowPassword] = useState(false);
 
-    const[showPassword, setShowPassword] = useState(false);
-
-    const handleShowPassword = (e : MouseEvent ) => {
-        e.preventDefault();
-        setShowPassword(!showPassword);
-    }
+  const handleShowPassword = (e: MouseEvent) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  }
   return (
     <div className="signup-container">
-      <div className="signup-card">
-          {/* banner */}
-          <div className="signup-banner">
-              <h1>Signup</h1>
-          </div>
-          {/* form */}
-          <div className="signup-form">
-            <form>
-                {/* Name */}
-                <div className="signup-input">
-                    <label htmlFor="name">Name</label>
-                    <input type="text" id="name" placeholder="Enter your name" />
-                </div>
-                {/* Email */}
-                <div className="signup-input">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" />
-                </div>
-                {/* Password */}
-                <div className="signup-input">
-                    <label htmlFor="password">Password</label>
-                    <div className="password-input" tabIndex={0}>
-                      <input type={showPassword ? "text" : "password"} id="password" placeholder="Enter your password" />
-                      <button onClick={handleShowPassword}>
-                        {showPassword ? <FaEyeSlash/> : <FaEye />}
-                      </button>
-                    </div>
-                </div>
-                <div className="signup-pseudo-input">
-                    {/* Gender */}
-                    <div className="gender-input">
-                      <label htmlFor="gender">Gender</label>
-                      <select name="gender">
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                      </select>
-                    </div>
-                    {/* DOB */}
-                    <div className="dob-input">
-                      <label htmlFor="dob">DOB</label>
-                      <input type="date" id="dob"/>
-                    </div>
-                </div>
+      <div className="form-card">
+        <h1>Signup</h1>
+        <form className="signup-form">
+          {/* Name */}
+          <input type="text" id="name" placeholder="Enter your name" />
 
-                <button className="signup-btn" type="submit">Signup</button>
-            </form>
+          {/* Email */}
+          <input type="email" id="email" placeholder="Enter your email" />
+
+          {/* Password */}
+          <div className="password-input" tabIndex={0}>
+            <input type={showPassword ? "text" : "password"} id="password" placeholder="Enter your password" />
+            <button onClick={handleShowPassword}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
           </div>
+
+          {/* Photo */}
+          <input type="file" placeholder="Enter photo for profile" />
+
+          <div className="pseudo-inputs">
+            {/* Gender */}
+            <select name="gender">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+
+            {/* DOB */}
+            <input type="date" id="dob" placeholder="Enter DOB" />
+          </div>
+
+          <button className="signup-btn" type="submit">Signup</button>
+          <Link to={"/login"}>Already have an account ? Login</Link>
+
+          <div className="firebase-options">
+            <button>
+              <FcGoogle />
+              <p>Signup with Google</p>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   )
