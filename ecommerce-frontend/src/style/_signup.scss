@@ -1,3 +1,4 @@
+// For signup form
 $red: rgb(233, 23, 23);
 
 .signup-container {
@@ -5,118 +6,135 @@ $red: rgb(233, 23, 23);
   width: 100%;
   display: grid;
   place-items: center;
+  background: #eee;
 
-  > .signup-card {
-    min-height: 50vh;
-    width: 50vw;
+  .form-card {
+    background: #fff;
+    padding: 1rem 1.5rem;
+    width: 30%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.5);
-    display: flex;
-    > .signup-banner {
-      background-color: $red;
-      width: 40%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      > h1 {
-        color: white;
-      }
+    > h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: rgb(0, 0, 0, 0.7);
+      margin: 0 0 1rem;
     }
+    > form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      > input {
+        letter-spacing: 1px;
+        width: 100%;
+        padding: 0.35rem 0.85rem;
+        font-size: 1rem;
+        font-weight: bold;
+        border: 1px solid gray;
+        color: gray;
+        border-radius: 5px;
+        outline: none;
+      }
+      > .password-input {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        border: 1px solid gray;
+        border-radius: 5px;
+        overflow: hidden;
+        > input {
+          flex: 1;
+          letter-spacing: 1px;
+          padding: 0.35rem 0.85rem;
+          font-size: 1rem;
+          font-weight: bold;
+          border: none;
+          outline: none;
+        }
+        > button {
+          padding: 0.5rem 1rem;
+          background: $red;
+          color: #fff;
+          border: none;
+          outline: none;
+        }
+      }
 
-    > .signup-form {
-      width: 60%;
-      padding: 1rem 1.1rem;
-      > form > .signup-input {
+      > .pseudo-inputs {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        > select {
+          font-weight: bold;
+          color: gray;
+          padding: 0.35rem;
+          border-radius: 5px;
+        }
+
+        > input {
+          letter-spacing: 1px;
+          padding: 0.3rem 0.5rem;
+          font-weight: bold;
+          color: gray;
+          border-radius: 5px;
+          border: 1px solid gray;
+          outline: none;
+        }
+      }
+
+      > .signup-btn {
+        padding: 0.35rem 1rem;
+        background: $red;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        margin-top: 1rem;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      > a {
+        color: gray;
+        font-size: 1rem;
+        &:hover {
+          color: black;
+        }
+      }
+
+      > .firebase-options {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        margin: 0.5rem 0 0 0.5rem;
-        > label {
-          font-size: 1.1rem;
-          font-weight: 500;
-          color: #666;
-        }
-        > input {
-          width: 100%;
-          border: 1px solid black;
+        align-items: center;
+        > button {
+          display: flex;
+          gap: 0.5rem;
+          border: none;
+          opacity: 0.8;
+          background: transparent;
           outline: none;
-          border-radius: 5px;
-          padding: 0.35rem 1rem;
-          &:focus {
-            outline: 2px solid $red;
-            border: none;
+          border-radius: 10px;
+          &:hover {
+            > p {
+              text-decoration: underline;
+            }
+          }
+          > p {
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: rgb(0, 0, 0, 0.9);
+            font-weight: bold;
+          }
+          > svg {
+            font-size: 1.5rem;
           }
         }
-
-        > .password-input {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            border-radius: 5px;
-            padding: 0.35rem 1rem;
-            border: 1px solid black;
-            outline: none;
-            &:focus {
-                outline: 2px solid $red;
-                border: none;
-            }
-            >input{
-                border: none;
-                width: 100%;
-                outline: none;
-            }
-            > button {
-                font-size: 1.1rem;
-                border: none;
-                outline: none;
-                cursor: pointer;
-                background: transparent;
-            }
-        }
       }
-      .signup-pseudo-input{
-            margin: 1rem 0 0 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            > .gender-input{
-                display: flex;
-                flex-direction: column;
-                > label{
-                    font-size: 1.1rem;
-                    font-weight: 500;
-                    color: #666;
-                }
-            }
-
-            > .dob-input{
-                display: flex;
-                flex-direction: column;
-                > label{
-                    font-size: 1.1rem;
-                    font-weight: 500;
-                    color: #666;
-                }
-            }
-        }
-
-         .signup-btn{
-            display: flex;
-            justify-content: center;
-            padding: 0.35rem 1rem;
-            background: $red;
-            border: none;
-            outline: none;
-            border-radius: 5px;
-            margin: 1.5rem auto 1rem;
-            color: white;
-            cursor: pointer;
-            &:hover{
-                opacity: 0.8;
-            }
-        }
     }
   }
 }
