@@ -1,73 +1,68 @@
-import { TextField } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { ChangeEvent, useState, MouseEvent } from "react";
+import toast from "react-hot-toast";
+import { auth } from "../firebase";
+import { LoginInfo } from "../types/types";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 
-interface LoginInfoProps {
-    email: string;
-    password: string;
-}
-
 const Login = () => {
-    const [loginInfo, setLoginInfo] = useState<LoginInfoProps>({
+    const [loginInfo, setLoginInfo] = useState<LoginInfo>({
         email: "",
         password: ""
     })
-    const [showPassword,setShowPassword] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value })
     }
 
+    const handleGoogleAuth = async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            const user = await signInWithPopup(auth, provider)
+            console.log("user : ", user);
+
+        } catch (error) {
+            toast.error("Login Failed, Try Again")
+        }
+    }
+
+  const handleShowPassword = (e: MouseEvent) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  }
 
     return (
-        <>
-            <div className="login">
+        <div className="login-container">
+            <div className="form-card">
                 <h1>Login</h1>
-                <form>
+                <form className="login-form">
                     {/* Email */}
-                    <div>
-                        <TextField id="outlined-basic"
-                            name="email"
-                            label="Email"
-                            variant="outlined"
-                            value={loginInfo.email}
-                            sx={{ width: "100%" }}
-                            type="text"
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+                    <input type="email" id="email" placeholder="Enter your email" />
+
                     {/* Password */}
-                    <div>
-                        <TextField id="outlined-basic"
-                            name="password"
-                            label="password"
-                            variant="outlined"
-                            value={loginInfo.password}
-                            sx={{ width: "100%" }}
-                            type={showPassword ? "text" : "password"}
-                            onChange={handleChange}
-                            required
-                        />
-                        <button type="button" onClick={() => setShowPassword(prev => !prev)}>
-                            {!showPassword ? <FaEyeSlash /> : <FaEye />}
+                    <div className="password-input" tabIndex={0}>
+                        <input type={showPassword ? "text" : "password"} id="password" placeholder="Enter your password" />
+                        <button onClick={handleShowPassword}>
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </button>
                     </div>
 
-                    <button type="submit" className="login-btn">Login</button>
+                    <button className="login-btn" type="submit">Login</button>
+                    <Link to={"/signup"}>Do not have an account ? Signup</Link>
 
-                    <hr style={{width : "80%"}} />
-                    <div className="login-links">
-                        <div className="google-link">
-                            <FcGoogle /> 
-                            <p>Sign in using Google</p>
-                        </div>
+                    <div className="firebase-options">
+                        <button>
+                            <FcGoogle />
+                            <p>Login with Google</p>
+                        </button>
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     )
 }
 
