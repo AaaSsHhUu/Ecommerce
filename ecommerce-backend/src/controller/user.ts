@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../models/user.js";
-import {signinValidation,signupValidation} from "../types/schema.js";
+import {userValidation} from "../types/schema.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import { asyncHandler } from "../middleware/error.js";
 
@@ -9,10 +9,10 @@ export const createUser = asyncHandler(
         const userBody = req.body;
     
         // Zod validation check
-        const {success} = signupValidation.safeParse(userBody);
+        const {success} = userValidation.safeParse(userBody);
             
         if(!success){
-            throw new ErrorHandler("Invalid Input",400);
+            throw new ErrorHandler("Provide Valid Inputs",400);
         }
     
         const userExist = await User.findOne({email : userBody.email});
