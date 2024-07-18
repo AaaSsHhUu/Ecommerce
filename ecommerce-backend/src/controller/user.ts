@@ -41,43 +41,43 @@ export const createUser = asyncHandler(
 )
 
 // login user
-export const loginUser = asyncHandler(
-    async (req : Request, res : Response, next : NextFunction) => {
-    const {email,password} = req.body;
+// export const loginUser = asyncHandler(
+//     async (req : Request, res : Response, next : NextFunction) => {
+//     const {email,password} = req.body;
 
-    const {success} = signinValidation.safeParse(req.body);
-    if(!success){
-        throw new ErrorHandler("Invalid Inputs", 400);
-    }
+//     const {success} = signinValidation.safeParse(req.body);
+//     if(!success){
+//         throw new ErrorHandler("Invalid Inputs", 400);
+//     }
 
-    const user = await User.findOne({email});
-    if(!user){
-        throw new ErrorHandler("User with given email doesn't exist, Please Signup first",404);
-    }
+//     const user = await User.findOne({email});
+//     if(!user){
+//         throw new ErrorHandler("User with given email doesn't exist, Please Signup first",404);
+//     }
 
-    const checkPassword = user.isPasswordCorrect(password);
+//     const checkPassword = user.isPasswordCorrect(password);
 
-    if(!checkPassword){
-        throw new ErrorHandler("Invalid Email or Password",400);
-    }
+//     if(!checkPassword){
+//         throw new ErrorHandler("Invalid Email or Password",400);
+//     }
 
-    // generating cookie and sending it to client via cookie
-    const token = await user.generateToken();
-    // console.log("token for cookie : ", token);
+//     // generating cookie and sending it to client via cookie
+//     const token = await user.generateToken();
+//     // console.log("token for cookie : ", token);
     
-    res.cookie("token",token,{
-        httpOnly : true,
-        secure : process.env.NODE_ENV === "production",
-        maxAge : 1 * 24 * 60 * 60 * 1000
-    })
+//     res.cookie("token",token,{
+//         httpOnly : true,
+//         secure : process.env.NODE_ENV === "production",
+//         maxAge : 1 * 24 * 60 * 60 * 1000
+//     })
     
-    return res.json({
-        success : true,
-        message : "Logged In Successfully",
-        token
-    })
+//     return res.json({
+//         success : true,
+//         message : "Logged In Successfully",
+//         token
+//     })
 
-})
+// })
 
 // Get user by id
 export const getUser = asyncHandler(
