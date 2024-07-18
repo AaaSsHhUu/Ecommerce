@@ -1,29 +1,21 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { SignupResponse, LoginResponse } from "../../types/api-types-";
-import { LoginInfo, SignupInfo } from "../../types/types";
-// import { server } from "../store";
+import { User } from "../../types/types";
+import { MessageResponse } from "../../types/api-types-";
 
 export const userAPI = createApi({
     reducerPath : "userApi",
     baseQuery : fetchBaseQuery({baseUrl : `${import.meta.env.VITE_SERVER}/api/v1/user`}),
     endpoints : (builder) => ({
         // /api/v1/user/signup
-        signup : builder.mutation<SignupResponse, SignupInfo>({ // < Response, Query >
+        login : builder.mutation<MessageResponse, User>({ // < Response, Query >
             query : (user) => ({
-                url : "/signup",
+                url : "/new",
                 method : "POST",
                 body : user
             })
         }),
 
-        login : builder.mutation<LoginResponse, LoginInfo>({
-            query : (user) => ({
-                url : "/login",
-                method : "POST",
-                body : user
-            })
-        })
     })
 })
 
-export const {useSignupMutation, useLoginMutation} = userAPI;
+export const {useLoginMutation} = userAPI;
