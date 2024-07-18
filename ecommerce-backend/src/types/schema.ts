@@ -1,20 +1,14 @@
 import {z} from "zod";
 
 // users
-export const signupValidation = z.object({
+export const userValidation = z.object({
     _id : z.string(),
     photo : z.string().min(1,"Please Add one photo").optional(),
     role : z.enum(["admin","user"]).default("user").optional(),
     name : z.string().min(1,"Please Enter name"),
     email : z.string().email("Invalid Email format"),
-    password : z.string().min(8, "Password should atleast have 8 letters"),
     gender : z.enum(["male", "female"]),
-    dob : z.date().or(z.string().transform(val => new Date(val))),
-})
-
-export const signinValidation = z.object({
-    email : z.string().email("Enter valid email address"),
-    password : z.string()
+    dob : z.string(),
 })
 
 // Product
@@ -40,6 +34,8 @@ export const orderItemsSchema = z.object({
     quantity : z.number(),
     productId : z.string()
 })
+
+export type OrderItemType = z.infer<typeof orderItemsSchema>
 
 export const newOrderSchema = z.object({
     shippingInfo : shippingInfoSchema,
