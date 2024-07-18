@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import NodeCache from "node-cache";
 import morgan from "morgan";
 import Stripe from "stripe";
+import cors from "cors";
 
 // Routes
 import userRoutes from "./routes/user.js";
@@ -30,6 +31,10 @@ export const myCache = new NodeCache({stdTTL : 600, checkperiod : 600}); // both
 // checkperiod -> time at which the cache will check for expired items and remove them
 
 // middlewares
+app.use(cors({
+    origin : process.env.FRONTEND_URL,
+    methods : ["GET", "POST", "PUT", "DELETE"]
+}));
 app.use(morgan("dev"))
 app.use(express.json());
 app.use(cookieParser());
