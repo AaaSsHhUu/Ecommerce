@@ -1,18 +1,12 @@
-export interface SignupInfo{
-    name : string;
-    email : string;
-    password : string;
-    photo : string;
-    gender : string;
-    role : string;
-    dob : string;
-    _id : string;   
-}
-
-export interface LoginInfo{
-    email : string;
-    password : string;
-}
+export type User = {
+    name: string;
+    email: string;
+    photo: string;
+    gender: string;
+    role: string;
+    dob: string;
+    _id: string;
+};
 
 export type OrderItemType = {
     _id : string;
