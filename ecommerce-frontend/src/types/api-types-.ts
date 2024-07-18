@@ -1,10 +1,4 @@
-export interface SignupResponse{
+export interface MessageResponse{
     success : boolean;
     message : string;
-}
-
-export interface LoginResponse{
-    success : string;
-    message : string;
-    token : string;
 }
