@@ -4,6 +4,10 @@ import jwt from "jsonwebtoken";
 import {IUser} from "../types/types.js"
 
 const userSchema = new mongoose.Schema({
+    _id : {
+        type : String,
+        required : true
+    },
     photo : {
         type : String,
     },
@@ -30,10 +34,6 @@ const userSchema = new mongoose.Schema({
         unique : true,
         required : [true, "Please enter your email"],
     },
-    password : {
-        type : String,
-        required : [true, "Please Provide password"]
-    }
 },{timestamps : true})
 
 
@@ -48,16 +48,6 @@ userSchema.virtual("age").get(function(this){
         age--;
     }
     return age;
-})
-
-userSchema.pre("save", async function (next){
-    if(this.isModified("password")){
-        this.password = await bcrypt.hash(this.password,10);        
-        next();
-    }
-    else{
-        next();
-    }
 })
 
 // Adding methods in userSchema
