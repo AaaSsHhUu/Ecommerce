@@ -4,7 +4,6 @@ import Product from "../models/product.js";
 import { myCache } from "../app.js";
 import { OrderItemType } from "../types/schema.js";
 import ErrorHandler from "./errorHandler.js";
-import Order from "../models/order.js";
 
 export const connectDB = async (uri: string) => {
   mongoose
