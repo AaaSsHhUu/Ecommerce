@@ -26,7 +26,7 @@ function App() {
         dispatch(userNotExist());
       }
     })
-  })
+  },[])
 
   return (
     <Router>
