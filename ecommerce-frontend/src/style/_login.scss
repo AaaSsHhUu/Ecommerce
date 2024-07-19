@@ -1,117 +1,74 @@
 $red: rgb(233, 23, 23);
 
-.login-container {
+.login-container{
   height: calc(100vh - 70px);
   width: 100%;
-  display: grid;
-  place-items: center;
-  background: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .form-card {
-    min-height: 40vh;
-    background: #fff;
-    padding: 1rem 1.5rem;
-    width: 30%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    > h1 {
-      text-align: center;
-      font-size: 2rem;
-      color: rgb(0, 0, 0, 0.7);
-      margin: 0 0 1rem;
+  >.form-card{
+    height: 70vh;
+    width: 25vw;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    > h1{
+      color: #666;
+      font-weight: 400;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
-    > form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      > input {
-        letter-spacing: 1px;
-        width: 100%;
-        padding: 0.35rem 0.85rem;
-        font-size: 1rem;
-        font-weight: bold;
-        border: 1px solid gray;
-        color: gray;
-        border-radius: 5px;
-        outline: none;
-      }
 
-      > .password-input {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        border: 1px solid gray;
-        border-radius: 5px;
-        overflow: hidden;
-        > input {
-          flex: 1;
-          letter-spacing: 1px;
-          padding: 0.35rem 0.85rem;
-          font-size: 1rem;
-          font-weight: bold;
-          border: none;
-          outline: none;
-        }
-        > button {
-          padding: 0.5rem 1rem;
-          background: $red;
-          color: #fff;
-          border: none;
-          outline: none;
-        }
-      }
-
-      > .login-btn {
-        padding: 0.35rem 1rem;
-        background: $red;
-        color: white;
-        border-radius: 5px;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        margin-top: 1rem;
-        &:hover {
-          opacity: 0.8;
-        }
-      }
-
-      > a {
-        color: gray;
-        font-size: 1rem;
-        &:hover {
-          color: black;
-        }
-      }
-
-      > .firebase-options {
-        display: flex;
+    > .login-form{
+        display: flex;       
         flex-direction: column;
-        align-items: center;
-        > button {
+        gap: 1rem;
+        width: 80%;
+
+        >div{
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          >label{
+            font-size: 1rem;
+            font-weight: 400;
+            color: #666;
+          }
+
+          >select,input{
+            width: 100%;
+            padding: 0.5rem 1rem;
+          }
+        }
+
+        >.login-btn{
+          border: none;
+          outline: none;
+          background: rgb(26,95,240);
+          padding: 0.5rem 1rem;
+          color: white;
           display: flex;
           gap: 0.5rem;
-          border: none;
-          opacity: 0.8;
-          background: transparent;
-          outline: none;
-          border-radius: 10px;
-          &:hover {
-            > p {
-              text-decoration: underline;
-            }
+          justify-content: center;
+          align-items: center;
+          font-weight: 500;
+          cursor: pointer;
+          margin-top: 1rem;
+          &:hover{
+            opacity: 0.8;
           }
-          > p {
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: rgb(0, 0, 0, 0.9);
-            font-weight: bold;
-          }
-          > svg {
-            font-size: 1.5rem;
+          >svg{
+            background: white;
+            font-size: 1.7rem;
           }
         }
-      }
     }
   }
+
 }
