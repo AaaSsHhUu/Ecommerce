@@ -1,0 +1,93 @@
+footer{
+    width: 100%;
+    min-height: 30vh;
+    background: #333;
+
+    > .main{
+        display: flex;
+        // align-items: center;
+        justify-content: space-around;
+        padding: 2rem; 
+        
+        > .left{
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            .logo{
+                display: flex;
+                align-items: center;
+                color: rgb(193,23,23);
+
+                > svg{
+                    font-size: 2.7rem;
+                }
+            }   
+
+            > .description{
+                font-size: 1rem;
+                color: #ccc;
+                margin-left: 1rem;
+                margin: 1rem auto;
+            }
+            > .contact-info{
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                > li{
+                    list-style: none;
+                    color: #ccc;
+                }
+            }
+        }
+        .right{
+            width: 60%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-evenly;
+            margin-top: 3rem;
+            > .footer-links{
+                color: #ccc;
+                > h1{
+                    color: #ccc;
+                    font-size: 1.4rem;
+                }
+                > ul{
+                    list-style: none;
+
+                    > li > a{
+                        color: #ccc;
+                    }
+                }
+            }
+        }
+    }
+
+    .mini{
+        width: 100%;
+        background: #666;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 5%;
+        > .footer-copyright{
+            margin: 0;
+            color: #eee;
+            font-size: 1rem;
+        }
+
+        >.social-links{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            > a{
+                color: white;
+                opacity: 0.8;
+                font-size: 1.1rem;
+                &:hover{
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
