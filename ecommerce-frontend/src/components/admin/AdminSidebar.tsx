@@ -5,17 +5,17 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import { RiDashboardFill, RiFileTextFill, RiMoneyRupeeCircleFill, RiShoppingBag3Fill } from "react-icons/ri";
 import { Link, Location, useLocation } from "react-router-dom";
 
-const AdminSidebar = () => {
+function AdminSidebar() {
 
-  const location = useLocation(); // for accessing pathname
-
+  
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isPhoneActive, setIsPhoneActive] = useState<boolean>(window.innerWidth < 1060 )
-
+  
   const resizeHandler = () => {
-      setIsPhoneActive(window.innerWidth < 1060);
+    setIsPhoneActive(window.innerWidth < 1060);
   }
-
+  
+  const location = useLocation(); // for accessing pathname
   useEffect(() => {
     window.addEventListener("resize",resizeHandler);
 
