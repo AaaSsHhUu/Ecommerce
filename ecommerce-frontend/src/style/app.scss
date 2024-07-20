@@ -6,6 +6,7 @@
 @import "./shipping";
 @import "./search";
 @import "./footer";
+@import "./header";
 
 // Admin Styles
 @import "./admin_styles/dashboard";
@@ -43,122 +44,6 @@ $color1: white;
 $color2: rgb(46, 46, 46);
 $color3: rgb(233, 23, 23);
 
-.header-container {
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  background: $color1;
-  .header {
-    @include flex(row, space-between, center, 1.2rem);
-    padding: 1rem 4%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.125);
-    z-index: 100;
-
-    .logo{
-        display: flex;
-        gap: 5px;
-        color: rgb(233,23,23);
-        > svg{
-          font-size: 2rem;
-        }
-        > h1{
-          font-size: 1.75rem;
-        }
-    }
-
-    > .nav-links {
-      @include flex(row, unset, center, 2rem);
-      > a {
-        @include flex(row, unset, center, 5px);
-        color: $color2;
-        letter-spacing: 2px;
-        font-size: 1rem;
-        position: relative;
-        text-decoration: none;
-        &::after {
-          content: "";
-          position: absolute;
-          height: 2px;
-          background: $color3;
-          width: 0;
-          left: 0;
-          bottom: -5px;
-          transition: all 0.3s;
-        }
-        &:hover {
-          color: $color3;
-        }
-        &:hover::after {
-          width: 100%;
-        }
-      }
-
-      > .profile {
-        width: 5rem;
-        position: relative;
-        z-index: 10;
-
-        > button {
-          @include flex(row, space-between, center, 5px);
-          background: transparent;
-          outline: none;
-          border: none;
-          &:hover {
-            color: $color3;
-          }
-        }
-
-        > dialog {
-          position: absolute;
-          left: -40px;
-          top: 45px;
-          min-width: 160px;
-          min-height: 10rem;
-          border: none;
-          outline: none;
-          border-radius: 10px;
-          box-shadow: 5px 5px 0 rgba(225, 0, 0, 1);
-          z-index: inherit;
-
-          > div {
-            padding-top: 1rem;
-            @include flex(column, flex-end, center, 1rem);
-
-            a {
-              color: black;
-            }
-
-            > button {
-              background: $color3;
-              border: none;
-              outline: none;
-              border-radius: 10px;
-              padding: 5px 10px;
-              color: $color1;
-            }
-          }
-        }
-      }
-
-      > .signup-btn {
-        padding: 0.35rem 1rem;
-        color: white;
-        background: rgb(233, 23, 23);
-        border: none;
-        outline: none;
-        display: flex;
-        gap: 5px;
-        font-size: 1rem;
-        cursor: pointer;
-        align-items: center;
-        &:hover{
-          opacity: 0.7;
-        }
-      }
-    }
-  }
-}
 
 .admin-container {
   @include grid(1fr 4fr, 2rem);
