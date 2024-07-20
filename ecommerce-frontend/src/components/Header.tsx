@@ -2,10 +2,13 @@ import { useState } from "react";
 import { FaHome, FaSearch, FaShoppingBag, FaSignInAlt, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { IoLogoBitbucket } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { User } from "../types/types";
 
-const Header = () => {
-    const users = { _id: "", role: "admin" }
+interface PropsType{
+    user : User | null;
+}
 
+const Header = ({user} : PropsType) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const logoutHandler = () => {
         setIsDialogOpen(false);
@@ -29,7 +32,7 @@ const Header = () => {
                         <FaShoppingBag />Cart
                     </Link>
                     {
-                        users?._id ?  // means user is logged in
+                        user?._id ?  // means user is logged in
                             (
                                 <div className="profile">
                                     <button onClick={() => setIsDialogOpen(prev => !prev)}>
@@ -38,7 +41,7 @@ const Header = () => {
                                     <dialog open={isDialogOpen} style={{ display: isDialogOpen ? "block" : "none" }}>
                                         <div>
                                             {
-                                                users?.role === "admin" && (
+                                                user?.role === "admin" && (
                                                     <Link to={"/admin/dashboard"} onClick={() => setIsDialogOpen(false)}>Admin</Link>
                                                 )
                                             }
