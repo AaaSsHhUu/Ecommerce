@@ -7,18 +7,21 @@ import { asyncHandler } from "../middleware/error.js";
 export const createUser = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         const userBody = req.body;
-    
-        // Zod validation check
+        
+        const userExist = await User.findById(userBody._id);
+
+        if(userExist){ //Login will happen via firebase
+            return res.status(200).json({
+                success : true,
+                message : `Welcome ${userExist.name}`
+            })
+        }
+
+         // Zod validation check
         const {success} = userValidation.safeParse(userBody);
             
         if(!success){
             throw new ErrorHandler("Provide Valid Inputs",400);
-        }
-    
-        const userExist = await User.findOne({email : userBody.email});
-
-        if(userExist){
-            throw new ErrorHandler("User with this email already exist",400);
         }
 
         const user = await User.create(userBody);
@@ -31,7 +34,7 @@ export const createUser = asyncHandler(
         res.cookie("token",token,{
             httpOnly : true,
             secure : process.env.NODE_ENV === "production",
-            maxAge : 1 * 24 * 60 ^ 60 * 1000
+            maxAge : 1 * 24 * 60 * 60 * 1000
         })
         return res.status(201).json({
             success : true,
