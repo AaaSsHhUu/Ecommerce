@@ -1,65 +1,83 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { ChangeEvent, useState, MouseEvent } from "react";
+import { useState, MouseEvent } from "react";
 import toast from "react-hot-toast";
 import { auth } from "../firebase";
-import { LoginInfo } from "../types/types";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { useLoginMutation } from "../redux/api/userApi";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { MessageResponse } from "../types/api-types-";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [loginInfo, setLoginInfo] = useState<LoginInfo>({
-        email: "",
-        password: ""
-    })
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value })
-    }
-
-    const handleGoogleAuth = async () => {
+    const [gender, setGender] = useState("");
+    const [date, setDate] = useState("");
+    
+    const [login] = useLoginMutation();
+    const navigate = useNavigate();
+    const firebaseLoginHandler = async (e: MouseEvent) => {
+        e.preventDefault();
         try {
             const provider = new GoogleAuthProvider();
-            const user = await signInWithPopup(auth, provider)
+            const {user} = await signInWithPopup(auth, provider)
             console.log("user : ", user);
+
+            console.log({
+                name : user.displayName!,
+                email : user.email!,
+                photo : user.photoURL!,
+                gender,
+                role : "user",
+                dob : date,
+                _id : user.uid,
+            })
+            
+            const res = await login({
+                name : user.displayName!,
+                email : user.email!,
+                photo : user.photoURL!,
+                gender,
+                role : "user",
+                dob : date,
+                _id : user.uid,
+            })
+
+            if("data" in res){
+                toast.success(res.data?.message!);
+                navigate("/");
+            }else{
+                const error = res.error as FetchBaseQueryError;
+                const message = (error.data as MessageResponse).message;
+                toast.error(message);
+            }
+            console.log("res : ", res);
+            
 
         } catch (error) {
             toast.error("Login Failed, Try Again")
         }
     }
 
-  const handleShowPassword = (e: MouseEvent) => {
-    e.preventDefault();
-    setShowPassword(!showPassword);
-  }
-
     return (
         <div className="login-container">
             <div className="form-card">
                 <h1>Login</h1>
                 <form className="login-form">
-                    {/* Email */}
-                    <input type="email" id="email" placeholder="Enter your email" />
-
-                    {/* Password */}
-                    <div className="password-input" tabIndex={0}>
-                        <input type={showPassword ? "text" : "password"} id="password" placeholder="Enter your password" />
-                        <button onClick={handleShowPassword}>
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
-                        </button>
+                    <div>
+                        <label htmlFor="gender">Gender</label>
+                        <select name="gender" id="gender" value={gender} onChange={(e) => setGender(e.target.value)} >
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
                     </div>
-
-                    <button className="login-btn" type="submit">Login</button>
-                    <Link to={"/signup"}>Do not have an account ? Signup</Link>
-
-                    <div className="firebase-options">
-                        <button>
-                            <FcGoogle />
-                            <p>Login with Google</p>
-                        </button>
+                    <div>
+                        <label htmlFor="dob">Date of birth</label>
+                        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                     </div>
+                    <button className="login-btn" onClick={firebaseLoginHandler}>
+                        <FcGoogle />
+                        Login using Google
+                    </button>
                 </form>
             </div>
         </div>
