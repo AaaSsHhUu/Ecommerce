@@ -1,4 +1,4 @@
-import { User } from "./types";
+import { Product, User } from "./types";
 
 export interface MessageResponse{
     success : boolean;
@@ -8,4 +8,9 @@ export interface MessageResponse{
 export type AxiosGetUserResponse = {
     success : boolean;
     user : User;
+}
+
+export type ProductsResponse = {
+    success : boolean;
+    products : Product[];
 }
