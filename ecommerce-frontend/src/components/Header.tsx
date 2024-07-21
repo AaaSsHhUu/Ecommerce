@@ -50,7 +50,9 @@ const Header = ({user} : PropsType) => {
                     {showMenu ?   <AiOutlineClose /> : <RiMenu3Fill />}
                 </button>}
 
-                <div className="nav-links" style={{display : showMenu ? "flex" : "none"}}>
+                <div className="nav-links" style={{display : isPhoneActive ? (
+                    showMenu ? "flex" : "none"
+                ) : ""}}>
                     <Link to={"/"} onClick={() => setIsDialogOpen(false)}>
                         <FaHome size={"1.3rem"} />Home
                     </Link>
