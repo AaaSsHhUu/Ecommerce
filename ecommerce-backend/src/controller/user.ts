@@ -11,6 +11,15 @@ export const createUser = asyncHandler(
         const userExist = await User.findById(userBody._id);
 
         if(userExist){ //Login will happen via firebase
+            const token = await userExist.generateToken();
+            // console.log("login token : ", token);
+
+            res.cookie("token", token, {
+                httpOnly : true,
+                secure : process.env.NODE_ENV === "production",
+                maxAge : 1 * 24 * 60 * 60 * 1000
+            });
+            
             return res.status(200).json({
                 success : true,
                 message : `Welcome ${userExist.name}`
@@ -30,7 +39,9 @@ export const createUser = asyncHandler(
         }
 
         // generating token and sending it in cookies
-        const token = user.generateToken();
+        const token = await user.generateToken();
+        // console.log("signup token : ", token);
+        
         res.cookie("token",token,{
             httpOnly : true,
             secure : process.env.NODE_ENV === "production",
