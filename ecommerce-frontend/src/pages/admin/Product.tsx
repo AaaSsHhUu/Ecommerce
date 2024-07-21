@@ -1,9 +1,13 @@
-import { ReactElement, useState,useCallback } from "react";
+import { ReactElement, useState,useCallback, useEffect } from "react";
 import { AdminSidebar } from "../../components"
 import TableHOC from "../../components/admin/TableHOC";
 import { Column } from "react-table";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
+import { useAllProductsQuery } from "../../redux/api/productApi";
+import { server } from "../../redux/store";
+import toast from "react-hot-toast";
+import { CustomError } from "../../types/api-types-";
 
 interface DataType{
   photo : ReactElement;
@@ -102,9 +106,32 @@ const arr : DataType[] = [
 
 const Product = () => {
 
-  const [data] = useState<DataType[]>(arr);
+  const [rows, setRows] = useState<DataType[]>(arr);
+
+  const {data, isLoading, isError, error} = useAllProductsQuery("");
+
+  if(error){
+      toast.error((error as CustomError).data.message);
+  }
+
+  useEffect(() => {
+    if(data){
+      setRows(data.products.map(i => ({
+        photo : <img src={`${server}/${i.photo}`} />,
+        name : i.name,
+        price : i.price,
+        stock : i.stock,
+        action : <Link to={`/admin/product/${i._id}`}>Manage</Link>
+      })))
+    }
+  },[data])
+
+  if(data){
+      
+  }
+
   const Table = useCallback(
-    TableHOC<DataType>(columns,data,"dashboard-product-box","Products",data.length>6)
+    TableHOC<DataType>(columns,rows,"dashboard-product-box","Products",rows.length>6)
   ,[])
 
   return (
