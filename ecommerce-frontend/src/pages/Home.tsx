@@ -1,53 +1,54 @@
 import { Link } from "react-router-dom"
-import { ProductCard } from "../components"
+import { Carousel, ProductCard, Skeleton } from "../components"
+import { useLatestProductsQuery } from "../redux/api/productApi"
+import toast from "react-hot-toast";
 
 const Home = () => {
+
+  const {data, isLoading, isError} = useLatestProductsQuery("");
 
   const addToCartHandler = () => {
     console.log("Add to cart");
   }
 
+  if(isError){
+      toast.error("Cannot Fetch Products");
+  }
+
   return (
     <div className="home">
         <section>
-          <div>
-            <h1>Buy Quality Products</h1>
-            <p>From anywhere to anyone</p>
-          </div>
+          <Carousel />
         </section>
+
+        {/* Sidebar  */}
         
-        <h1>Latest Product
+        
+        <div className="title">
+          <p>Latest Product</p>
           <Link to={"/search"} className="findmore" >
             More
           </Link>
-        </h1>
+        </div>
 
         <main>
-            <ProductCard 
-              productId="product-1" 
-              name="Macbook Air" 
-              price={113423} 
-              photo="https://m.media-amazon.com/images/I/71O14N5GYLL._AC_UY218_.jpg" 
-              handler={addToCartHandler}
-              stock={10}
-            />
-            <ProductCard 
-              productId="product-2" 
-              name="Shoes" 
-              price={1423} 
-              photo="https://m.media-amazon.com/images/I/61Ps2D+ktAL._AC_UL320_.jpg" 
-              handler={addToCartHandler}
-              stock={10}
-            />
-            <ProductCard 
-              productId="product-3" 
-              name="Suits" 
-              price={5423} 
-              photo="https://m.media-amazon.com/images/I/61ivByMZpyL._AC_UY218_.jpg" 
-              handler={addToCartHandler}
-              stock={10}
-            />
+          {
+            isLoading ? <Skeleton /> : 
+            data?.products.map((product) => 
+                <ProductCard 
+                  key={product._id}
+                  productId={product._id}
+                  name={product.name}
+                  price={product.price}
+                  stock={product.stock}
+                  handler={addToCartHandler}
+                  photo={product.photo}
+                />
+            )
+          }
         </main>
+
+
     </div>
   )
 }
