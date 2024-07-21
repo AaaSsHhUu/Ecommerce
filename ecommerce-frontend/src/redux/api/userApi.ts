@@ -5,7 +5,10 @@ import axios from "axios";
 
 export const userAPI = createApi({
     reducerPath : "userApi",
-    baseQuery : fetchBaseQuery({baseUrl : `${import.meta.env.VITE_SERVER}/api/v1/user`}),
+    baseQuery : fetchBaseQuery({
+        baseUrl : `${import.meta.env.VITE_SERVER}/api/v1/user`,
+        credentials : "include"
+    }),
     endpoints : (builder) => ({
         // /api/v1/user/signup
         login : builder.mutation<MessageResponse, User>({ // < Response, Query >

@@ -5,15 +5,24 @@ export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product`,
+    credentials : "include"
   }),
   endpoints: (builder) => ({
     latestProducts: builder.query<ProductsResponse, string>({
       query: () => "/latest",
     }),
+
+    allProducts: builder.query<ProductsResponse, string>({
+      query: () => "/admin-products",
+    }),
+
+    categories: builder.query({
+      query: () => "/categories",
+    }),
   }),
 });
 
-export const { useLatestProductsQuery } = productApi;
+export const { useLatestProductsQuery, useAllProductsQuery, useCategoriesQuery } = productApi;
 
 /*
   # For queries, you usually destructure the result like this:
