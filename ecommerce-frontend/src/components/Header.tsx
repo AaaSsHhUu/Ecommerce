@@ -1,18 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHome, FaSearch, FaShoppingBag, FaSignInAlt, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { IoLogoBitbucket } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { User } from "../types/types";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import toast from "react-hot-toast";
+import { RiMenu3Fill } from "react-icons/ri";
+import { AiOutlineClose } from "react-icons/ai";
 
 interface PropsType{
     user : User | null;
 }
 
 const Header = ({user} : PropsType) => {
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const logoutHandler = () => {
-        setIsDialogOpen(false);
+    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+    const [showMenu, setShowMenu] = useState<boolean>(false);
+    const [isPhoneActive, setIsPhoneActive] = useState<boolean>(window.innerWidth < 1024);
+
+    const logoutHandler = async () => {
+        try {
+            await signOut(auth);
+            toast.success("Signed Out Successfully");
+        } catch (error) {
+            toast.error("Sign out Failed");
+        }
     }
+
+    const resizeHandler = () => {
+        setIsPhoneActive(window.innerWidth < 1024);
+    }
+    useEffect(() => {
+        window.addEventListener("resize", resizeHandler);
+
+        return () => {
+            window.removeEventListener("resize", resizeHandler);
+        }
+    },[])
 
     return (
         <div className="header-container">
@@ -21,11 +45,19 @@ const Header = ({user} : PropsType) => {
                     <IoLogoBitbucket />
                     <h1>BuyBucket</h1>
                 </Link>
-                <div className="nav-links">
+
+                {isPhoneActive && <button className="nav-btn" onClick={() => setShowMenu(prev => !prev)} >
+                    {showMenu ?   <AiOutlineClose /> : <RiMenu3Fill />}
+                </button>}
+
+                <div className="nav-links" style={{display : showMenu ? "flex" : "none"}}>
                     <Link to={"/"} onClick={() => setIsDialogOpen(false)}>
                         <FaHome size={"1.3rem"} />Home
                     </Link>
-                    <Link to={"/search"} onClick={() => setIsDialogOpen(false)}>
+                    <Link 
+                      to={"/search"} 
+                      onClick={() => setIsDialogOpen(false)}
+                    >
                         <FaSearch />Search
                     </Link>
                     <Link to={"/cart"} onClick={() => setIsDialogOpen(false)}>

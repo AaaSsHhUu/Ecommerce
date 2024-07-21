@@ -2,6 +2,13 @@ $color1: white;
 $color2: rgb(46, 46, 46);
 $color3: rgb(233, 23, 23);
 
+.red{
+    color: $color3;
+}
+.black{
+    color: $color2;
+}
+
 .header-container {
   position: sticky;
   top: 0;
@@ -118,4 +125,40 @@ $color3: rgb(233, 23, 23);
       }
     }
   }
+}
+
+@media screen and (width < 1024px){
+    .header-container > .header{
+        flex-direction: column;
+        > .logo{
+            > svg{
+                font-size: 3rem;
+            }
+            > h1{
+                font-size: 2.5rem;
+            }
+        }
+        > .nav-links{
+            flex-direction: column;
+            
+            > a{
+                font-size: 1.5rem;
+            }
+
+            >.profile > button{
+                font-size: 1.5rem;
+            }
+        }
+
+        >.nav-btn{
+            border: none;
+            outline: none;
+            font-size: 2rem;
+            color: $color3;
+            background: transparent;
+            position: absolute;
+            right: 2rem;
+            top: 1rem;
+        }
+    }
 }
