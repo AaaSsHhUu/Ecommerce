@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Carousel, ProductCard, Skeleton } from "../components"
+import { Carousel, ProductCard, ProductSkeleton } from "../components"
 import { useLatestProductsQuery } from "../redux/api/productApi"
 import toast from "react-hot-toast";
 
@@ -33,7 +33,17 @@ const Home = () => {
 
         <main>
           {
-            isLoading ? <Skeleton /> : 
+            isLoading ? 
+            <>
+              <ProductSkeleton />
+              <ProductSkeleton />
+              <ProductSkeleton />
+              <ProductSkeleton />
+              <ProductSkeleton />
+              <ProductSkeleton />
+              <ProductSkeleton />
+            </> 
+            : 
             data?.products.map((product) => 
                 <ProductCard 
                   key={product._id}
