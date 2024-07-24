@@ -15,6 +15,11 @@ export type ProductsResponse = {
     products : Product[];
 }
 
+export type CategoryResponse = {
+    success : boolean;
+    products : string[];
+}
+
 export type CustomError = {
     status : number;
     data : {
