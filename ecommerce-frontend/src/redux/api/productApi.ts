@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ProductsResponse } from "../../types/api-types-";
+import { CategoryResponse, ProductsResponse } from "../../types/api-types-";
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -16,7 +16,7 @@ export const productApi = createApi({
       query: () => "/admin-products",
     }),
 
-    categories: builder.query({
+    categories: builder.query<CategoryResponse, string>({
       query: () => "/categories",
     }),
   }),
