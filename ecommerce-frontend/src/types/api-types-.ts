@@ -17,7 +17,19 @@ export type ProductsResponse = {
 
 export type CategoryResponse = {
     success : boolean;
-    products : string[];
+    categories : string[];
+}
+
+export type SearchProductsResponse = ProductsResponse & {
+    totalPages : number;
+}
+
+export type SearchProductsQuery = {
+    price ?: number;
+    page ?: number;
+    category ?: string;
+    search ?: string;
+    sort ?: string;
 }
 
 export type CustomError = {
