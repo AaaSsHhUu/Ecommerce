@@ -15,7 +15,7 @@ router.get("/latest", getLatestProducts);
 router.get("/categories", getAllCategories);
 
 // To get all products with filter
-router.get("/search", getAllProducts);
+router.get("/all", getAllProducts);
 
 // To get all products for admin
 router.get("/admin-products",isAuthenticated, isAdmin, getAdminProducts )
