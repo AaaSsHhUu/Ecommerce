@@ -1,5 +1,5 @@
 import { ReactElement, useState,useCallback, useEffect } from "react";
-import { AdminSidebar } from "../../components"
+import { AdminSidebar, TableSkeleton } from "../../components"
 import TableHOC from "../../components/admin/TableHOC";
 import { Column } from "react-table";
 import { Link } from "react-router-dom";
@@ -110,8 +110,12 @@ const Product = () => {
 
   const {data, isLoading, isError, error} = useAllProductsQuery("");
 
-  if(error){
+  if(isError){
       toast.error((error as CustomError).data.message);
+  }
+
+  if(isLoading){
+      <TableSkeleton />
   }
 
   useEffect(() => {

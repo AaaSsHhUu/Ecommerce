@@ -6,16 +6,15 @@ import { RiDashboardFill, RiFileTextFill, RiMoneyRupeeCircleFill, RiShoppingBag3
 import { Link, Location, useLocation } from "react-router-dom";
 
 function AdminSidebar() {
-
-  
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isPhoneActive, setIsPhoneActive] = useState<boolean>(window.innerWidth < 1060 )
+  
+  const location = useLocation(); // for accessing pathname
   
   const resizeHandler = () => {
     setIsPhoneActive(window.innerWidth < 1060);
   }
-  
-  const location = useLocation(); // for accessing pathname
+
   useEffect(() => {
     window.addEventListener("resize",resizeHandler);
 
@@ -26,7 +25,6 @@ function AdminSidebar() {
 
   return (
     <>
-
       {isPhoneActive && <button id="hamburger" onClick={() => setShowModal(true)}>
         <HiMenuAlt4 />  
       </button>}

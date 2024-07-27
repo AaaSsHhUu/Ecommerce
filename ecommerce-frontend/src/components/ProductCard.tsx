@@ -24,9 +24,6 @@ const ProductCard = ({productId,name,price,photo,stock,handler} : ProductCardPro
     <Link to={"/"} className="product-card">
         <img src={photo} alt={name} />
 
-        {/* Add to cart button */}
-        <div className="cart-btn" onClick={handleAddToCart} ><FaPlus /></div>
-
         <div className="product-details">
             <div className="description">
                 <h3 className="product-name">
@@ -35,6 +32,7 @@ const ProductCard = ({productId,name,price,photo,stock,handler} : ProductCardPro
                 <h2 className="product-price">₹{price.toLocaleString("en-IN")}</h2>
             </div>
             <button className="buy-btn" onClick={handleBuyProduct}>Buy now</button>
+            <button className="cart-btn" onClick={handleAddToCart}>Add to Cart</button>
         </div>
     </Link>
   )

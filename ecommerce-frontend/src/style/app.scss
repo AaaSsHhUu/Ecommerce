@@ -44,6 +44,10 @@ $color1: white;
 $color2: rgb(46, 46, 46);
 $color3: rgb(233, 23, 23);
 
+$red : #DF2935;
+$blue : #3772FF;
+$yellow : #FDCA40;
+$gray : #E6E8E6;
 
 .admin-container {
   @include grid(1fr 4fr, 2rem);
@@ -53,7 +57,7 @@ $color3: rgb(233, 23, 23);
     width: 100%;
     padding: 1rem;
     background: #fff;
-    z-index: 10;
+    z-index: 105;
     overflow-y: auto;
     &::-webkit-scrollbar {
       display: none;
@@ -132,7 +136,7 @@ $color3: rgb(233, 23, 23);
         outline: none;
         background-color: transparent;
         cursor: pointer;
-        color: rgb(255, 44, 44);
+        color: $red;
         &:hover {
           opacity: 0.6;
         }
@@ -214,7 +218,7 @@ $color3: rgb(233, 23, 23);
   left: 1rem;
   background: #fff;
   border-radius: 50%;
-  z-index: 9;
+  z-index: 105;
 }
 
 #close-sidebar-btn {
@@ -244,8 +248,35 @@ $color3: rgb(233, 23, 23);
   }
 }
 
+.skeleton-loader{
+    display: flex;
+    flex-direction: column;
+
+    >.skeleton-shape{
+        height: 30px;
+        width: 100%;
+        background-color: #ddd;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        animation: skeleton-loading 2s linear infinite;
+    }
+}
+
+
 @keyframes spin {
   to {
     transform: rotateZ(360deg);
   }
+}
+
+@keyframes skeleton-loading{
+    0%{
+        opacity: 0.6;
+    }
+    50%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 0.6;
+    }
 }

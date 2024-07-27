@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CategoryResponse, ProductsResponse } from "../../types/api-types-";
+import { CategoryResponse, ProductsResponse, SearchProductsQuery, SearchProductsResponse } from "../../types/api-types-";
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -8,21 +8,33 @@ export const productApi = createApi({
     credentials : "include"
   }),
   endpoints: (builder) => ({
-    latestProducts: builder.query<ProductsResponse, string>({
+    latestProducts : builder.query<ProductsResponse, string>({
       query: () => "/latest",
     }),
 
-    allProducts: builder.query<ProductsResponse, string>({
+    allProducts : builder.query<ProductsResponse, string>({
       query: () => "/admin-products",
     }),
 
-    categories: builder.query<CategoryResponse, string>({
+    categories : builder.query<CategoryResponse, string>({
       query: () => "/categories",
     }),
+
+    searchProducts : builder.query<SearchProductsResponse, SearchProductsQuery>({
+        query : ({search, price, page, category, sort}) => {
+            let baseQuery = `/all?search=${search}&page=${page}`;
+            
+            if(price) baseQuery += `&price=${price}`;
+            if(category) baseQuery += `&category=${category}`;
+            if(sort) baseQuery += `&sort=${sort}`;
+
+            return baseQuery;
+        }
+    })
   }),
 });
 
-export const { useLatestProductsQuery, useAllProductsQuery, useCategoriesQuery } = productApi;
+export const { useLatestProductsQuery, useAllProductsQuery, useCategoriesQuery, useSearchProductsQuery } = productApi;
 
 /*
   # For queries, you usually destructure the result like this:

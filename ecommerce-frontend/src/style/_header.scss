@@ -1,20 +1,16 @@
-$color1: white;
-$color2: rgb(46, 46, 46);
-$color3: rgb(233, 23, 23);
-
-.red{
-    color: $color3;
-}
-.black{
-    color: $color2;
-}
+$red : #DF2935;
+$blue : #3772FF;
+$yellow : #FDCA40;
+$gray : #E6E8E6;
+$white : #fff;
+$black : #161515;
 
 .header-container {
   position: sticky;
   top: 0;
   left: 0;
   z-index: 100;
-  background: $color1;
+  background: $white;
   .header {
     @include flex(row, space-between, center, 1.2rem);
     padding: 1rem 4%;
@@ -38,7 +34,7 @@ $color3: rgb(233, 23, 23);
       @include flex(row, unset, center, 2rem);
       > a {
         @include flex(row, unset, center, 5px);
-        color: $color2;
+        color: $black;
         letter-spacing: 2px;
         font-size: 1rem;
         position: relative;
@@ -47,14 +43,14 @@ $color3: rgb(233, 23, 23);
           content: "";
           position: absolute;
           height: 2px;
-          background: $color3;
+          background: $red;
           width: 0;
           left: 0;
           bottom: -5px;
           transition: all 0.3s;
         }
         &:hover {
-          color: $color3;
+          color: $red;
         }
         &:hover::after {
           width: 100%;
@@ -72,7 +68,7 @@ $color3: rgb(233, 23, 23);
           outline: none;
           border: none;
           &:hover {
-            color: $color3;
+            color: $red;
           }
         }
 
@@ -85,7 +81,7 @@ $color3: rgb(233, 23, 23);
           border: none;
           outline: none;
           border-radius: 10px;
-          box-shadow: 5px 5px 0 rgba(225, 0, 0, 1);
+          box-shadow: 5px 5px 0 $red;
           z-index: inherit;
 
           > div {
@@ -97,12 +93,15 @@ $color3: rgb(233, 23, 23);
             }
 
             > button {
-              background: $color3;
+              display: flex;
+              gap: 5px;
+              align-items: center;
+              background: $red;
               border: none;
               outline: none;
               border-radius: 10px;
               padding: 5px 10px;
-              color: $color1;
+              color: $white;
             }
           }
         }
@@ -111,7 +110,7 @@ $color3: rgb(233, 23, 23);
       > .signup-btn {
         padding: 0.35rem 1rem;
         color: white;
-        background: rgb(233, 23, 23);
+        background: $red;
         border: none;
         outline: none;
         display: flex;
@@ -154,7 +153,7 @@ $color3: rgb(233, 23, 23);
             border: none;
             outline: none;
             font-size: 2rem;
-            color: $color3;
+            color: $red;
             background: transparent;
             position: absolute;
             right: 2rem;

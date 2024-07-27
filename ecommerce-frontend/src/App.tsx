@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense, useEffect } from "react";
 import { BarCharts, Cart, Customer, Dashboard, Home, LineCharts, Login, NewProduct, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions } from "./pages";
-import { Header, Loader, ProtectedRoute } from "./components";
+import { Header, Loader, ProductSkeleton, ProtectedRoute, TableSkeleton } from "./components";
 import { Toaster } from "react-hot-toast";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
@@ -40,6 +40,7 @@ function App() {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/skeleton" element={<TableSkeleton />} />
           <Route path="/search" element={<Search />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={
@@ -59,19 +60,17 @@ function App() {
               <Route path="/admin/product" element={<Product />} />
               <Route path="/admin/transaction" element={<Transactions />} />
               <Route path="/admin/customer" element={<Customer />} />
-          </Route>
 
-          {/* Charts */}
-          <Route path="/admin/chart/bar" element={<BarCharts />} />
-          <Route path="/admin/chart/pie" element={<PieCharts />} />
-          <Route path="/admin/chart/line" element={<LineCharts />} />
+              {/* Charts */}
+              <Route path="/admin/chart/bar" element={<BarCharts />} />
+              <Route path="/admin/chart/pie" element={<PieCharts />} />
+              <Route path="/admin/chart/line" element={<LineCharts />} />
 
-          {/* Apps */}
-
-          {/* Managment */}
-          <Route path="/admin/product/new" element={<NewProduct />} />
-          <Route path="/admin/product/:id" element={<ProductManagment />} />
-          <Route path="/admin/transaction/:id" element={<TransactionManagment />} />
+              {/* Managment */}
+              <Route path="/admin/product/new" element={<NewProduct />} />
+              <Route path="/admin/product/:id" element={<ProductManagment />} />
+              <Route path="/admin/transaction/:id" element={<TransactionManagment />} />
+           </Route>
 
         </Routes>
       </Suspense>

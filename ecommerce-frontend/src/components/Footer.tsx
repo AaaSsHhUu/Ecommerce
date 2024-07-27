@@ -58,8 +58,8 @@ const FooterLinks = ({linkArr, title} : {linkArr : string[], title : string}) =>
         <ul>
             {
               linkArr.length > 0 && 
-              linkArr.map((link) => (
-                <li><Link to="#">{link}</Link></li>
+              linkArr.map((link,idx) => (
+                <li key={idx}><Link to="#">{link}</Link></li>
               ))
             }
         </ul>

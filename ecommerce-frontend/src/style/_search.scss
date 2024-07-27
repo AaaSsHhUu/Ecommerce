@@ -1,12 +1,14 @@
 .search-page {
-  @include flex(row, flex-start, stretch, 2rem);
+  @include flex(row, flex-start, stretch, 1rem);
   min-height: calc(100vh - 6.5vh);
 
   > aside {
-    min-width: 20rem;
+    min-width: 18rem;
     padding: 2rem;
+    background: #eee;
     @include flex(column, flex-start, stretch, 0.5rem);
-    @include baseShadow(5px, 5px, 10px);
+    color: black;
+    // @include baseShadow(5px, 5px, 10px);
     > h2 {
       @include heading;
     }
@@ -39,24 +41,27 @@
   }
 
   > main {
-    padding: 1rem;
+    padding: 1rem 0;
     width: 100%;
     > h1 {
       @include heading(2px);
     }
 
     > input {
+      width: 70%;
       padding: 0.5rem 1rem;
-      border-radius: 5px;
       margin: 1rem;
       font-size: 1.2rem;
       display: block;
       border: none;
       outline: none;
+      &:focus{
+        border-bottom: 2px solid #777
+      }
     }
 
     > .product-container {
-      @include flex(row, flex-start, flex-start);
+      @include flex(row, flex-start, flex-start,1rem);
       flex-wrap: wrap;
       height: calc(100% - 10rem);
       overflow-y: auto;

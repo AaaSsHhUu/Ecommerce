@@ -1,6 +1,7 @@
 $red : rgb(233,23,23);
 $black : rgb(0,0,0,0.7);
 $green : rgb(10, 133, 16);
+
 .home{
     display: flex;
     flex-direction: column;
@@ -124,4 +125,8 @@ $green : rgb(10, 133, 16);
             }
         }
     }
+}
+
+@media screen and (width < 640px){
+
 }

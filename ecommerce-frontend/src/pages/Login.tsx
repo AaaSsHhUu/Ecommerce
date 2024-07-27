@@ -13,13 +13,15 @@ const Login = () => {
     const [date, setDate] = useState("");
     
     const [login] = useLoginMutation();
+    
     const navigate = useNavigate();
+    
     const firebaseLoginHandler = async (e: MouseEvent) => {
         e.preventDefault();
         try {
             const provider = new GoogleAuthProvider();
             const {user} = await signInWithPopup(auth, provider)
-            console.log("user : ", user);
+            // console.log("user : ", user);
 
             console.log({
                 name : user.displayName!,

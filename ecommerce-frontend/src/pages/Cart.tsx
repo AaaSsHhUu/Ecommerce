@@ -30,6 +30,54 @@ const Cart = () => {
       stock : 10,
       quantity : 1     
     },
+    {
+      productId : "abcdefgh",
+      photo : "https://m.media-amazon.com/images/I/71O14N5GYLL._AC_UY218_.jpg",
+      name : "Macbook Air" ,
+      price : 130000,
+      stock : 10,
+      quantity : 1     
+    },
+    {
+      productId : "abcdefgh",
+      photo : "https://m.media-amazon.com/images/I/61Ps2D+ktAL._AC_UL320_.jpg",
+      name : "Macbook Air" ,
+      price : 130000,
+      stock : 10,
+      quantity : 1     
+    },
+    {
+      productId : "abcdefgh",
+      photo : "https://m.media-amazon.com/images/I/61I22cL7v+L._AC_UL320_.jpg",
+      name : "Macbook Air" ,
+      price : 130000,
+      stock : 10,
+      quantity : 1     
+    },
+    {
+      productId : "abcdefgh",
+      photo : "https://m.media-amazon.com/images/I/71O14N5GYLL._AC_UY218_.jpg",
+      name : "Macbook Air" ,
+      price : 130000,
+      stock : 10,
+      quantity : 1     
+    },
+    {
+      productId : "abcdefgh",
+      photo : "https://m.media-amazon.com/images/I/61Ps2D+ktAL._AC_UL320_.jpg",
+      name : "Macbook Air" ,
+      price : 130000,
+      stock : 10,
+      quantity : 1     
+    },
+    {
+      productId : "abcdefgh",
+      photo : "https://m.media-amazon.com/images/I/61I22cL7v+L._AC_UL320_.jpg",
+      name : "Macbook Air" ,
+      price : 130000,
+      stock : 10,
+      quantity : 1     
+    },
   ];
   const tax = Math.abs(subtotal * 0.18);
   const shippingCharges = 200;
