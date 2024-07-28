@@ -1,40 +1,35 @@
-import { useCallback, useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { ProductCard } from "../components";
 import { useCategoriesQuery, useSearchProductsQuery } from "../redux/api/productApi";
 import toast from "react-hot-toast";
 import { CustomError } from "../types/api-types-";
 
+interface FilterProps{
+  search : string;
+  sort : "asc" | "dsc" | "";
+  maxPrice : number;
+  category : string;
+  page : number;
+}
+
 const Search = () => {
 
-  const [search, setSearch] = useState<string>("");
-  const [sort, setSort] = useState<string>("");
-  const [maxPrice, setMaxPrice] = useState<number>(100000);
-  const [category, setCategory] = useState<string>("");
-  const [page, setPage] = useState<number>(1);
-
-  const { data : searchResponse, isLoading : searchLoading } = useSearchProductsQuery({
-    price : maxPrice,
-    page,
-    category,
-    search,
-    sort
+  const [filters, setFilters] = useState<FilterProps>({
+    search : "",
+    sort : "",
+    maxPrice : 100000,
+    category : "",
+    page : 1
   })
 
-  const debounce = function(cb : any,delay = 1000){
-    let timeout : any; 
-    return (...args : any) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-         return cb(args)
-        },delay)
-      }
-  }
 
-  const handleMaxPriceChange = (value : number) => {
-      setMaxPrice(value);
-  }
-
-  const debounceMaxPriceChange = useCallback(debounce(handleMaxPriceChange,500),[])
+  const { data : searchResponse, isLoading : searchLoading } = useSearchProductsQuery({
+    price : filters.maxPrice,
+    page : filters.page,
+    search : filters.search,
+    sort : filters.sort,
+    category : filters.category
+  })
 
   const {
       data : categoriesResponse,
@@ -42,6 +37,15 @@ const Search = () => {
       isError,
       error
   } = useCategoriesQuery("");
+
+
+  const handleFilterChange = (e : ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    const {name, value} = e.target;
+    setFilters({
+      ...filters,
+      [name] : name === "maxPrice" ? Number(value) : value
+    })
+  }
 
   console.log("search res : ", searchResponse);
   console.log("category res : ", categoriesResponse);
@@ -59,8 +63,8 @@ const Search = () => {
         <div>
           <h4>Sort</h4>
           <select name="sort"
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
+            value={filters.sort}
+            onChange={handleFilterChange}
           >
             <option value="">None</option>
             <option value="asc">Price(Low to High)</option>
@@ -69,19 +73,21 @@ const Search = () => {
         </div>
 
         <div>
-          <h4>Max Price : {maxPrice || ""} </h4>
+          <h4>Max Price : {filters.maxPrice || ""} </h4>
           <input type="range"
-            value={maxPrice}
-            onChange={(e) => debounceMaxPriceChange(Number(e.target.value))}
+            value={filters.maxPrice}
+            onChange={handleFilterChange}
             min={100}
             max={100000}
+            step={100}
             name="maxPrice"
           />
         </div>
 
         <div>
           <h4>Category</h4>
-          <select name="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+          <select name="category" value={filters
+            .category} onChange={handleFilterChange}>
             <option value="">All</option>
             {
               categoryLoading === false && categoriesResponse?.categories.map((i) => (
@@ -96,9 +102,9 @@ const Search = () => {
         <h1>Products</h1>
         <input type="text"
           placeholder="Search By Name..."
-          value={search}
+          value={filters.search}
           name="search"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={handleFilterChange}
         />
 
         <div className="product-container">
@@ -117,13 +123,13 @@ const Search = () => {
 
         <article>
           <button
-            onClick={() => setPage(page - 1)}
-            disabled={page === 1}
+            onClick={() => setFilters({...filters, page : filters.page - 1 })}
+            disabled={filters.page === 1}
           >Prev</button>
-          <span>{page} of {searchResponse?.totalPages || 1}</span>
+          <span>{filters.page} of {searchResponse?.totalPages || 1}</span>
           <button
-            onClick={() => setPage(page + 1)}
-            disabled={page === searchResponse?.totalPages}
+            onClick={() => setFilters({...filters, page : filters.page + 1 })}
+            disabled={filters.page === searchResponse?.totalPages}
           >Next</button>
         </article>
       </main>
