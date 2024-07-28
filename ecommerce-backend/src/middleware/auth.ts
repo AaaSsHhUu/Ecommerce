@@ -6,7 +6,7 @@ import { IUser } from "../types/types.js";
 
 export const isAuthenticated = async (req : Request,res : Response,next : NextFunction) => {
         try {
-            const { token } = req.cookies
+            const { token } = req.cookies;
 
             if(!token){
                 throw new ErrorHandler("Authentication token required",401);
@@ -23,7 +23,7 @@ export const isAuthenticated = async (req : Request,res : Response,next : NextFu
             
             return next();
         }catch (error) {
-           return next(new ErrorHandler("some error error in Authentication" + error,400)) ;
+           return next(new ErrorHandler("Authentication Error : " + error,400)) ;
         }
 }
 
