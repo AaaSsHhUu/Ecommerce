@@ -1,35 +1,60 @@
-import { ChangeEvent, FormEvent, useState } from "react"
-import { AdminSidebar } from "../../../components"
-import TextField from '@mui/material/TextField';
+import { ChangeEvent, FormEvent, useState } from "react";
+import { AdminSidebar } from "../../../components";
+import TextField from "@mui/material/TextField";
+import { useNewProductMutation } from "../../../redux/api/productApi";
+import { responseToast } from "../../../utils/features";
+import { useNavigate } from "react-router-dom";
 
 const NewProduct = () => {
+  const [name, setName] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [price, setPrice] = useState<number>();
+  const [stock, setStock] = useState<number>();
+  const [photo, setPhoto] = useState<string>();
 
-  const [name,setName] = useState<string>("");
-  const [price,setPrice] = useState<number>();
-  const [stock,setStock] = useState<number>();
-  const [photo,setPhoto]   = useState<string>();
+  const [newProduct] = useNewProductMutation();
 
-  const changeImageHandler = (e : ChangeEvent<HTMLInputElement>) => {
-    const file : File | undefined = e.target.files?.[0];
+  const navigate = useNavigate();
+
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    if (!name || !price || !stock || !photo || !category) {
+      return;
+    }
+
+    formData.set("name", name);
+    formData.set("category", category);
+    formData.set("price", price?.toString());
+    formData.set("stock", stock?.toString());
+    formData.set("photo", photo);
+
+    console.log("formData : ", formData);
+
+    const res = await newProduct({ formData });
+
+    responseToast(res, navigate, "/admin/product");
+  };
+
+  const changeImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const file: File | undefined = e.target.files?.[0];
     console.log("file : ", file);
-    
+
     const reader: FileReader = new FileReader();
 
-    if(file){
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            if(typeof reader.result === "string"){
-                console.log("reader.result : ", reader.result);
-                
-                setPhoto(reader.result);
-            }
-        }
-    }
-  }
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        if (typeof reader.result === "string") {
+          console.log("reader.result : ", reader.result);
 
-  const submitHandler = (e : FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-  }
+          setPhoto(reader.result);
+        }
+      };
+    }
+  };
 
   return (
     <>
@@ -51,6 +76,18 @@ const NewProduct = () => {
                              sx={{width : "100%"}}
                              type="text"
                              onChange={(e) => setName(e.target.value)}
+                             required
+                            />
+                        </div>
+                        {/* Category */}
+                        <div>
+                            <TextField id="outlined-basic"
+                             label="Category" 
+                             variant="outlined"
+                             value={category}
+                             sx={{width : "100%"}}
+                             type="text"
+                             onChange={(e) => setCategory(e.target.value)}
                              required
                             />
                         </div>
@@ -92,13 +129,13 @@ const NewProduct = () => {
                         {
                           photo && <img src={photo} className="preview-image" alt="Product Image" />
                         }
-                        <button type="submit">Create</button>
+                        <button type="submit" onClick={() => submitHandler}>Create</button>
                     </form>
                 </article>
             </main>
         </div>
     </>
   )
-}
+};
 
-export default NewProduct
+export default NewProduct;
