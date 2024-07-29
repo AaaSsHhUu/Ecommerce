@@ -39,3 +39,7 @@ export type CustomError = {
         message : string;
     }
 }
+
+export type NewProductRequest = {
+    formData : FormData
+}
