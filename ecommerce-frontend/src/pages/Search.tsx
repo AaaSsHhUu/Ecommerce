@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react"
-import { ProductCard } from "../components";
+import { ProductCard, ProductSkeleton } from "../components";
 import { useCategoriesQuery, useSearchProductsQuery } from "../redux/api/productApi";
 import toast from "react-hot-toast";
 import { CustomError } from "../types/api-types-";
@@ -23,7 +23,12 @@ const Search = () => {
   })
 
 
-  const { data : searchResponse, isLoading : searchLoading } = useSearchProductsQuery({
+  const { 
+    data : searchResponse, 
+    isLoading : searchLoading, 
+    isError : productIsError , 
+    error :  productError 
+  } = useSearchProductsQuery({
     price : filters.maxPrice,
     page : filters.page,
     search : filters.search,
@@ -46,9 +51,6 @@ const Search = () => {
       [name] : name === "maxPrice" ? Number(value) : value
     })
   }
-
-  console.log("search res : ", searchResponse);
-  console.log("category res : ", categoriesResponse);
 
   if(isError){
       toast.error((error as CustomError).data.message);
@@ -107,7 +109,17 @@ const Search = () => {
           onChange={handleFilterChange}
         />
 
-        <div className="product-container">
+        {
+          searchLoading ? 
+          <>
+            {
+              Array.from({length : 8}, (_,idx) => {
+                return <ProductSkeleton key={idx}/>
+              })
+            }
+          </>
+          :
+          <div className="product-container">
           {
             searchResponse?.products.map(i => <ProductCard
               key={i._id}
@@ -120,7 +132,9 @@ const Search = () => {
             />)
           }
         </div>
+        }
 
+        {searchResponse && searchResponse?.totalPages > 1 && 
         <article>
           <button
             onClick={() => setFilters({...filters, page : filters.page - 1 })}
@@ -131,7 +145,7 @@ const Search = () => {
             onClick={() => setFilters({...filters, page : filters.page + 1 })}
             disabled={filters.page === searchResponse?.totalPages}
           >Next</button>
-        </article>
+        </article>}
       </main>
     </div>
   )
