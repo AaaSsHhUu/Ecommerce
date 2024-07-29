@@ -40,73 +40,9 @@ const columns : Column<DataType>[] = [
   },
 ]
 
-const img1 = "https://m.media-amazon.com/images/I/71f5Eu5lJSL._AC_UY218_.jpg";
-
-const img2 = "https://m.media-amazon.com/images/I/61ldExf7mbL._AC_UY218_.jpg"
-
-
-const arr : DataType[] = [
-  {
-    photo : <img src={img1} alt="macbook one" />,
-    name : "Macbook One",
-    price : 2399,
-    stock : 3,
-    action : <Link to={"/admin/product/asjodwije"}>Manage</Link>
-  },
-  {
-    photo : <img src={img2} alt="macbook two" />,
-    name : "Macbook Two",
-    price : 2599,
-    stock : 7,
-    action : <Link to={"/admin/product/asjodwwiuije"}>Manage</Link>
-  },
-  {
-    photo : <img src={img1} alt="macbook one" />,
-    name : "Macbook One",
-    price : 2399,
-    stock : 3,
-    action : <Link to={"/admin/product/asjodwije"}>Manage</Link>
-  },
-  {
-    photo : <img src={img2} alt="macbook two" />,
-    name : "Macbook Two",
-    price : 2599,
-    stock : 7,
-    action : <Link to={"/admin/product/asjodwwiuije"}>Manage</Link>
-  },
-  {
-    photo : <img src={img1} alt="macbook one" />,
-    name : "Macbook One",
-    price : 2399,
-    stock : 3,
-    action : <Link to={"/admin/product/asjodwije"}>Manage</Link>
-  },
-  {
-    photo : <img src={img2} alt="macbook two" />,
-    name : "Macbook Two",
-    price : 2599,
-    stock : 7,
-    action : <Link to={"/admin/product/asjodwwiuije"}>Manage</Link>
-  },
-  {
-    photo : <img src={img1} alt="macbook one" />,
-    name : "Macbook One",
-    price : 2399,
-    stock : 3,
-    action : <Link to={"/admin/product/asjodwije"}>Manage</Link>
-  },
-  {
-    photo : <img src={img2} alt="macbook two" />,
-    name : "Macbook Two",
-    price : 2599,
-    stock : 7,
-    action : <Link to={"/admin/product/asjodwwiuije"}>Manage</Link>
-  },
-];
-
 const Product = () => {
 
-  const [rows, setRows] = useState<DataType[]>(arr);
+  const [rows, setRows] = useState<DataType[]>([]);
 
   const {data, isLoading, isError, error} = useAllProductsQuery("");
 
@@ -129,10 +65,6 @@ const Product = () => {
       })))
     }
   },[data])
-
-  if(data){
-      
-  }
 
   const Table = useCallback(
     TableHOC<DataType>(columns,rows,"dashboard-product-box","Products",rows.length>6)
