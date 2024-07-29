@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CategoryResponse, ProductsResponse, SearchProductsQuery, SearchProductsResponse } from "../../types/api-types-";
+import { CategoryResponse, MessageResponse, NewProductRequest, ProductsResponse, SearchProductsQuery, SearchProductsResponse } from "../../types/api-types-";
 
 export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product`,
-    credentials : "include"
+    credentials : "include" // for cookies
   }),
   endpoints: (builder) => ({
     latestProducts : builder.query<ProductsResponse, string>({
@@ -30,11 +30,26 @@ export const productApi = createApi({
 
             return baseQuery;
         }
+    }),
+
+    newProduct : builder.mutation<MessageResponse, NewProductRequest>({
+      query : ({formData}) => ({
+        url : "/new",
+        method : "POST",
+        body : formData
+      })
     })
+
   }),
 });
 
-export const { useLatestProductsQuery, useAllProductsQuery, useCategoriesQuery, useSearchProductsQuery } = productApi;
+export const { 
+  useLatestProductsQuery, 
+  useAllProductsQuery, 
+  useCategoriesQuery, 
+  useSearchProductsQuery,
+  useNewProductMutation
+} = productApi;
 
 /*
   # For queries, you usually destructure the result like this:
