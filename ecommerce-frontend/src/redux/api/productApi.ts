@@ -7,17 +7,23 @@ export const productApi = createApi({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product`,
     credentials : "include" // for cookies
   }),
+
+  tagTypes : ["product"], // for revalidating cached data
+
   endpoints: (builder) => ({
     latestProducts : builder.query<ProductsResponse, string>({
       query: () => "/latest",
+      providesTags : ["product"]
     }),
 
     allProducts : builder.query<ProductsResponse, string>({
       query: () => "/admin-products",
+      providesTags : ["product"]
     }),
 
     categories : builder.query<CategoryResponse, string>({
       query: () => "/categories",
+      providesTags : ["product"]
     }),
 
     searchProducts : builder.query<SearchProductsResponse, SearchProductsQuery>({
@@ -29,7 +35,8 @@ export const productApi = createApi({
             if(sort) baseQuery += `&sort=${sort}`;
 
             return baseQuery;
-        }
+        },
+        providesTags : ["product"]
     }),
 
     newProduct : builder.mutation<MessageResponse, NewProductRequest>({
@@ -37,7 +44,8 @@ export const productApi = createApi({
         url : "/new",
         method : "POST",
         body : formData
-      })
+      }),
+      invalidatesTags : ["product"]
     })
 
   }),
