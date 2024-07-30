@@ -1,5 +1,5 @@
-import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { server } from "../redux/store";
 
 type ProductCardProps = {
     productId : string;
@@ -22,7 +22,7 @@ const handleAddToCart = () => {
 const ProductCard = ({productId,name,price,photo,stock,handler} : ProductCardProps) => {
   return (
     <Link to={"/"} className="product-card">
-        <img src={photo} alt={name} />
+        <img src={`${server}/${photo}`} alt={name} />
 
         <div className="product-details">
             <div className="description">
