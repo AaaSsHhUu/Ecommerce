@@ -43,3 +43,8 @@ export type CustomError = {
 export type NewProductRequest = {
     formData : FormData
 }
+
+export type ProductDetails = {
+    success : boolean;
+    product : Product;
+}
