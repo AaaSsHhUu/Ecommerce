@@ -10,7 +10,8 @@ const NewProduct = () => {
   const [category, setCategory] = useState<string>("");
   const [price, setPrice] = useState<number>();
   const [stock, setStock] = useState<number>();
-  const [photo, setPhoto] = useState<string>();
+  const [prevPhoto, setPrevPhoto] = useState<string>();
+  const [photo, setPhoto] = useState<File>();
 
   const [newProduct] = useNewProductMutation();
 
@@ -19,19 +20,21 @@ const NewProduct = () => {
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData();
-
+    
     if (!name || !price || !stock || !photo || !category) {
       return;
     }
-
+    
+    const formData = new FormData();
+    console.log("before setting : ", formData);
+    
     formData.set("name", name);
     formData.set("category", category);
     formData.set("price", price?.toString());
     formData.set("stock", stock?.toString());
     formData.set("photo", photo);
 
-    console.log("formData : ", formData);
+    console.log("after setting : ", formData);
 
     const res = await newProduct({ formData });
 
@@ -48,9 +51,8 @@ const NewProduct = () => {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         if (typeof reader.result === "string") {
-          console.log("reader.result : ", reader.result);
-
-          setPhoto(reader.result);
+          setPrevPhoto(reader.result)
+          setPhoto(file);
         }
       };
     }
@@ -127,7 +129,7 @@ const NewProduct = () => {
                             />
                         </div>
                         {
-                          photo && <img src={photo} className="preview-image" alt="Product Image" />
+                          photo && <img src={prevPhoto} className="preview-image" alt="Product Image" />
                         }
                         <button type="submit" onClick={() => submitHandler}>Create</button>
                     </form>
