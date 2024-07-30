@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CategoryResponse, MessageResponse, NewProductRequest, ProductsResponse, SearchProductsQuery, SearchProductsResponse } from "../../types/api-types-";
+import { CategoryResponse, MessageResponse, NewProductRequest, ProductDetails, ProductsResponse, SearchProductsQuery, SearchProductsResponse } from "../../types/api-types-";
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -11,6 +11,7 @@ export const productApi = createApi({
   tagTypes : ["product"], // for revalidating cached data
 
   endpoints: (builder) => ({
+
     latestProducts : builder.query<ProductsResponse, string>({
       query: () => "/latest",
       providesTags : ["product"]
@@ -46,6 +47,10 @@ export const productApi = createApi({
         body : formData
       }),
       invalidatesTags : ["product"]
+    }),
+
+    productDetails : builder.query<ProductDetails,string>({
+      query : (id) => (`/${id}`)
     })
 
   }),
@@ -56,7 +61,8 @@ export const {
   useAllProductsQuery, 
   useCategoriesQuery, 
   useSearchProductsQuery,
-  useNewProductMutation
+  useNewProductMutation,
+  useProductDetailsQuery
 } = productApi;
 
 /*
