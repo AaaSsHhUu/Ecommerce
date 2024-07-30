@@ -1,4 +1,4 @@
-import { ReactElement, useState,useCallback, useEffect } from "react";
+import { ReactElement, useState, useEffect } from "react";
 import { AdminSidebar, TableSkeleton } from "../../components"
 import TableHOC from "../../components/admin/TableHOC";
 import { Column } from "react-table";
@@ -45,13 +45,9 @@ const Product = () => {
   const [rows, setRows] = useState<DataType[]>([]);
 
   const {data, isLoading, isError, error} = useAllProductsQuery("");
-
+  
   if(isError){
       toast.error((error as CustomError).data.message);
-  }
-
-  if(isLoading){
-      <TableSkeleton />
   }
 
   useEffect(() => {
@@ -64,11 +60,15 @@ const Product = () => {
         action : <Link to={`/admin/product/${i._id}`}>Manage</Link>
       })))
     }
-  },[data])
+  },[data, isError, error, isLoading])
 
-  const Table = useCallback(
-    TableHOC<DataType>(columns,rows,"dashboard-product-box","Products",rows.length>6)
-  ,[])
+  const Table = TableHOC<DataType>(
+    columns,
+    rows,
+    "dashboard-product-box",
+    "Products",
+    (rows.length > 6)
+  )
 
   return (
     <div className="admin-container">
@@ -77,7 +77,7 @@ const Product = () => {
 
         {/* Main */}
         <main>
-          {Table()}
+          {isLoading ? <TableSkeleton /> : Table()}
         </main>
 
         <Link to={"/admin/product/new"} className="create-product-btn">{<FaPlus />}</Link>

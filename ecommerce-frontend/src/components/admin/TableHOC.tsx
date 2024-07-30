@@ -7,37 +7,35 @@ function TableHOC<T extends Object>(
     data: T[],
     containerClassname: string,
     heading: string,
-    showPagination: boolean = false
+    showPagination: boolean
 ) {
-    return function HOC() {
+    const [pageNo, setPageNo] = useState(1);
 
-        const [pageNo, setPageNo] = useState(1);
-
-        const options: TableOptions<T> = {
-            columns,
-            data,
-            initialState: {
-                pageSize: 5
-            }
+    const options: TableOptions<T> = {
+        columns,
+        data,
+        initialState: {
+            pageSize: 5
         }
-        const {
-            getTableProps,
-            getTableBodyProps,
-            headerGroups,
-            page,
-            prepareRow,
-            nextPage,
-            previousPage,
-            canPreviousPage,
-            canNextPage,
-            pageCount,
-            state : {
-                pageIndex
-            },
-            gotoPage
-        } = useTable(options, useSortBy, usePagination)
+    }
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        page,
+        prepareRow,
+        nextPage,
+        previousPage,
+        canPreviousPage,
+        canNextPage,
+        pageCount,
+        state: {
+            pageIndex
+        },
+        gotoPage
+    } = useTable(options, useSortBy, usePagination);
 
-
+    return function HOC() {
         return (
             <div className={containerClassname}>
                 <h2 className="heading">{heading}</h2>
@@ -85,11 +83,11 @@ function TableHOC<T extends Object>(
                                 <button disabled={!canPreviousPage} onClick={previousPage}>Prev</button>
 
                                 <span>{pageIndex + 1} out of {pageCount}</span>
-                                
+
                                 <button disabled={!canNextPage} onClick={nextPage}>Next</button>
                             </div>
                             <div className="goto-page">
-                                <input type="number" value = {pageNo} onChange={(e) => setPageNo(parseInt(e.target.value))} placeholder="Page No" />
+                                <input type="number" value={pageNo} onChange={(e) => setPageNo(parseInt(e.target.value))} placeholder="Page No" />
                                 <button onClick={() => gotoPage(pageNo - 1)}>select</button>
                             </div>
                         </div>
