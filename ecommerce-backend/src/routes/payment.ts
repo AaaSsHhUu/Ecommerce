@@ -1,17 +1,20 @@
 import express from "express";
-import { allCoupons, applyCoupon, createPaymentIntent, deleteCoupon, newCoupon } from "../controller/payment.js";
-import { isAdmin, isAuthenticated } from "../middleware/auth.js";
+import { allCoupons, applyCoupon, createPaymentIntent, deleteCoupon, getCoupon, newCoupon, updateCoupon } from "../controller/payment.js";
+import { adminOnly } from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.post("/new", createPaymentIntent);
 
-router.post("/coupon/new",isAuthenticated, isAdmin, newCoupon);
+router.post("/coupon/new",adminOnly, newCoupon);
 
 router.post("/discount", applyCoupon);
 
-router.get("/coupon/all",isAuthenticated, isAdmin, allCoupons);
+router.get("/coupon/all/",adminOnly, allCoupons);
 
-router.delete("/coupon/:id",isAuthenticated, isAdmin, deleteCoupon);
+router.route("/coupon/:id")
+    .get(adminOnly, getCoupon)
+    .put(adminOnly, updateCoupon)
+    .delete(adminOnly, deleteCoupon)
 
 export default router;

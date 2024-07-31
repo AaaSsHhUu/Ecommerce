@@ -1,12 +1,12 @@
 import express,{Router} from "express";
 import { createProduct, deleteProduct, getAdminProducts, getAllCategories, getAllProducts, getLatestProducts, getOneProduct, updateProduct } from "../controller/product.js";
-import { isAdmin, isAuthenticated } from "../middleware/auth.js";
+import { adminOnly } from "../middleware/auth.js";
 import { upload } from "../middleware/multer.js";
 
 const router = Router();
 
 // To create new product
-router.post("/new", isAuthenticated, isAdmin, upload.single("photo"), createProduct);
+router.post("/new", adminOnly, upload.single("photo"), createProduct);
 
 // To get recently added 10 products
 router.get("/latest", getLatestProducts);
@@ -18,9 +18,9 @@ router.get("/categories", getAllCategories);
 router.get("/all", getAllProducts);
 
 // To get all products for admin
-router.get("/admin-products",isAuthenticated, isAdmin, getAdminProducts )
+router.get("/admin-products",adminOnly, getAdminProducts )
 
 // To getOne, deleteOne, and updateOne
-router.route("/:id").get(getOneProduct).delete(isAuthenticated, isAdmin, deleteProduct).put(isAuthenticated,isAdmin,upload.single("photo") ,updateProduct);
+router.route("/:id").get(getOneProduct).delete(adminOnly, deleteProduct).put( adminOnly ,upload.single("photo") ,updateProduct);
 
 export default router;
