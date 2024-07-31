@@ -86,6 +86,22 @@ export const allCoupons = asyncHandler(
     }
 )
 
+export const getCoupon = asyncHandler(
+    async (req : Request, res : Response, next : NextFunction ) => {
+        const {id} = req.params;
+        const coupon = await Coupon.findById(id);
+
+        if(!coupon){
+            throw new ErrorHandler("Invalid Coupon ID", 400);
+        }
+
+        return res.status(200).json({
+            success : true,
+            coupon
+        })
+    }
+)
+
 // Deleting coupon
 export const deleteCoupon = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
