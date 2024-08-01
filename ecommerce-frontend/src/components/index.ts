@@ -1,7 +1,7 @@
 // Admin Components
 import AdminSidebar from "./admin/AdminSidebar";
 import { BarChart, DoughnutChart, PieChart, LineChart } from "./admin/Chart";
-import Loader, { ProductSkeleton, TableSkeleton } from "./admin/Loader";
+import Loader, { ProductSkeleton, TableSkeleton, ProductDetailSkeleton } from "./admin/Loader";
 import Table from "./admin/DashboardTable";
 
 // App Components
@@ -27,5 +27,6 @@ export {
   Footer,
   ProtectedRoute,
   ProductSkeleton,
-  TableSkeleton
+  TableSkeleton,
+  ProductDetailSkeleton
 };
