@@ -65,13 +65,13 @@ const Customer = () => {
     },
   ];
 
-  const Table = useCallback(TableHOC<DataType>(
+  const Table = TableHOC<DataType>(
     columns,
     data,
     "dashboard-product-box", // same styling -> same classname
     "Customers",
     data.length > 6
-  ),[])
+  )();
 
   return (
     <div className="admin-container">
@@ -80,7 +80,7 @@ const Customer = () => {
 
         {/* Main */}
         <main>
-          {Table()} 
+          {Table} 
         </main>
     </div>
   )
