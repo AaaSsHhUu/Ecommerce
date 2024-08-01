@@ -49,3 +49,9 @@ export type ProductDetails = {
     success : boolean;
     product : Product;
 }
+
+export type UpdateProductRequest = {
+    userId : string;
+    productId : string;
+    formData : FormData;
+}
