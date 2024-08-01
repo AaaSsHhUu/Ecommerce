@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 import { useNewProductMutation } from "../../../redux/api/productApi";
 import { responseToast } from "../../../utils/features";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 const NewProduct = () => {
   const [name, setName] = useState<string>("");
@@ -13,9 +15,12 @@ const NewProduct = () => {
   const [prevPhoto, setPrevPhoto] = useState<string>();
   const [photo, setPhoto] = useState<File>();
 
+  const {user} = useSelector((state : RootState) => state.userReducer );
+
   const [newProduct] = useNewProductMutation();
 
   const navigate = useNavigate();
+
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,7 +31,6 @@ const NewProduct = () => {
     }
     
     const formData = new FormData();
-    console.log("before setting : ", formData);
     
     formData.set("name", name);
     formData.set("category", category);
@@ -34,9 +38,7 @@ const NewProduct = () => {
     formData.set("stock", stock?.toString());
     formData.set("photo", photo);
 
-    console.log("after setting : ", formData);
-
-    const res = await newProduct({ formData });
+    const res = await newProduct({ formData, id : user?._id! });
 
     responseToast(res, navigate, "/admin/product");
   };
