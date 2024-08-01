@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CategoryResponse, MessageResponse, NewProductRequest, ProductDetails, ProductsResponse, SearchProductsQuery, SearchProductsResponse } from "../../types/api-types-";
+import { CategoryResponse, MessageResponse, NewProductRequest, ProductDetails, ProductsResponse, SearchProductsQuery, SearchProductsResponse, UpdateProductRequest } from "../../types/api-types-";
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -52,6 +52,15 @@ export const productApi = createApi({
     productDetails : builder.query<ProductDetails,string>({
       query : (id) => (`/${id}`),
       providesTags : ["product"]
+    }),
+
+    updateProduct : builder.mutation<MessageResponse, UpdateProductRequest>({
+      query : ({formData, userId, productId}) => ({  
+        url : `/${productId}?id=${userId}`,
+        method : "PUT",
+        body : formData
+      }),
+      invalidatesTags : ["product"]
     })
 
   }),
@@ -63,7 +72,8 @@ export const {
   useCategoriesQuery, 
   useSearchProductsQuery,
   useNewProductMutation,
-  useProductDetailsQuery
+  useProductDetailsQuery,
+  useUpdateProductMutation
 } = productApi;
 
 /*
