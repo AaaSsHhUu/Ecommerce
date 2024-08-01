@@ -66,6 +66,11 @@ const ProductManagment = () => {
 
     }
 
+    const deleteHandler = async () => {
+        const res = await deleteProduct({userId : user?._id!, productId : productId!})
+        responseToast(res, navigate, "/admin/product");
+    }
+
     useEffect(() => {
         if (data) {
             setNameUpdate(name);
@@ -158,6 +163,7 @@ const ProductManagment = () => {
                                         photoUpdate && <img src={photoUpdate} className="preview-image" alt="selected image" />
                                     }
                                     <button type="submit">Update</button>
+                                    <button onClick={deleteHandler}>Delete</button>
                                 </form>
                             </article>
                         </>
