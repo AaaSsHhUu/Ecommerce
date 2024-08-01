@@ -41,7 +41,8 @@ export type CustomError = {
 }
 
 export type NewProductRequest = {
-    formData : FormData
+    formData : FormData;
+    id : string;
 }
 
 export type ProductDetails = {
