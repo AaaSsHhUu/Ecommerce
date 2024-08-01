@@ -31,6 +31,7 @@ export const myCache = new NodeCache({stdTTL : 600, checkperiod : 600}); // both
 // checkperiod -> time at which the cache will check for expired items and remove them
 
 // middlewares
+app.use(cookieParser());
 app.use(cors({
     origin : process.env.FRONTEND_URL,
     methods : ["GET", "POST", "PUT", "DELETE"],
@@ -38,7 +39,6 @@ app.use(cors({
 }));
 app.use(morgan("dev"))
 app.use(express.json());
-app.use(cookieParser());
 
 app.get("/api/v1/", (req,res) => {
     res.send("This is root route")
