@@ -7,16 +7,16 @@ export const adminOnly =
         const {id} = req.query;
 
         if(!id){
-            throw new ErrorHandler("Please Login First", 401);
+            return next(new ErrorHandler("Please Login First", 401));
         }
 
         const user = await User.findById(id);
 
         if(!user){
-            throw new ErrorHandler("User doesn't exist, Please Signup first", 401);
+            return next(new ErrorHandler("User doesn't exist, Please Signup first", 401));
         }
         if(user.role !== "admin"){
-            throw new ErrorHandler("You can't access this page", 403);
+            return next(new ErrorHandler("You can't access this page", 403));
         }
 
         return next();
