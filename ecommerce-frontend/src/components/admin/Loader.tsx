@@ -45,6 +45,22 @@ export const TableSkeleton = () => {
       </ContentLoader>
     )
 }
+
+export const ProductDetailSkeleton = () => {
+  return (
+    <ContentLoader
+      speed={1}
+      width={'95%'}
+      height={'80vh'}
+      viewBox="0 0 100% 100%"
+      backgroundColor="#b0b0b0"
+      foregroundColor="#eee"
+    >
+        <rect x={50} y={30} rx={3}  ry="3" width={400} height={'90vh'}/>
+        <rect x={460} y={30} rx={3}  ry="3" width={400} height={'90vh'}/>
+    </ContentLoader>
+  )
+}
 export default Loader
 
 
