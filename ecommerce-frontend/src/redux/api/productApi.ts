@@ -18,7 +18,7 @@ export const productApi = createApi({
     }),
 
     allProducts : builder.query<ProductsResponse, string>({
-      query: () => "/admin-products",
+      query: (id) => `/admin-products?id=${id}`,
       providesTags : ["product"]
     }),
 
@@ -41,8 +41,8 @@ export const productApi = createApi({
     }),
 
     newProduct : builder.mutation<MessageResponse, NewProductRequest>({
-      query : ({formData}) => ({
-        url : "/new",
+      query : ({formData, id}) => ({
+        url : `/new?id=${id}`,
         method : "POST",
         body : formData
       }),
@@ -50,7 +50,8 @@ export const productApi = createApi({
     }),
 
     productDetails : builder.query<ProductDetails,string>({
-      query : (id) => (`/${id}`)
+      query : (id) => (`/${id}`),
+      providesTags : ["product"]
     })
 
   }),
