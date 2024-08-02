@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
-import { CartItem } from "../components";
+import { CartItemCard } from "../components";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CartReducerInitialState } from "../types/reducer-types";
+import { CartItem } from "../types/types";
+import { addToCart, removeCartItem } from "../redux/reducer/cartReducer";
+import toast from "react-hot-toast";
 
 const Cart = () => {
 
@@ -19,6 +22,7 @@ const Cart = () => {
   const [couponCode, setCouponCode] = useState<string>("");
   const [isValidCoupon, setIsValidCoupon] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if(couponCode === "Ashu2004"){
@@ -28,6 +32,30 @@ const Cart = () => {
       setIsValidCoupon(false);
     }
   },[couponCode])
+
+  const removeCartItemHandler = (productId : string) => {
+    dispatch(removeCartItem(productId));
+    toast.success("Item Removed");
+}
+
+const increaseQuantity = (cartItem : CartItem) => {
+    if(cartItem.quantity <  cartItem.stock){
+        dispatch(addToCart({...cartItem, quantity : cartItem.quantity + 1}));
+    }
+    else{
+        return toast.error("Out of Stock");
+    }
+}
+
+const decreaseQuantity = (cartItem : CartItem) => {
+    if(cartItem.quantity > 1){
+        dispatch(addToCart({...cartItem, quantity : cartItem.quantity - 1}));
+    }
+    else{
+        return toast.error("Quantity cannot be less than 1");
+    }
+}
+
   return (
     <div className="cart">
       <main>
@@ -35,7 +63,7 @@ const Cart = () => {
           cartItems.length > 0 ? 
           (
             cartItems.map((item,idx) => (
-            <CartItem key={idx} cartItem={item} />
+            <CartItemCard key={idx} cartItem={item} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} removeCartItemHandler={removeCartItemHandler} />
             ))
           )
           :
