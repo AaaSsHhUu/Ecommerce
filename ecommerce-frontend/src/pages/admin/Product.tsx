@@ -5,9 +5,10 @@ import { Column } from "react-table";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { useAllProductsQuery } from "../../redux/api/productApi";
-import { server } from "../../redux/store";
+import { RootState, server } from "../../redux/store";
 import toast from "react-hot-toast";
 import { CustomError } from "../../types/api-types-";
+import { useSelector } from "react-redux";
 
 interface DataType{
   photo : ReactElement;
@@ -44,7 +45,9 @@ const Product = () => {
 
   const [rows, setRows] = useState<DataType[]>([]);
 
-  const {data, isLoading, isError, error} = useAllProductsQuery("");
+  const {user} = useSelector((state : RootState) => state.userReducer);
+
+  const {data, isLoading, isError, error} = useAllProductsQuery(user?._id!);
   
   if(isError){
       toast.error((error as CustomError).data.message);
@@ -80,7 +83,7 @@ const Product = () => {
           {isLoading ? <TableSkeleton /> : Table()}
         </main>
 
-        <Link to={"/admin/product/new"} className="create-product-btn">{<FaPlus />}</Link>
+        <Link to={`/admin/product/new`} className="create-product-btn">{<FaPlus />}</Link>
     </div>
   )
 }
