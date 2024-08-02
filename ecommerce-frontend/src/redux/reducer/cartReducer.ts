@@ -27,6 +27,12 @@ const cartReducer = createSlice({
             state.loading = true;
             state.cartItems.push(action.payload);
             state.loading = false;
+        },
+
+        removeCartItem : (state, action : PayloadAction<string>) => {
+            state.loading = true;
+            state.cartItems = state.cartItems.filter(i => i.productId !== action.payload);
+            state.loading = false;
         }
      }
 })
