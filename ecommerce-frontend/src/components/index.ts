@@ -7,10 +7,10 @@ import Table from "./admin/DashboardTable";
 // App Components
 import Header from "./Header";
 import ProductCard from "./ProductCard";
-import CartItem from "./CartItem";
 import Carousel from "./Carousel";
 import Footer from "./Footer";
 import ProtectedRoute from "./ProtectedRoute";
+import CartItemCard from "./CartItemCard";
 
 export {
   Loader,
@@ -22,7 +22,7 @@ export {
   Table,
   Header,
   ProductCard,
-  CartItem,
+  CartItemCard,
   Carousel,
   Footer,
   ProtectedRoute,
