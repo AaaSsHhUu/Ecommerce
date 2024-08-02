@@ -2,13 +2,21 @@ import { Link } from "react-router-dom"
 import { Carousel, ProductCard, ProductSkeleton } from "../components"
 import { useLatestProductsQuery } from "../redux/api/productApi"
 import toast from "react-hot-toast";
+import { CartItem } from "../types/types";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/reducer/cartReducer";
 
 const Home = () => {
 
   const {data, isLoading, isError} = useLatestProductsQuery("");
 
-  const addToCartHandler = () => {
-    console.log("Add to cart");
+  const dispatch = useDispatch();
+  
+  const addToCartHandler = (cartItem : CartItem) => {
+    if(cartItem.stock < 1) return toast.error("Item is Out of Stock");
+
+    dispatch(addToCart(cartItem));
+    toast.success("Added To Cart");
   }
 
   if(isError){
@@ -21,9 +29,6 @@ const Home = () => {
           <Carousel />
         </section>
 
-        {/* Sidebar  */}
-        
-        
         <div className="title">
           <p>Latest Product</p>
           <Link to={"/search"} className="findmore" >
