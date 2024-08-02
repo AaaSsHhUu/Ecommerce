@@ -1,25 +1,18 @@
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { server } from "../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { CartReducerInitialState } from "../types/reducer-types";
-import { removeCartItem } from "../redux/reducer/cartReducer";
-import toast from "react-hot-toast";
+import { CartItem } from "../types/types";
 
 type CartItemProps = {
-    cartItem: any
+    cartItem: CartItem;
+    increaseQuantity : (cartItem : CartItem) => void;
+    decreaseQuantity : (cartItem : CartItem) => void;
+    removeCartItemHandler : (productId : string) => void;
 }
 
-const CartItem = ({ cartItem }: CartItemProps) => {
+const CartItemCard = ({ cartItem, increaseQuantity, decreaseQuantity, removeCartItemHandler }: CartItemProps) => {
 
     const { productId, name, photo, price, quantity } = cartItem;
-
-    const dispatch = useDispatch();
-
-    const removeCartItemHandler = (productId : string) => {
-        dispatch(removeCartItem(productId));
-        toast.success("Item Removed");
-    }
 
     return (
         <div className="cart-item">
@@ -30,9 +23,9 @@ const CartItem = ({ cartItem }: CartItemProps) => {
             </article>
 
             <div>
-                <button>-</button>
+                <button onClick={() => decreaseQuantity(cartItem)}>-</button>
                 <p>{quantity}</p>
-                <button>+</button>
+                <button onClick={() => increaseQuantity(cartItem)}>+</button>
             </div>
 
             <button onClick={() => removeCartItemHandler(productId)}>
@@ -42,4 +35,4 @@ const CartItem = ({ cartItem }: CartItemProps) => {
     )
 }
 
-export default CartItem
+export default CartItemCard
