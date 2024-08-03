@@ -1,7 +1,9 @@
-import { useState, ChangeEvent } from "react"
+import { useState, ChangeEvent, useEffect } from "react"
 import { BiArrowBack } from "react-icons/bi";
 import { TextField } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { CartReducerInitialState } from "../types/reducer-types";
 
 type ShippingInfoProps = {
     address: string;
@@ -11,6 +13,9 @@ type ShippingInfoProps = {
     pinCode: string;
 }
 const Shipping = () => {
+
+    const {cartItems} = useSelector((state : { cartReducer : CartReducerInitialState }) => state.cartReducer);
+
     const [shippingInfo, setShippingInfo] = useState<ShippingInfoProps>(
         {
             address: "",
@@ -27,6 +32,12 @@ const Shipping = () => {
         const { name, value } = e.target;
         setShippingInfo(prev => ({ ...prev, [name]: value }));
     }
+
+    useEffect(() => {
+        if(cartItems.length <= 0){
+            navigate("/cart");
+        }
+    },[cartItems])
 
     return (
         <div className="shipping">
