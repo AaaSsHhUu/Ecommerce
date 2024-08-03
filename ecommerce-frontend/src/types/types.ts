@@ -58,3 +58,5 @@ export type CartItem = {
     quantity : number;
     stock : number;
 }
+
+export type OrderItem = Omit<CartItem, "stock"> & { _id : string }
