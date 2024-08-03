@@ -3,6 +3,9 @@ import { ProductCard, ProductSkeleton } from "../components";
 import { useCategoriesQuery, useSearchProductsQuery } from "../redux/api/productApi";
 import toast from "react-hot-toast";
 import { CustomError } from "../types/api-types-";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/reducer/cartReducer";
+import { CartItem } from "../types/types";
 
 interface FilterProps{
   search : string;
@@ -43,6 +46,7 @@ const Search = () => {
       error
   } = useCategoriesQuery("");
 
+  const dispatch = useDispatch();
 
   const handleFilterChange = (e : ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -56,7 +60,11 @@ const Search = () => {
       toast.error((error as CustomError).data.message);
   }
 
-  const addToCartHandler = () => { };
+  const addToCartHandler = (cartItem : CartItem) => {
+      if(cartItem.stock < 1) return toast.error("Out of Stock");
+      dispatch(addToCart(cartItem));
+      toast.success("Added To Cart");
+  };
 
   return (
     <div className="search-page">
