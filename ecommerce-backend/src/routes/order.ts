@@ -8,7 +8,7 @@ router.post("/new", newOrder);
 
 router.get("/my-order/:id", myOrder);
 
-router.get("/all-orders/:id",adminOnly, allOrders);
+router.get("/all-orders",adminOnly, allOrders);
 
 router.route("/:id")
     .get(getSingleOrder)
