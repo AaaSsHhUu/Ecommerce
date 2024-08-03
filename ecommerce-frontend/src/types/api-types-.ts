@@ -1,4 +1,4 @@
-import { Product, User } from "./types";
+import { OrderItem, Product, ShippingInfo, User } from "./types";
 
 export interface MessageResponse{
     success : boolean;
@@ -59,4 +59,15 @@ export type UpdateProductRequest = {
 export type DeleteProductRequest = {
     userId : string;
     productId : string;
+}
+
+export type NewOrderRequest = {
+    shippingInfo : ShippingInfo;
+    orderItems : OrderItem[];
+    subtotal : number;
+    tax : number;
+    shippingCharges : number;
+    discount : number;
+    total : number;
+    user : string;
 }
