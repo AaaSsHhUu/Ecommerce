@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CartReducerInitialState } from "../types/reducer-types";
 import { CartItem } from "../types/types";
-import { addToCart, calculatePrice, removeCartItem } from "../redux/reducer/cartReducer";
+import { addToCart, applyDiscount, calculatePrice, removeCartItem } from "../redux/reducer/cartReducer";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { server } from "../redux/store";
 
 const Cart = () => {
 
@@ -25,18 +27,32 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (couponCode === "Ashu2004") {
-      setIsValidCoupon(true);
-    }
-    else {
-      setIsValidCoupon(false);
+    const {token, cancel} = axios.CancelToken.source();
+    // The axios.CancelToken.source() function is used to create a cancel token that allows you to cancel an Axios request.
+
+    const timeOutId = setTimeout(() => {
+      axios.post(`${server}/api/v1/payment/discount?coupon=${couponCode}`, {cancelToken : token})
+      .then((res) => {
+          setIsValidCoupon(true);
+          dispatch(applyDiscount(res.data.discount));
+      })
+      .catch(() => {
+          setIsValidCoupon(false);
+          dispatch(applyDiscount(0));
+      })
+    }, 1000)
+
+    return () => {
+        clearTimeout(timeOutId);
+        cancel();        
+        setIsValidCoupon(false);
     }
   }, [couponCode])
 
 
   useEffect(() => {
     dispatch(calculatePrice());
-  },[cartItems])
+  },[cartItems, discount])
 
   const removeCartItemHandler = (productId: string) => {
     dispatch(removeCartItem(productId));
@@ -96,7 +112,7 @@ const Cart = () => {
           (
             isValidCoupon ?
               <span className="green">
-                ₹{discount} off using the <code>{couponCode}</code>
+                ₹{discount} off using the {couponCode}
               </span>
               :
               <span className="red">
