@@ -1,4 +1,4 @@
-import { OrderItem, Product, ShippingInfo, User } from "./types";
+import { Order, OrderItem, Product, ShippingInfo, User } from "./types";
 
 export interface MessageResponse{
     success : boolean;
@@ -70,4 +70,9 @@ export type NewOrderRequest = {
     discount : number;
     total : number;
     user : string;
+}
+
+export type AllOrdersResponse = {
+    success : boolean;
+    orders : Order[];
 }
