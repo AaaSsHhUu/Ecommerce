@@ -14,7 +14,10 @@ export const orderAPI = createApi({
                 body : order
             })
         }),
+        myOrder : builder.query<MessageResponse, string>({
+            query : (id) => (`/my-order/${id}`)
+        })
     })
 })
 
-export const {useNewOrderMutation} = orderAPI
+export const {useNewOrderMutation, useMyOrderQuery} = orderAPI
