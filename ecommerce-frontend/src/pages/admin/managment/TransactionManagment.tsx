@@ -5,15 +5,7 @@ import { OrderItemType, OrderType } from "../../../types/types"
 
 const TransactionManagment = () => {
 
-  const orderItems: OrderItemType[] = [
-    {
-      _id: "ajncwjnc",
-      name: "Nike Shoes",
-      price: 2000,
-      quantity: 50,
-      photo: "https://m.media-amazon.com/images/I/71jDjaFd2cL._AC_UL320_.jpg"
-    }
-  ]
+  const orderItems: OrderItemType[] = [];
 
   const [order, setOrder] = useState<OrderType>({
     _id: "smkdcmowi",
@@ -48,12 +40,11 @@ const TransactionManagment = () => {
   } = order;
 
   const updateHandler = () => {
-    setOrder((prev) => (
-      {
-        ...prev,
-        status : prev.status === "Processing" ? "Shipped" : "Delivered"
-      }
-    ))
+    
+  }
+
+  const deleteHandler = () => {
+
   }
 
   return (
@@ -105,6 +96,7 @@ const TransactionManagment = () => {
               </p>
 
               <button onClick={updateHandler} >Process Status</button>
+              <button onClick={deleteHandler} >Delete Order</button>
             </article>
           </main>
       </div>
