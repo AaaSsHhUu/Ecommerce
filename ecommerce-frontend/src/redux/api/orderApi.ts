@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AllOrdersResponse, MessageResponse, NewOrderRequest } from "../../types/api-types-";
+import { AllOrdersResponse, MessageResponse, NewOrderRequest, OrderDetailResponse } from "../../types/api-types-";
+import { UpdateOrderRequest } from "../../types/types";
 
 export const orderAPI = createApi({
     reducerPath : "orderApi",
@@ -18,6 +19,22 @@ export const orderAPI = createApi({
             invalidatesTags : ["orders"]
         }),
 
+        updateOrder : builder.mutation<MessageResponse, UpdateOrderRequest>({
+            query : ({orderId, userId}) => ({
+                url : `/${orderId}?id=${userId}`,
+                method : "PUT",
+            }),
+            invalidatesTags : ["orders"]
+        }),
+
+        deleteOrder : builder.mutation<MessageResponse, UpdateOrderRequest>({
+            query : ({orderId, userId}) => ({
+                url : `/${orderId}?id=${userId}`,
+                method : "DELETE"
+            }),
+            invalidatesTags : ["orders"]
+        }),
+
         myOrder : builder.query<AllOrdersResponse, string>({
             query : (id) => (`/my-order/${id}`),
             providesTags : ["orders"]
@@ -28,11 +45,18 @@ export const orderAPI = createApi({
             providesTags : ["orders"]
         }),
 
-        orderDetails : builder.query<AllOrdersResponse, string>({
+        orderDetails : builder.query<OrderDetailResponse, string>({
             query : (id) => (`/${id}`),
             providesTags : ["orders"]
         })
     })
 })
 
-export const {useNewOrderMutation, useMyOrderQuery} = orderAPI
+export const {
+    useNewOrderMutation, 
+    useMyOrderQuery, 
+    useAllOrdersQuery, 
+    useDeleteOrderMutation, 
+    useOrderDetailsQuery, 
+    useUpdateOrderMutation
+} = orderAPI
