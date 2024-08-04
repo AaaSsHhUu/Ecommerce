@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from "react";
 import { AdminSidebar, TableSkeleton } from "../../components"
-import TableHOC from "../../components/admin/TableHOC";
+import Table from "../../components/admin/Table";
 import { Column } from "react-table";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
@@ -65,14 +65,6 @@ const Product = () => {
     }
   },[data, isError, error, isLoading])
 
-  const Table = TableHOC<DataType>(
-    columns,
-    rows,
-    "dashboard-product-box",
-    "Products",
-    (rows.length > 6)
-  )
-
   return (
     <div className="admin-container">
         {/* Sidebar */}
@@ -80,7 +72,16 @@ const Product = () => {
 
         {/* Main */}
         <main>
-          {isLoading ? <TableSkeleton /> : Table()}
+          {isLoading ? 
+          <TableSkeleton /> 
+          : 
+          <Table<DataType> 
+            columns={columns} 
+            data={rows} 
+            containerClassname="dashboard-product-box" 
+            heading="Products" 
+            showPagination={rows.length > 6 } 
+          />}
         </main>
 
         <Link to={`/admin/product/new`} className="create-product-btn">{<FaPlus />}</Link>
