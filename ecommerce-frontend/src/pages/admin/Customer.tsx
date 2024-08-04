@@ -1,7 +1,7 @@
 import { Column } from "react-table"
 import { AdminSidebar } from "../../components"
-import { ReactElement, useCallback, useState } from "react";
-import TableHOC from "../../components/admin/TableHOC";
+import { ReactElement, useState } from "react";
+import Table from "../../components/admin/Table";
 import { FaTrash } from "react-icons/fa";
 
 const Customer = () => {
@@ -65,14 +65,6 @@ const Customer = () => {
     },
   ];
 
-  const Table = TableHOC<DataType>(
-    columns,
-    data,
-    "dashboard-product-box", // same styling -> same classname
-    "Customers",
-    data.length > 6
-  )();
-
   return (
     <div className="admin-container">
         {/* Sidebar */}
@@ -80,7 +72,13 @@ const Customer = () => {
 
         {/* Main */}
         <main>
-          {Table} 
+            <Table<DataType> 
+               columns = {columns}
+               data={data}
+               containerClassname="dashboard-product-box" // same styling -> same classname
+               heading="Customers"
+               showPagination = {data.length > 6}
+            />
         </main>
     </div>
   )
