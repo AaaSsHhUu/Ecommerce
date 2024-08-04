@@ -102,19 +102,19 @@ export const allOrders = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const key = "all-orders";
 
-    let allOrders = [];
+    let orders = [];
 
     if(myCache.has(key)){
-        allOrders = JSON.parse(myCache.get(key) as string);
+        orders = JSON.parse(myCache.get(key) as string);
     }
     else{
-        allOrders = await Order.find().populate("user","name");
-        myCache.set(key, JSON.stringify(allOrders));
+        orders = await Order.find().populate("user","name");
+        myCache.set(key, JSON.stringify(orders));
     }
 
     return res.status(200).json({
         success : true,
-        allOrders
+        orders
     })
 
   }
