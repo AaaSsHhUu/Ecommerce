@@ -1,8 +1,8 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { AdminSidebar, ProductDetailSkeleton, ProductSkeleton } from "../../../components";
+import { AdminSidebar, ProductDetailSkeleton } from "../../../components";
 import TextField from '@mui/material/TextField';
 import { useDeleteProductMutation, useProductDetailsQuery, useUpdateProductMutation } from "../../../redux/api/productApi";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { RootState, server } from "../../../redux/store";
 import { useSelector } from "react-redux";
 import { responseToast } from "../../../utils/features";
@@ -10,7 +10,7 @@ import { responseToast } from "../../../utils/features";
 const ProductManagment = () => {
     const { id : productId } = useParams();
     const navigate = useNavigate();
-    const { data, isLoading } = useProductDetailsQuery(productId as string);
+    const { data, isLoading, isError } = useProductDetailsQuery(productId as string);
 
     const {user} = useSelector((state : RootState) => state.userReducer);
 
@@ -79,6 +79,8 @@ const ProductManagment = () => {
             setStockUpdate(stock);
         }
     }, [data])
+
+    if(isError) return <Navigate to={"/404"} />
 
     return (
         <>
