@@ -76,3 +76,8 @@ export type Order = {
     };
     _id : string;
 }
+
+export type UpdateOrderRequest = {
+    userId : string;
+    orderId : string;
+}
