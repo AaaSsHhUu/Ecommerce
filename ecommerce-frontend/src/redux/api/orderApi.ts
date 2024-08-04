@@ -54,9 +54,9 @@ export const orderAPI = createApi({
 
 export const {
     useNewOrderMutation, 
+    useUpdateOrderMutation,
+    useDeleteOrderMutation, 
     useMyOrderQuery, 
     useAllOrdersQuery, 
-    useDeleteOrderMutation, 
     useOrderDetailsQuery, 
-    useUpdateOrderMutation
 } = orderAPI
