@@ -1,8 +1,7 @@
-import { ReactElement, useState, useCallback } from "react";
+import { ReactElement, useState } from "react";
 import { AdminSidebar } from "../../components"
 import { Column } from "react-table";
-import TableHOC from "../../components/admin/TableHOC";
-import { Link } from "react-router-dom";
+import Table from "../../components/admin/Table";
 
 const Transactions = () => {
   interface DataType{
@@ -14,18 +13,7 @@ const Transactions = () => {
     action : ReactElement;
   }
 
-  const arr : DataType[] = [
-    {
-      user : "Demo",
-      amount : 4400,
-      discount : 400,
-      quantity : 3,
-      status : <span className="red">Processing</span>,
-      action : <Link to="/admin/transaction/snunsxa">Manage</Link>
-    }
-  ];
-
-  const [data] = useState<DataType[]>(arr);
+  const [rows, setRows] = useState<DataType[]>([]);
 
   const columns : Column<DataType>[] = [
     {
@@ -54,15 +42,6 @@ const Transactions = () => {
     },
   ]
 
-  const Table = useCallback(
-    TableHOC(
-      columns,
-      data,
-      "dashboard-product-box", // same style -> same name
-      "Transactions",
-      data.length > 6
-    ),[])
-
   return (
     <div className="admin-container">
         {/* Sidebar */}
@@ -70,7 +49,13 @@ const Transactions = () => {
 
         {/* Main */}
         <main>
-          {Table()}  
+            <Table<DataType>
+                columns = {columns}
+                data = {rows}
+                containerClassname = "dashboard-product-box"
+                heading = "Transaction"
+                showPagination = {rows.length > 6}
+            /> 
         </main>
     </div>
   )
