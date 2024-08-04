@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import { AdminSidebar } from "../../components"
+import { AdminSidebar, TableSkeleton } from "../../components"
 import { Column } from "react-table";
 import Table from "../../components/admin/Table";
 import { useSelector } from "react-redux";
@@ -57,8 +57,7 @@ const Transactions = () => {
     const err = error as CustomError;
     return toast.error(err.data.message);
   }
-  console.log("data : ", data);
-  
+
   useEffect(() => {
     if(data?.orders.length){
       setRows(
@@ -84,15 +83,21 @@ const Transactions = () => {
         <AdminSidebar />
 
         {/* Main */}
-        <main>
-            <Table<DataType>
-                columns = {columns}
-                data = {rows}
-                containerClassname = "dashboard-product-box"
-                heading = "Transaction"
-                showPagination = {rows.length > 6}
-            /> 
-        </main>
+        {
+          isLoading ? <TableSkeleton />
+          : 
+          <>
+            <main>
+              <Table<DataType>
+                  columns = {columns}
+                  data = {rows}
+                  containerClassname = "dashboard-product-box"
+                  heading = "Transaction"
+                  showPagination = {rows.length > 6}
+              /> 
+            </main>
+          </>
+        }
     </div>
   )
 }
