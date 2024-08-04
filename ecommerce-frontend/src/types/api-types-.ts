@@ -76,3 +76,8 @@ export type AllOrdersResponse = {
     success : boolean;
     orders : Order[];
 }
+
+export type OrderDetailResponse = {
+    success : boolean;
+    order : Order;
+}
