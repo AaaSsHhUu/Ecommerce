@@ -59,7 +59,7 @@ const Transactions = () => {
   }
 
   useEffect(() => {
-    if(data?.orders.length){
+    if(data){
       setRows(
         data.orders.map((i) => ({
           user : i.user.name,
