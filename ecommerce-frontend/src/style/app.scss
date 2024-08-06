@@ -280,3 +280,13 @@ $gray : #E6E8E6;
       opacity: 0.6;
     }
 }
+
+// 404 Page 
+.not-found{
+    @include flex(column);
+    height: 80vh;
+
+    > svg{
+      font-size: 5rem;
+    }
+}
