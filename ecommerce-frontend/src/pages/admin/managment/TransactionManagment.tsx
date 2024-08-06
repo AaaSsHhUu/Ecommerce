@@ -1,18 +1,22 @@
 import { useSelector } from "react-redux";
-import { Link, Navigate, useParams } from "react-router-dom";
-import { AdminSidebar, TableSkeleton } from "../../../components";
-import { useOrderDetailsQuery } from "../../../redux/api/orderApi";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { AdminSidebar, ProductDetailSkeleton } from "../../../components";
+import { useDeleteOrderMutation, useOrderDetailsQuery, useUpdateOrderMutation } from "../../../redux/api/orderApi";
 import { UserReducerInitialState } from "../../../types/reducer-types";
 import { Order, OrderItemType } from "../../../types/types";
+import { responseToast } from "../../../utils/features";
 
 const TransactionManagment = () => {
 
   const { user } = useSelector((state: { userReducer: UserReducerInitialState }) => state.userReducer);
 
   const {id : orderId} = useParams();
-  console.log("order id : ",orderId);
-  
+  const navigate = useNavigate();
+
   const { data, isLoading, isError, error } = useOrderDetailsQuery(orderId as string);
+
+  const [updateOrder] = useUpdateOrderMutation();
+  const [deleteOrder] = useDeleteOrderMutation();
 
   const defaultData: Order = {
     shippingInfo: {
@@ -56,24 +60,33 @@ console.log("Data : ", data);
 
   } = data?.order || defaultData;
 
-  const updateHandler = () => {
-
+  const updateHandler = async () => {
+    const res = await updateOrder({
+        orderId : data?.order._id!,
+        userId : user?._id!
+    })
+    responseToast(res, navigate, "/admin/transaction");
   }
 
-  const deleteHandler = () => {
+  const deleteHandler = async () => {
+    const res = await deleteOrder({
+      userId : user?._id!,
+      orderId : data?.order._id!
+    })
 
+    responseToast(res, navigate, "/admin/transaction")
   }
 
   console.log("error : ", error);
 
-  if (isError) <Navigate to={"/404"} />
+  if (isError) return <Navigate to={"/404"} />
 
   return (
     <>
       <div className="admin-container">
         <AdminSidebar />
         <main className="product-managment">
-          {isLoading ? <TableSkeleton />
+          {isLoading ? <ProductDetailSkeleton />
             :
             <>
               <section>
