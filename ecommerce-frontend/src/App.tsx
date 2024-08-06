@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense, useEffect } from "react";
-import { BarCharts, Cart, Customer, Dashboard, Home, LineCharts, Login, NewProduct, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions } from "./pages";
-import { Header, Loader, ProductSkeleton, ProtectedRoute, TableSkeleton } from "./components";
+import { BarCharts, Cart, Customer, Dashboard, Home, LineCharts, Login, NewProduct, NotFound, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions } from "./pages";
+import { Header, Loader, ProductDetailSkeleton, ProtectedRoute } from "./components";
 import { Toaster } from "react-hot-toast";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
@@ -12,8 +12,8 @@ import { UserReducerInitialState } from "./types/reducer-types";
 
 
 function App() {
-  const {user, loading} = useSelector(
-      (state : {userReducer : UserReducerInitialState}
+  const { user, loading } = useSelector(
+    (state: { userReducer: UserReducerInitialState }
     ) => state.userReducer)
   const dispatch = useDispatch();
   // Firebase provides an onAuthStateChanged method to observe the user's sign-in state. This method takes a callback function that runs whenever the user's authentication state changes.
@@ -29,33 +29,33 @@ function App() {
         dispatch(userNotExist());
       }
     })
-  },[]);
+  }, []);
 
   return (
-    loading ? <Loader /> : 
-    <Router>
-      {/* Header */}
-      <Header user={user} />
+    loading ? <Loader /> :
+      <Router>
+        {/* Header */}
+        <Header user={user} />
 
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/skeleton" element={<TableSkeleton />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={
-            <ProtectedRoute isAuthenticated={user ? false : true} >
-                  <Login />
-            </ProtectedRoute>
-          } />
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/skeleton" element={<ProductDetailSkeleton />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={
+              <ProtectedRoute isAuthenticated={user ? false : true} >
+                <Login />
+              </ProtectedRoute>
+            } />
 
-          <Route element={<ProtectedRoute isAuthenticated={user ? true : false} /> } >
+            <Route element={<ProtectedRoute isAuthenticated={user ? true : false} />} >
               <Route path="/shipping" element={<Shipping />} />
-          </Route>
+            </Route>
 
 
-          {/* Admin Routes */}
-          <Route element={<ProtectedRoute adminOnly={true} isAuthenticated={true} admin={user?.role === "admin"} /> }>
+            {/* Admin Routes */}
+            <Route element={<ProtectedRoute adminOnly={true} isAuthenticated={user ? true : false} admin={user?.role === "admin"} />}>
               <Route path="/admin/dashboard" element={<Dashboard />} />
               <Route path="/admin/product" element={<Product />} />
               <Route path="/admin/transaction" element={<Transactions />} />
@@ -70,12 +70,13 @@ function App() {
               <Route path="/admin/product/new" element={<NewProduct />} />
               <Route path="/admin/product/:id" element={<ProductManagment />} />
               <Route path="/admin/transaction/:id" element={<TransactionManagment />} />
-           </Route>
+            </Route>
 
-        </Routes>
-      </Suspense>
-      <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
-    </Router>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+        <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
+      </Router>
   )
 }
 
