@@ -1,0 +1,19 @@
+$color1 : rgb(0,0,0,0.8);
+$color2 : #fff;
+
+
+.checkout-container{
+    max-width: 400px;
+    width: 100%;
+    margin: 2% auto;
+
+    > form{
+        @include flex(column, flex-start, stretch, 2rem);
+
+        > button{
+            @include btn($color1, $color2);
+            width: 100%;
+            font-size: 1.1rem;
+        }
+    }
+}
