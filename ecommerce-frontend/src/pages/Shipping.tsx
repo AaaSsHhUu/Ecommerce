@@ -1,9 +1,12 @@
-import { useState, ChangeEvent, useEffect } from "react"
+import { useState, ChangeEvent, useEffect, FormEvent } from "react"
 import { BiArrowBack } from "react-icons/bi";
 import { TextField } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { CartReducerInitialState } from "../types/reducer-types";
+import axios from "axios";
+import { server } from "../redux/store";
+import toast from "react-hot-toast";
 
 type ShippingInfoProps = {
     address: string;
@@ -14,7 +17,7 @@ type ShippingInfoProps = {
 }
 const Shipping = () => {
 
-    const {cartItems} = useSelector((state : { cartReducer : CartReducerInitialState }) => state.cartReducer);
+    const {cartItems, total} = useSelector((state : { cartReducer : CartReducerInitialState }) => state.cartReducer);
 
     const [shippingInfo, setShippingInfo] = useState<ShippingInfoProps>(
         {
@@ -39,13 +42,34 @@ const Shipping = () => {
         }
     },[cartItems])
 
+    const submitHandler = async (e : FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const {data} = await axios.post(
+                `${server}/api/v1/payment/new`, 
+                {amount : total}, 
+                {headers : {
+                    "Content-Type" : "application/json"
+                }}
+            )
+
+            navigate("/pay",{
+                state : data.clientSecret
+            })
+        } catch (error) {
+            console.log("shipping error : ", error);
+            toast.error("Something went wrong");
+        }
+    }
+
     return (
         <div className="shipping">
             <button className="back-btn" onClick={() => navigate("/cart")}>
                 <BiArrowBack />
             </button>
 
-            <form>
+            <form onSubmit={submitHandler}>
                 <h1>Shipping Address</h1>
                 {/* Address */}
                 <div>
