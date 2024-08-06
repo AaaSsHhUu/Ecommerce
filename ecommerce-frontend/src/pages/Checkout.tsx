@@ -2,7 +2,7 @@ import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-
 import { loadStripe } from "@stripe/stripe-js";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const stripePromise = loadStripe('pk_test_51PcNZyIUFaxFMHVGSQ6RW3uvSBp9JVUNcUQtS6nrO6JddAKQRQkNVtJa4apRkWKvVYsmtqmbN41AxNItj3Y1JQPQ00mKo1mvsU')
 
@@ -53,8 +53,14 @@ const CheckoutForm = () => {
 }
 
 const Checkout = () => {
+  const location = useLocation();
+  console.log("location : ", location);
+
+  const clientSecret : string | undefined = location.state;
+  
+  if(!clientSecret) return <Navigate to={"/shipping"} />
   return (
-    <Elements stripe={stripePromise} options={{ clientSecret : "pi_3PkgUuIUFaxFMHVG2gk6Tdob_secret_TmmUwKapHehn3xahHTz6ZyCjG"}}>
+    <Elements stripe={stripePromise} options={{ clientSecret }}>
       <CheckoutForm />
     </Elements>
   )
