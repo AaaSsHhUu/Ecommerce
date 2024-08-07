@@ -86,3 +86,8 @@ export type OrderDetailResponse = {
     success : boolean;
     order : Order;
 }
+
+export type DeleteUserRequest = {
+    userId : string;
+    adminId : string;
+}
