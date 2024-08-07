@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense, useEffect } from "react";
-import { BarCharts, Cart, Customer, Dashboard, Home, LineCharts, Login, NewProduct, NotFound, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions } from "./pages";
+import { BarCharts, Cart, Checkout, Customer, Dashboard, Home, LineCharts, Login, NewProduct, NotFound, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions } from "./pages";
 import { Header, Loader, ProductDetailSkeleton, ProtectedRoute } from "./components";
 import { Toaster } from "react-hot-toast";
 import { onAuthStateChanged } from "firebase/auth";
@@ -51,6 +51,7 @@ function App() {
 
             <Route element={<ProtectedRoute isAuthenticated={user ? true : false} />} >
               <Route path="/shipping" element={<Shipping />} />
+              <Route path="/pay" element={<Checkout />} />
             </Route>
 
 
