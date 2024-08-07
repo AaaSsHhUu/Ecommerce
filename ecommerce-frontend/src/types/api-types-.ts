@@ -1,4 +1,4 @@
-import { Order, OrderItem, Product, ShippingInfo, User } from "./types";
+import { CartItem, Order, OrderItem, Product, ShippingInfo, User } from "./types";
 
 export interface MessageResponse{
     success : boolean;
@@ -63,7 +63,7 @@ export type DeleteProductRequest = {
 
 export type NewOrderRequest = {
     shippingInfo : ShippingInfo;
-    orderItems : OrderItem[];
+    orderItems : CartItem[];
     subtotal : number;
     tax : number;
     shippingCharges : number;
