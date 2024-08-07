@@ -1,69 +1,90 @@
 import { Column } from "react-table"
-import { AdminSidebar } from "../../components"
-import { ReactElement, useState } from "react";
+import { AdminSidebar, TableSkeleton } from "../../components"
+import { ReactElement, useEffect, useState } from "react";
 import Table from "../../components/admin/Table";
 import { FaTrash } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { useAllUserQuery, useDeleteUserMutation } from "../../redux/api/userApi";
+import { CustomError } from "../../types/api-types-";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { responseToast } from "../../utils/features";
+
+interface DataType{
+  avatar : ReactElement;
+  name : string;
+  email : string;
+  gender : string;
+  role : string;
+  action : ReactElement;
+}
+
+
+const columns : Column<DataType>[] = [
+  {
+    Header : "Avatar",
+    accessor : "avatar"
+  },
+  {
+    Header : "Name",
+    accessor : "name"
+  },
+  {
+    Header : "Email",
+    accessor : "email"
+  },
+  {
+    Header : "Gender",
+    accessor : "gender"
+  },
+  {
+    Header : "Role",
+    accessor : "role"
+  },
+  {
+    Header : "Action",
+    accessor : "action"
+  },
+];
 
 const Customer = () => {
 
-  interface DataType{
-    avatar : ReactElement;
-    name : string;
-    email : string;
-    gender : string;
-    role : string;
-    action : ReactElement;
+  const {user} = useSelector((state : RootState) => state.userReducer);
+
+  const {data, isLoading, isError, error} = useAllUserQuery(user?._id!);
+
+  const [rows, setRows] = useState<DataType[]>([]);
+
+  const [deleteUser] = useDeleteUserMutation();
+
+  const deleteUserHandler = async (userId : string) => {
+    const res = await deleteUser({
+      userId,
+      adminId : user?._id!
+    })
+    responseToast(res,null,"");
   }
 
-  const img1 = "https://randomuser.me/api/portraits/med/men/75.jpg";
-  const img2 = "https://randomuser.me/api/portraits/med/women/20.jpg"
-  const arr : DataType[] = [
-    {
-      avatar : <img src={img1} style={{borderRadius : "50%"}} alt="user img"/>,
-      name : "John Doe",
-      email : "john@gmail.com",
-      gender : "Male",
-      role : "user",
-      action : <button><FaTrash color="red" /></button>
-    },
-    {
-      avatar : <img src={img2} style={{borderRadius : "50%"}} alt="user img"/>,
-      name : "Emily Stark",
-      email : "emily@gmail.com",
-      gender : "Female",
-      role : "user",
-      action : <button><FaTrash color="red" /></button>
-    },
-  ];
+  useEffect(() => {
+    if(data){
+      setRows(data.users.map((i) => ({
+          avatar : <img src={i.photo} alt="Avatar" />,
+          name : i.name,
+          email : i.email,
+          gender : i.gender,
+          role : i.role,
+          action : <button onClick={() => deleteUserHandler(i._id)}>{<FaTrash />}</button>
 
-  const [data] = useState<DataType[]>(arr);
+      })))
+    }
+  },[data])
 
-  const columns : Column<DataType>[] = [
-    {
-      Header : "Avatar",
-      accessor : "avatar"
-    },
-    {
-      Header : "Name",
-      accessor : "name"
-    },
-    {
-      Header : "Email",
-      accessor : "email"
-    },
-    {
-      Header : "Gender",
-      accessor : "gender"
-    },
-    {
-      Header : "Role",
-      accessor : "role"
-    },
-    {
-      Header : "Action",
-      accessor : "action"
-    },
-  ];
+  if(isError){
+    const err = error as CustomError;
+    toast.error(err.data.message);
+  }
+
 
   return (
     <div className="admin-container">
@@ -72,13 +93,16 @@ const Customer = () => {
 
         {/* Main */}
         <main>
-            <Table<DataType> 
-               columns = {columns}
-               data={data}
-               containerClassname="dashboard-product-box" // same styling -> same classname
-               heading="Customers"
-               showPagination = {data.length > 6}
-            />
+            { isLoading ? <TableSkeleton /> 
+              : 
+              <Table<DataType> 
+                columns = {columns}
+                data={rows}
+                containerClassname="dashboard-product-box" // same styling -> same classname
+                heading="Customers"
+                showPagination = {rows.length > 6}
+              />
+            }
         </main>
     </div>
   )
