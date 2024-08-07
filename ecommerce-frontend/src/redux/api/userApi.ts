@@ -19,6 +19,13 @@ export const userAPI = createApi({
             })
         }),
 
+        deleteUser : builder.mutation({
+            query : ({userId, adminId}) => ({
+                url : `/${userId}?id=${adminId}`,
+                method : "DELETE"
+            })
+        })
+
     })
 })
 
@@ -31,4 +38,4 @@ export const getUser = async (id : string) => {
     }
 }
 
-export const {useLoginMutation} = userAPI;
+export const {useLoginMutation, useDeleteUserMutation, } = userAPI;
