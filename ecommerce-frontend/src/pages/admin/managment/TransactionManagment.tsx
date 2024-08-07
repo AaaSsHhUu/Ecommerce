@@ -2,13 +2,13 @@ import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { AdminSidebar, ProductDetailSkeleton } from "../../../components";
 import { useDeleteOrderMutation, useOrderDetailsQuery, useUpdateOrderMutation } from "../../../redux/api/orderApi";
-import { UserReducerInitialState } from "../../../types/reducer-types";
 import { Order, OrderItemType } from "../../../types/types";
 import { responseToast } from "../../../utils/features";
+import { RootState } from "../../../redux/store";
 
 const TransactionManagment = () => {
 
-  const { user } = useSelector((state: { userReducer: UserReducerInitialState }) => state.userReducer);
+  const { user } = useSelector((state: RootState) => state.userReducer);
 
   const {id : orderId} = useParams();
   const navigate = useNavigate();

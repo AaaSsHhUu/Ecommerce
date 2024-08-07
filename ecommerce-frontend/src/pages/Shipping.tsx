@@ -1,13 +1,12 @@
-import { useState, ChangeEvent, useEffect, FormEvent } from "react"
-import { BiArrowBack } from "react-icons/bi";
 import { TextField } from '@mui/material';
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { CartReducerInitialState } from "../types/reducer-types";
 import axios from "axios";
-import { server } from "../redux/store";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { BiArrowBack } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { saveShippingInfo } from "../redux/reducer/cartReducer";
+import { RootState, server } from "../redux/store";
 
 type ShippingInfoProps = {
     address: string;
@@ -18,7 +17,7 @@ type ShippingInfoProps = {
 }
 const Shipping = () => {
 
-    const {cartItems, total, } = useSelector((state : { cartReducer : CartReducerInitialState }) => state.cartReducer);
+    const {cartItems, total } = useSelector((state : RootState) => state.cartReducer);
 
     const [shippingInfo, setShippingInfo] = useState<ShippingInfoProps>(
         {
