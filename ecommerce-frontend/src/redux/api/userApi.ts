@@ -24,6 +24,12 @@ export const userAPI = createApi({
                 url : `/${userId}?id=${adminId}`,
                 method : "DELETE"
             })
+        }),
+
+        allUser : builder.query({
+            query : (adminId) => ({
+                url : `/all?id=${adminId}`
+            })
         })
 
     })
