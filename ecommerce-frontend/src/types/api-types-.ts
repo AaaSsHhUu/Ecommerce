@@ -10,6 +10,11 @@ export type AxiosGetUserResponse = {
     user : User;
 }
 
+export type AllUserResponse = {
+    success : boolean;
+    users : User[];
+}
+
 export type ProductsResponse = {
     success : boolean;
     products : Product[];
