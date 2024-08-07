@@ -9,6 +9,7 @@ export const userAPI = createApi({
         baseUrl : `${import.meta.env.VITE_SERVER}/api/v1/user`,
         credentials : "include"
     }),
+    tagTypes : ["users"],
     endpoints : (builder) => ({
         // /api/v1/user/signup
         login : builder.mutation<MessageResponse, User>({ // < Response, Query >
@@ -16,20 +17,23 @@ export const userAPI = createApi({
                 url : "/new",
                 method : "POST",
                 body : user
-            })
+            }),
+            invalidatesTags : ["users"]
         }),
 
         deleteUser : builder.mutation({
             query : ({userId, adminId}) => ({
                 url : `/${userId}?id=${adminId}`,
                 method : "DELETE"
-            })
+            }),
+            invalidatesTags : ["users"]
         }),
 
         allUser : builder.query({
             query : (adminId) => ({
                 url : `/all?id=${adminId}`
-            })
+            }),
+            providesTags : ["users"]
         })
 
     })
