@@ -61,6 +61,25 @@ export const ProductDetailSkeleton = () => {
     </ContentLoader>
   )
 }
+
+export const DashboardSkeleton = () => {
+  return (
+    <ContentLoader
+      speed={1}
+      width={'95%'}
+      height={'110vh'}
+      viewBox="0 0 100% 100%"
+      backgroundColor="#b0b0b0"
+      foregroundColor="#eee"
+    >
+      <rect x={"10%"} y={"5%"} rx={3}  ry={3} width={"28%"} height={"24%"}/>
+      <rect x={"50%"} y={"5%"} rx={3}  ry={3} width={"28%"} height={"24%"}/>
+      <rect x={"10%"} y={"40%"} rx={3}  ry={3} width={"28%"} height={"24%"}/>
+      <rect x={"50%"} y={"40%"} rx={3}  ry={3} width={"28%"} height={"24%"}/>
+      <rect x={"8%"} y={"70%"} rx={3} ry={3} width={"75%"} height={"50%"} />
+    </ContentLoader>
+  )
+}
 export default Loader
 
 
