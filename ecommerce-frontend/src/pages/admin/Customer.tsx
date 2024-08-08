@@ -1,14 +1,13 @@
-import { Column } from "react-table"
-import { AdminSidebar, TableSkeleton } from "../../components"
 import { ReactElement, useEffect, useState } from "react";
-import Table from "../../components/admin/Table";
-import { FaTrash } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { useAllUserQuery, useDeleteUserMutation } from "../../redux/api/userApi";
-import { CustomError } from "../../types/api-types-";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { Column } from "react-table";
+import { AdminSidebar, TableSkeleton } from "../../components";
+import Table from "../../components/admin/Table";
+import { useAllUserQuery, useDeleteUserMutation } from "../../redux/api/userApi";
+import { RootState } from "../../redux/store";
+import { CustomError } from "../../types/api-types-";
 import { responseToast } from "../../utils/features";
 
 interface DataType{
@@ -69,7 +68,7 @@ const Customer = () => {
   useEffect(() => {
     if(data){
       setRows(data.users.map((i) => ({
-          avatar : <img src={i.photo} alt="Avatar" />,
+          avatar : <img src={i.photo} style={{borderRadius : "50%"}} alt={i.name} />,
           name : i.name,
           email : i.email,
           gender : i.gender,
