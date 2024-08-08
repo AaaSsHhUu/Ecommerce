@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import { StatsResponse } from "../../types/api-types-";
 
 export const dashboardApi = createApi({
     reducerPath : "dashboardApi",
@@ -7,7 +8,7 @@ export const dashboardApi = createApi({
     }),
     endpoints : (builder) => ({
         
-        stats : builder.query({
+        stats : builder.query<StatsResponse, string>({
             query : (id) => (`/stats?id=${id}`)
         }),
 
