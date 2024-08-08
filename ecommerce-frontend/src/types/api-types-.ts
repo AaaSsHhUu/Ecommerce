@@ -1,4 +1,4 @@
-import { CartItem, Order, Product, ShippingInfo, User } from "./types";
+import { CartItem, Order, Product, ShippingInfo, StatsType, User } from "./types";
 
 export interface MessageResponse{
     success : boolean;
@@ -27,6 +27,21 @@ export type CategoryResponse = {
 
 export type SearchProductsResponse = ProductsResponse & {
     totalPages : number;
+}
+
+export type AllOrdersResponse = {
+    success : boolean;
+    orders : Order[];
+}
+
+export type OrderDetailResponse = {
+    success : boolean;
+    order : Order;
+}
+
+export type StatsResponse = {
+    success : boolean;
+    stats : StatsType;
 }
 
 export type SearchProductsQuery = {
@@ -77,14 +92,9 @@ export type NewOrderRequest = {
     user : string;
 }
 
-export type AllOrdersResponse = {
-    success : boolean;
-    orders : Order[];
-}
-
-export type OrderDetailResponse = {
-    success : boolean;
-    order : Order;
+export type UpdateOrderRequest = {
+    userId : string;
+    orderId : string;
 }
 
 export type DeleteUserRequest = {
