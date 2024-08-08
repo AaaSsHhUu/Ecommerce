@@ -4,6 +4,7 @@ import { userReducer } from "./reducer/userReducer";
 import { productApi } from "./api/productApi";
 import { cartReducer } from "./reducer/cartReducer";
 import { orderAPI } from "./api/orderApi";
+import { dashboardApi } from "./api/dashboardApi";
 
 
 export const server = import.meta.env.VITE_SERVER;
@@ -13,11 +14,12 @@ export const store = configureStore({
         [userAPI.reducerPath] : userAPI.reducer,
         [productApi.reducerPath] : productApi.reducer,
         [orderAPI.reducerPath] : orderAPI.reducer,
+        [dashboardApi.reducerPath] : dashboardApi.reducer,
 
         [userReducer.name] : userReducer.reducer,
         [cartReducer.name] : cartReducer.reducer
     },
-    middleware : (defaultMiddlewares) => defaultMiddlewares().concat(userAPI.middleware, productApi.middleware, orderAPI.middleware)
+    middleware : (defaultMiddlewares) => defaultMiddlewares().concat(userAPI.middleware, productApi.middleware, orderAPI.middleware, dashboardApi.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>
