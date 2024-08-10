@@ -6,6 +6,7 @@ import User from "../models/user.js";
 import Order from "../models/order.js";
 import { calculatePercentage, generateChartDataArr, getInventory } from "../utils/features.js";
 
+// #region Dasboard Stats
 export const getDashboardStats = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
         
@@ -118,9 +119,9 @@ export const getDashboardStats = asyncHandler(
             // Calculating percentage change in revenue, products, user and orders
             const percentage = {
                 revenue : calculatePercentage(thisMonthRevenue, lastMonthRevenue),
-                products : calculatePercentage(thisMonthProducts.length,lastMonthProducts.length),
-                users : calculatePercentage(thisMonthUsers.length, lastMonthUsers.length),
-                orders : calculatePercentage(thisMonthOrders.length, lastMonthOrders.length)
+                product : calculatePercentage(thisMonthProducts.length,lastMonthProducts.length),
+                user : calculatePercentage(thisMonthUsers.length, lastMonthUsers.length),
+                order : calculatePercentage(thisMonthOrders.length, lastMonthOrders.length)
             }
 
             const count = {
@@ -174,7 +175,10 @@ export const getDashboardStats = asyncHandler(
         })
     }
 )
+// #endregion
 
+
+// #region Pie Chart
 // Calculating Data for Pie Charts in Admin Dashboard
 export const getPieCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
@@ -274,7 +278,10 @@ export const getPieCharts = asyncHandler(
         })
     }
 )
+// #endregion
 
+
+// #region Bar Chart
 // Calculating Data for Bar Charts
 export const getBarCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
@@ -343,7 +350,10 @@ export const getBarCharts = asyncHandler(
         })
     }
 )
+//#endregion
 
+
+// #region Line Chart
 // Calculating Data for Line Charts
 export const getLineCharts = asyncHandler(
     async(req : Request , res : Response , next : NextFunction) => {
@@ -403,3 +413,5 @@ export const getLineCharts = asyncHandler(
         })
     }
 )
+
+//#endregion
