@@ -1,8 +1,8 @@
 // Admin Components
 import AdminSidebar from "./admin/AdminSidebar";
 import { BarChart, DoughnutChart, PieChart, LineChart } from "./admin/Chart";
-import Loader, { ProductSkeleton, TableSkeleton, ProductDetailSkeleton } from "./admin/Loader";
-import Table from "./admin/DashboardTable";
+import Loader, { ProductSkeleton, TableSkeleton, ProductDetailSkeleton, DashboardSkeleton } from "./admin/Loader";
+import DashboardTable from "./admin/DashboardTable";
 
 // App Components
 import Header from "./Header";
@@ -19,7 +19,7 @@ export {
   DoughnutChart,
   PieChart,
   LineChart,
-  Table,
+  DashboardTable,
   Header,
   ProductCard,
   CartItemCard,
@@ -28,5 +28,6 @@ export {
   ProtectedRoute,
   ProductSkeleton,
   TableSkeleton,
-  ProductDetailSkeleton
+  ProductDetailSkeleton,
+  DashboardSkeleton
 };
