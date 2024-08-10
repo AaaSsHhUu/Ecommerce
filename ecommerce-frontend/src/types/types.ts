@@ -143,3 +143,10 @@ export type Bar = {
   product : number[];
   order : number[];
 }
+
+export type Line = {
+  product : number[];
+  user : number[];
+  discount : number[];
+  revenue : number[];
+}
