@@ -1,12 +1,13 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { useState, MouseEvent } from "react";
-import toast from "react-hot-toast";
-import { auth } from "../firebase";
-import { FcGoogle } from "react-icons/fc";
-import { useLoginMutation } from "../redux/api/userApi";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { MouseEvent, useState } from "react";
+import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
+import { useDispatch } from "react-redux";
+import { auth } from "../firebase";
+import { getUser, useLoginMutation } from "../redux/api/userApi";
+import { userExist, userNotExist } from "../redux/reducer/userReducer";
 import { MessageResponse } from "../types/api-types-";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [gender, setGender] = useState("");
@@ -14,8 +15,8 @@ const Login = () => {
     
     const [login] = useLoginMutation();
     
-    const navigate = useNavigate();
-    
+    const dispatch = useDispatch();
+
     const firebaseLoginHandler = async (e: MouseEvent) => {
         e.preventDefault();
         try {
@@ -23,15 +24,15 @@ const Login = () => {
             const {user} = await signInWithPopup(auth, provider)
             // console.log("user : ", user);
 
-            console.log({
-                name : user.displayName!,
-                email : user.email!,
-                photo : user.photoURL!,
-                gender,
-                role : "user",
-                dob : date,
-                _id : user.uid,
-            })
+            // console.log({
+            //     name : user.displayName!,
+            //     email : user.email!,
+            //     photo : user.photoURL!,
+            //     gender,
+            //     role : "user",
+            //     dob : date,
+            //     _id : user.uid,
+            // })
             
             const res = await login({
                 name : user.displayName!,
@@ -45,13 +46,15 @@ const Login = () => {
 
             if("data" in res){
                 toast.success(res.data?.message!);
-                navigate("/");
+                const data = await getUser(user.uid);
+                dispatch(userExist(data.user));
             }else{
                 const error = res.error as FetchBaseQueryError;
                 const message = (error.data as MessageResponse).message;
                 toast.error(message);
+                dispatch(userNotExist());
             }
-            console.log("res : ", res);
+            // console.log("res : ", res);
             
 
         } catch (error) {
