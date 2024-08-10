@@ -1,13 +1,13 @@
-import { FaRegBell, FaSearch } from "react-icons/fa"
-import { AdminSidebar, BarChart, DoughnutChart, DashboardTable, TableSkeleton, DashboardSkeleton } from "../../components"
-import userImg from "../../assets/images/user.png";
-import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
-import { BiMaleFemale } from "react-icons/bi";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { useStatsQuery } from "../../redux/api/dashboardApi";
-import { CustomError } from "../../types/api-types-";
 import toast from "react-hot-toast";
+import { BiMaleFemale } from "react-icons/bi";
+import { FaRegBell, FaSearch } from "react-icons/fa";
+import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import userImg from "../../assets/images/user.png";
+import { AdminSidebar, BarChart, DashboardSkeleton, DashboardTable, DoughnutChart } from "../../components";
+import { useStatsQuery } from "../../redux/api/dashboardApi";
+import { RootState } from "../../redux/store";
+import { CustomError } from "../../types/api-types-";
 
 const Dashboard = () => {
 
@@ -39,7 +39,7 @@ const Dashboard = () => {
                 <FaSearch />
                 <input type="text" placeholder="Search for data, users, docs" />
                 <FaRegBell size={20} />
-                <img src={userImg} alt="user" />
+                <img src={ user?.photo || userImg} alt="user" />
               </div>
 
               {/* Widget Container */}
