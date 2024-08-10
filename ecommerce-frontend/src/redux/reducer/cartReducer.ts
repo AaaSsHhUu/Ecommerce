@@ -5,7 +5,7 @@ import { CartItem, ShippingInfo } from "../../types/types";
 const initialState : CartReducerInitialState = {
     loading : false,
     shippingCharges : 0,
-    subtotal : 0,
+    subTotal : 0,
     tax : 0,
     discount : 0,
     total : 0,
@@ -47,10 +47,10 @@ export const cartReducer = createSlice({
                 return total + (item.price * item.quantity);
             }, 0)
 
-            state.subtotal = subtotal;
+            state.subTotal = subtotal;
             state.shippingCharges = subtotal > 1000 ? 0 : 200;
             state.tax = Math.round(subtotal * 0.18);
-            state.total = state.subtotal + state.tax + state.shippingCharges - state.discount;
+            state.total = state.subTotal + state.tax + state.shippingCharges - state.discount;
         },
 
         applyDiscount : (state, action : PayloadAction<number>) => {
