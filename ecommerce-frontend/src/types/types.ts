@@ -79,9 +79,9 @@ export type Order = {
 
 type CountAndPercentageChange = {
     revenue: number;
-    products: number;
-    users: number;
-    orders: number;
+    product: number;
+    user: number;
+    order: number;
 }
 
 type LatestTransaction = {
