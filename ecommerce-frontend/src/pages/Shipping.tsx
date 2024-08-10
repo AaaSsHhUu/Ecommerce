@@ -8,24 +8,17 @@ import { useNavigate } from "react-router-dom";
 import { saveShippingInfo } from "../redux/reducer/cartReducer";
 import { RootState, server } from "../redux/store";
 
-type ShippingInfoProps = {
-    address: string;
-    city: string;
-    state: string;
-    country: string;
-    pinCode: string;
-}
 const Shipping = () => {
 
     const {cartItems, total } = useSelector((state : RootState) => state.cartReducer);
 
-    const [shippingInfo, setShippingInfo] = useState<ShippingInfoProps>(
+    const [shippingInfo, setShippingInfo] = useState(
         {
             address: "",
             city: "",
             state: "",
             country: "",
-            pinCode: ""
+            pinCode : ""
         }
     );
 
