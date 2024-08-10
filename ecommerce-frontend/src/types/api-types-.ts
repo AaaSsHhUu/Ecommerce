@@ -1,4 +1,4 @@
-import { CartItem, Order, Product, ShippingInfo, StatsType, User } from "./types";
+import { Bar, CartItem, Line, Order, Pie, Product, ShippingInfo, StatsType, User } from "./types";
 
 export interface MessageResponse{
     success : boolean;
@@ -44,6 +44,21 @@ export type StatsResponse = {
     stats : StatsType;
 }
 
+export type PieResponse = {
+    success : boolean;
+    chart : Pie;
+}
+
+export type BarResponse = {
+    success : true;
+    chart : Bar;
+}
+
+export type LineResponse = {
+    success : true;
+    chart : Line;
+}
+
 export type SearchProductsQuery = {
     price ?: number;
     page ?: number;
@@ -84,7 +99,7 @@ export type DeleteProductRequest = {
 export type NewOrderRequest = {
     shippingInfo : ShippingInfo;
     orderItems : CartItem[];
-    subtotal : number;
+    subTotal : number;
     tax : number;
     shippingCharges : number;
     discount : number;
