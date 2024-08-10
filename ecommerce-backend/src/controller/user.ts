@@ -3,6 +3,7 @@ import User from "../models/user.js";
 import {userValidation} from "../types/schema.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import { asyncHandler } from "../middleware/error.js";
+import { invalidateCache } from "../utils/features.js";
 
 export const createUser = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
@@ -38,15 +39,16 @@ export const createUser = asyncHandler(
             throw new ErrorHandler("Some error occured while creating user",500);
         }
 
+        await invalidateCache({admin : true})
         // generating token and sending it in cookies
-        const token = await user.generateToken();
-        // console.log("signup token : ", token);
+        // const token = await user.generateToken();
+        // // console.log("signup token : ", token);
         
-        res.cookie("token",token,{
-            httpOnly : true,
-            secure : process.env.NODE_ENV === "production",
-            maxAge : 1 * 24 * 60 * 60 * 1000
-        })
+        // res.cookie("token",token,{
+        //     httpOnly : true,
+        //     secure : process.env.NODE_ENV === "production",
+        //     maxAge : 1 * 24 * 60 * 60 * 1000
+        // })
         return res.status(201).json({
             success : true,
             message : `Welcome ${user.name} to BigBucket`
@@ -139,6 +141,7 @@ export const deleteUser = asyncHandler(
             throw new ErrorHandler("Some error occured while deleting the user",500);
         }
 
+        await invalidateCache({admin : true})
         return res.status(201).json({
             success : true,
             message : "User deleted Successfully",
