@@ -2,7 +2,7 @@ import { Column } from "react-table";
 import Table from "./Table";
 
 interface DataType{
-    id : string;
+    _id : string;
     quantity : number;
     discount : number;
     amount : number;
@@ -11,8 +11,8 @@ interface DataType{
 
 const columns :Column<DataType>[] = [
     {
-        Header : "Id",
-        accessor : "id"
+        Header : "ID",
+        accessor : "_id"
     },
     {
         Header : "Quantity",
