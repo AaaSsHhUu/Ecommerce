@@ -137,3 +137,9 @@ export type Pie = {
     customer : number;
   }
 };
+
+export type Bar = {
+  user : number[];
+  product : number[];
+  order : number[];
+}
