@@ -46,17 +46,17 @@ export type StatsResponse = {
 
 export type PieResponse = {
     success : boolean;
-    chart : Pie;
+    charts : Pie;
 }
 
 export type BarResponse = {
     success : true;
-    chart : Bar;
+    charts : Bar;
 }
 
 export type LineResponse = {
     success : true;
-    chart : Line;
+    charts : Line;
 }
 
 export type SearchProductsQuery = {
