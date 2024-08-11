@@ -249,9 +249,9 @@ export const getPieCharts = asyncHandler(
 
             // calculating different age groups
             const usersAgeGroups = {
-                teen : usersAge.filter(user => user.age < 20),
-                adult : usersAge.filter(user => user.age >= 20 && user.age < 40),
-                old : usersAge.filter(user => user.age >= 40)
+                teen : usersAge.filter(user => user.age < 20).length,
+                adult : usersAge.filter(user => user.age >= 20 && user.age < 40).length,
+                old : usersAge.filter(user => user.age >= 40).length
             }
 
             // calculating roles
