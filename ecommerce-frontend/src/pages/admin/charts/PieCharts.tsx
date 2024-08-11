@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { usePieQuery } from "../../../redux/api/dashboardApi";
-import { CustomError } from "../../../types/api-types-";
-import toast from "react-hot-toast";
+import { Navigate } from "react-router-dom";
 
 const PieCharts = () => {
 
   const { user } = useSelector((state: RootState) => state.userReducer);
 
-  const { data, isLoading, isError, error } = usePieQuery(user?._id!);
+  const { data, isLoading, isError } = usePieQuery(user?._id!);
 
   const [isPhoneActive, setIsPhoneActive] = useState<boolean>(window.innerWidth < 500)
 
@@ -25,10 +24,7 @@ const PieCharts = () => {
     }
   }, [])
 
-  if (isError) {
-    const err = error as CustomError;
-    toast.error(err.data.message);
-  }
+  if (isError) return <Navigate to={"/admin/dashboard"} />
 
   const order = data?.charts.orderFullfillment!;
   const categories = data?.charts.productCategoriesInfo!;
@@ -37,9 +33,6 @@ const PieCharts = () => {
   const userAge = data?.charts.usersAgeGroups!;
   const adminCustomer = data?.charts.adminAndCustomer!;
 
-
-  console.log("user age : ", userAge);
-  
   return (
     <>
       <div className="admin-container">
