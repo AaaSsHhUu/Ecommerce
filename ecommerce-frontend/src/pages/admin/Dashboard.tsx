@@ -8,7 +8,7 @@ import { AdminSidebar, BarChart, DashboardSkeleton, DashboardTable, DoughnutChar
 import { useStatsQuery } from "../../redux/api/dashboardApi";
 import { RootState } from "../../redux/store";
 import { CustomError } from "../../types/api-types-";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const Dashboard = () => {
 
@@ -16,12 +16,10 @@ const Dashboard = () => {
 
   const { data, isLoading, isError, error } = useStatsQuery(user?._id!);
 
-  const navigate = useNavigate();
-
   if (isError) {
     const err = error as CustomError;
     toast.error(err.data.message);
-    return navigate("/");
+    return <Navigate to={"/"} />;
   }
 
   const stats = data?.stats;
