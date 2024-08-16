@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { CartItem } from "../types/types";
 import { addToCart } from "../redux/reducer/cartReducer";
 import { ProductDetailSkeleton } from "../components";
+import { server } from "../redux/store";
 
 const ProductDetails = () => {
     const {id : productId} = useParams();
@@ -55,7 +56,7 @@ const ProductDetails = () => {
                     showThumbnails
                     showNav={false}
                     onClick={() => setCarouselOpen(true)}
-                    images={[data?.product.photo || ""]}
+                    images={[`${server}/${data?.product.photo}` || ""]}
                 />
                 {
                     carouselOpen && (
@@ -72,7 +73,7 @@ const ProductDetails = () => {
             <section>
                 <code>{data?.product.category}</code>
                 <h1>{data?.product.name}</h1>
-                <h3>{data?.product.price}</h3>
+                <h3>₹{data?.product.price}</h3>
                 <article>
                     <div>
                         <button onClick={decrement} disabled={quantity <= 1}>-</button>
