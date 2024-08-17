@@ -41,10 +41,10 @@ const Footer = () => {
             </p>
 
             <div className="social-links">
-                <Link to={"/"}><FaInstagram /></Link>
-                <Link to={"/"}><FaFacebook /></Link>
-                <Link to={"/"}><FaDribbble /></Link>
-                <Link to={"/"}><FaX /></Link>
+                <Link to={"https://www.instagram.com"} target='_blank'><FaInstagram /></Link>
+                <Link to={"https://www.facebook.com"} target='_blank'><FaFacebook /></Link>
+                <Link to={"https://www.dribble.com"} target='_blank'><FaDribbble /></Link>
+                <Link to={"https://www.twitter.com"} target='_blank'><FaX /></Link>
             </div>
         </div>
       </footer>
