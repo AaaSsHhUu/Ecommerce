@@ -3,9 +3,9 @@ import { Suspense, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { Header, Loader, ProtectedRoute } from "./components";
+import { Footer, Header, Loader, ProtectedRoute } from "./components";
 import { auth } from "./firebase";
-import { BarCharts, Cart, Checkout, Orders, Customer, Dashboard, Home, LineCharts, Login, NewProduct, NotFound, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions } from "./pages";
+import { BarCharts, Cart, Checkout, Orders, Customer, Dashboard, Home, LineCharts, Login, NewProduct, NotFound, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions, ProductDetail } from "./pages";
 import { getUser } from "./redux/api/userApi";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import { UserReducerInitialState } from "./types/reducer-types";
@@ -42,6 +42,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/login" element={
               <ProtectedRoute isAuthenticated={user ? false : true} >
                 <Login />
@@ -76,6 +77,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        <Footer />
         <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
       </Router>
   )
