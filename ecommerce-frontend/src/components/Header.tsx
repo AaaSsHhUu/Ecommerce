@@ -8,6 +8,8 @@ import { auth } from "../firebase";
 import toast from "react-hot-toast";
 import { RiMenu3Fill } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 interface PropsType{
     user : User | null;
@@ -17,6 +19,8 @@ const Header = ({user} : PropsType) => {
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const [showMenu, setShowMenu] = useState<boolean>(false);
     const [isPhoneActive, setIsPhoneActive] = useState<boolean>(window.innerWidth < 1024);
+
+    const {cartItems} = useSelector((state : RootState) => state.cartReducer)
 
     const logoutHandler = async () => {
         try {
@@ -65,6 +69,7 @@ const Header = ({user} : PropsType) => {
                     </Link>
                     <Link to={"/cart"} onClick={() => setIsDialogOpen(false)}>
                         <FaShoppingBag />Cart
+                        <div className={cartItems.length > 0 ? "cart-tag" : ""}></div>
                     </Link>
                     {
                         user?._id ?  // means user is logged in

@@ -161,3 +161,16 @@ $black : #161515;
         }
     }
 }
+
+.cart-tag{
+  &::after{
+    content: "";
+    height: 8px;
+    width: 8px;
+    background: rgb(233, 23, 23);
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
