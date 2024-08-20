@@ -49,7 +49,7 @@ const Orders = () => {
     const { user } = useSelector((state: RootState) => state.userReducer);
 
     const { isLoading, data, isError, error } = useMyOrderQuery(user?._id!);
-
+    
     const [rows, setRows] = useState<Datatype[]>([]);
 
     if(isError){
@@ -70,7 +70,7 @@ const Orders = () => {
                 action : <Link to={`/admin/transaction/${i._id}`} >Manage</Link>
             })))
         }
-    },[])
+    },[data])
 
     return (
         <div className="container">
