@@ -13,8 +13,10 @@ type ProductCardProps = {
 
 const ProductCard = ({productId,name,price,photo,stock,handler} : ProductCardProps) => {
   return (
-    <Link to={`/product/${productId}`} className="product-card">
-        <img src={`${server}/${photo}`} alt={name} />
+    <div className="product-card">
+        <Link to={`product/${productId}`}>
+          <img src={`${server}/${photo}`} alt={name} />
+        </Link>
 
         <div className="product-card-details">
             <div className="description">
@@ -26,7 +28,7 @@ const ProductCard = ({productId,name,price,photo,stock,handler} : ProductCardPro
             {/* <button className="buy-btn" onClick={}>Buy now</button> */}
             <button className="cart-btn" onClick={() => handler({productId,name, photo, price, stock, quantity : 1})}>Add to Cart</button>
         </div>
-    </Link>
+    </div>
   )
 }
 
