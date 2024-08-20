@@ -24,7 +24,7 @@ export const shippingInfoSchema = z.object({
     city : z.string(),
     state : z.string(),
     country : z.string(),
-    pinCode : z.number()
+    pinCode : z.string()
 })
 
 export const orderItemsSchema = z.object({
@@ -45,7 +45,7 @@ export const newOrderSchema = z.object({
     shippingCharges : z.number(),
     discount : z.number(),
     total : z.number(),
-    status : z.enum(["Processing" || "Shipped" || "Delivered"]).optional().default("Processing"),
+    status : z.enum([ "Processing", "Shipped", "Delivered"]).optional().default("Processing"),
     orderItems : z.array(orderItemsSchema)
 })
 
