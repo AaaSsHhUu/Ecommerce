@@ -13,7 +13,7 @@ const Cart = () => {
 
   const {
     cartItems,
-    subtotal,
+    subTotal,
     tax,
     total,
     discount,
@@ -94,7 +94,7 @@ const Cart = () => {
       </main>
 
       <aside>
-        <p>Subtotal : ₹{subtotal}</p>
+        <p>Subtotal : ₹{subTotal}</p>
         <p>Shipping Charges : ₹{shippingCharges}</p>
         <p>Tax : ₹{tax}</p>
         <p>Discount : <em className="green">₹{discount}</em></p>
