@@ -132,8 +132,8 @@ export const getDashboardStats = asyncHandler(
             }
 
             // Calculating data for dashboard chart arrays (Transaction and Revenue)
-            const orderMonthCount = generateChartDataArr({length : 6, docArr : lastMonthOrders, today})
-            const orderMonthRevenue = generateChartDataArr({length : 6, docArr : lastMonthOrders, today, field : "total"});
+            const orderMonthCount = generateChartDataArr({length : 6, docArr : lastSixMonthOrder, today});
+            const orderMonthRevenue = generateChartDataArr({length : 6, docArr : lastSixMonthOrder, today, field : "total"});
 
             const categoryCount : Record<string, number>[] = await getInventory({categories, productCount})
 
