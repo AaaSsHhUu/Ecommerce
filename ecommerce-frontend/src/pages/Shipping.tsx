@@ -7,12 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { saveShippingInfo } from "../redux/reducer/cartReducer";
 import { RootState, server } from "../redux/store";
+import { ShippingInfo } from '../types/types';
 
 const Shipping = () => {
 
     const {cartItems, total } = useSelector((state : RootState) => state.cartReducer);
 
-    const [shippingInfo, setShippingInfo] = useState(
+    const [shippingInfo, setShippingInfo] = useState<ShippingInfo>(
         {
             address: "",
             city: "",
@@ -107,7 +108,7 @@ const Shipping = () => {
                 </div>
                 {/* Country */}
                 <div>
-                    <select name="country" required>
+                    <select name="country" onChange={(e) => setShippingInfo({...shippingInfo, country : e.target.value })} required>
                         <option value="" disabled selected>Select a country *</option>
                         <option value="india">India</option>
                         <option value="us">US</option>
@@ -123,7 +124,7 @@ const Shipping = () => {
                         variant="outlined"
                         value={shippingInfo.pinCode}
                         sx={{ width: "100%" }}
-                        type="text"
+                        type="number"
                         onChange={handleTextChange}
                         required
                     />
