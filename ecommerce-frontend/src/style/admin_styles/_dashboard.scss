@@ -116,6 +116,9 @@
         width: 100%;
         @include flex(row, space-between);
         padding: 1rem;
+        &::-webkit-scrollbar{
+          display: none;
+        }
 
         > h5 {
           font-size: 1.05rem;

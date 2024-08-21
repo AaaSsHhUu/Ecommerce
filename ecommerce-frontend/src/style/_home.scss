@@ -6,7 +6,6 @@ $green : rgb(10, 133, 16);
     display: flex;
     flex-direction: column;
     width: 100%;
-    background: #eee;
     > section{
         width: 100%;
     }
@@ -41,7 +40,9 @@ $green : rgb(10, 133, 16);
         display: flex;
         gap: 1rem;
         align-items: center;
+        justify-content: center;
         overflow-x: auto;
+        margin-bottom: 1rem;
         &::-webkit-scrollbar{
             display: none;
         }
@@ -60,22 +61,22 @@ $green : rgb(10, 133, 16);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.5);
+    box-shadow: 0 0 2px rgba($color: #000000, $alpha: 0.5);
     &:hover{
         text-decoration: none;
-        >img{
-            scale: 0.9;
-        }
+        box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.5);
     }
     margin: 1rem;
-
-    > img{
-        width: 100%;
-        transition: all 0.3s;
+    
+    > a{
         max-height: 60%;
+        > img{
+            width: 100%;
+            height: 100%;
+        }
     }
 
-    > .product-details{
+    > .product-card-details{
         color: black;
         display: flex;
         flex-direction: column;
@@ -100,18 +101,6 @@ $green : rgb(10, 133, 16);
                 font-weight: bold;
             }
         }
-        > .buy-btn{
-            border: none;
-            outline: none;
-            background: $green;
-            padding: 0.3rem 1rem;
-            color: white;
-            font-size: 0.90rem;
-            cursor: pointer;
-            &:hover{
-                opacity: 0.8;
-            }
-        }
         >.cart-btn{
             border: none;
             outline: none;
@@ -120,13 +109,10 @@ $green : rgb(10, 133, 16);
             color: white;
             font-size: 0.90rem;
             cursor: pointer;
+            z-index: 10;
             &:hover{
                 opacity: 0.8;
             }
         }
     }
-}
-
-@media screen and (width < 640px){
-
 }

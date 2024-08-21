@@ -53,7 +53,7 @@ $gray : #E6E8E6;
 
 .admin-container {
   @include grid(1fr 4fr, 2rem);
-  height: 100vh;
+  min-height: 100vh;
   background-color: rgb(247, 247, 247);
   > aside {
     width: 100%;

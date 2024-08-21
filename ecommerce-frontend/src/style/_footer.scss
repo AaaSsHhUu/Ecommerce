@@ -2,6 +2,7 @@ footer{
     width: 100%;
     min-height: 30vh;
     background: #333;
+    // margin-top: 4rem;
 
     > .main{
         display: flex;
@@ -15,7 +16,6 @@ footer{
             flex-direction: column;
             .logo{
                 display: flex;
-                align-items: center;
                 color: rgb(193,23,23);
 
                 > svg{
@@ -50,6 +50,16 @@ footer{
                 > h1{
                     color: #ccc;
                     font-size: 1.4rem;
+                    position: relative;
+                    &::before{
+                        position: absolute;
+                        content: "";
+                        height: 3px;
+                        width: 100%;
+                        left: 0;
+                        bottom: -4px;
+                        background: rgb(233,23,23,0.5);
+                    }
                 }
                 > ul{
                     list-style: none;

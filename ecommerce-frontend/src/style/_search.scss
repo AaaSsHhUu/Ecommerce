@@ -63,7 +63,7 @@
     > .product-container {
       @include flex(row, flex-start, flex-start,1rem);
       flex-wrap: wrap;
-      height: calc(100% - 10rem);
+      min-height: calc(100% - 10rem);
       overflow-y: auto;
     }
 
