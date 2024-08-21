@@ -6,6 +6,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { RootState, server } from "../../../redux/store";
 import { useSelector } from "react-redux";
 import { responseToast } from "../../../utils/features";
+import { FaTrash } from "react-icons/fa";
 
 const ProductManagment = () => {
     const { id : productId } = useParams();
@@ -92,6 +93,7 @@ const ProductManagment = () => {
                         <>
                             <article>
                                 <div className="product-info">
+                                    <button onClick={deleteHandler} className="delete-btn"><FaTrash /></button>
                                     {stockUpdate > 0 && <span className="stock">{stockUpdate} Available</span>}
                                     <strong>ID - {data?.product._id}</strong>
                                     <img src={`${server}/${data?.product.photo}`} alt="product" />
@@ -102,6 +104,7 @@ const ProductManagment = () => {
                                     <h3>${priceUpdate}</h3>
                                 </div>
                                 <form onSubmit={submitHandler}>
+
                                     {/* Name */}
                                     <div>
                                         <TextField id="outlined-basic"
@@ -165,7 +168,6 @@ const ProductManagment = () => {
                                         photoUpdate && <img src={photoUpdate} className="preview-image" alt="selected image" />
                                     }
                                     <button type="submit">Update</button>
-                                    <button onClick={deleteHandler}>Delete</button>
                                 </form>
                             </article>
                         </>
