@@ -98,7 +98,7 @@ const Cart = () => {
         <p>Shipping Charges : ₹{shippingCharges}</p>
         <p>Tax : ₹{tax}</p>
         <p>Discount : <em className="green">₹{discount}</em></p>
-        <p><b>Total : ₹{total}</b></p>
+        <p><b>Total : ₹{cartItems.length > 0 ? total : 0}</b></p>
 
         <input type="text"
           value={couponCode}
