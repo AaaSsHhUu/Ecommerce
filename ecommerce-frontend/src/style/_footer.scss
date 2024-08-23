@@ -101,3 +101,42 @@ footer{
         }
     }
 }
+
+@media screen and (width <= 600px){
+    footer{
+        .main{
+            flex-direction: column;
+            .left{
+                width: 100%;
+
+                >.logo{
+                    justify-content: center;
+                }
+
+                >.description{
+                    width: 75%;
+                    text-align: center;
+                }
+
+                >.contact-info{
+                    align-items: center;
+                }
+            }
+
+            .right{
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+
+                >.footer-links {
+
+                    text-align: center;
+                    
+                    > h1{
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
