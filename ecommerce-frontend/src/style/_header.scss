@@ -126,7 +126,48 @@ $black : #161515;
   }
 }
 
-@media screen and (width < 1024px){
+@media screen and (width <= 500px){
+    .header-container{
+      > .header{
+          flex-direction: column;
+          .logo {
+              svg{
+                  font-size: 2rem;
+              }
+
+              h1{
+                font-size: 1.85rem;
+              }
+          }
+          > .nav-links{
+            flex-direction: column;
+            
+            > a{
+                font-size: 1rem;
+            }
+
+            >.profile > button{
+                font-size: 1rem;
+            }
+        }
+
+        >.nav-btn{
+            border: none;
+            outline: none;
+            font-size: 1.5rem;
+            color: $red;
+            background: transparent;
+            position: absolute;
+            right: 2rem;
+            top: 1rem;
+        }
+
+      }
+
+    }
+}
+
+@media screen and (width < 1024px) and (width > 500px){
     .header-container > .header{
         flex-direction: column;
         > .logo{

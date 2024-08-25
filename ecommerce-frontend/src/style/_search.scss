@@ -81,3 +81,31 @@
     }
   }
 }
+
+
+@media screen and (width <= 600px){
+    .search-page{
+      flex-direction: column;
+
+      > aside{
+          h2{
+            font-size: 2rem;
+            text-align: center;
+          }
+      }
+
+      > main{
+          h1{
+            font-size: 2rem;
+            text-align: center;
+          }
+          > input{
+              margin: 1rem auto;
+          }
+          > .product-container{
+            justify-content: center;
+          }
+      }
+    }
+}
+

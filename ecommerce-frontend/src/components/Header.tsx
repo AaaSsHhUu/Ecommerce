@@ -58,16 +58,16 @@ const Header = ({user} : PropsType) => {
                     style={{display : isPhoneActive ? 
                         (showMenu ? "flex" : "none") : ""}}
                 >
-                    <Link to={"/"} onClick={() => setIsDialogOpen(false)}>
+                    <Link to={"/"} onClick={() => setShowMenu(false)}>
                         <FaHome size={"1.3rem"} />Home
                     </Link>
                     <Link 
                       to={"/search"} 
-                      onClick={() => setIsDialogOpen(false)}
+                      onClick={() => setShowMenu(false)}
                     >
                         <FaSearch />Search
                     </Link>
-                    <Link to={"/cart"} onClick={() => setIsDialogOpen(false)}>
+                    <Link to={"/cart"} onClick={() => setShowMenu(false)}>
                         <FaShoppingBag />Cart
                         <div className={cartItems.length > 0 ? "cart-tag" : ""}></div>
                     </Link>
