@@ -1,4 +1,4 @@
-import { Bar, CartItem, Line, Order, Pie, Product, ShippingInfo, StatsType, User } from "./types";
+import { Bar, CartItem, Coupon, Line, Order, Pie, Product, ShippingInfo, StatsType, User } from "./types";
 
 export interface MessageResponse{
     success : boolean;
@@ -50,13 +50,18 @@ export type PieResponse = {
 }
 
 export type BarResponse = {
-    success : true;
+    success : boolean;
     charts : Bar;
 }
 
 export type LineResponse = {
-    success : true;
+    success : boolean;
     charts : Line;
+}
+
+export type CouponResponse = {
+    success : boolean;
+    coupons : Coupon[];
 }
 
 export type SearchProductsQuery = {
@@ -114,5 +119,18 @@ export type UpdateOrderRequest = {
 
 export type DeleteUserRequest = {
     userId : string;
+    adminId : string;
+}
+
+export type NewCouponRequest = {
+    couponInfo : {
+        coupon : string;
+        amount : number;
+    },
+    adminId : string;
+}
+
+export type DeleteCouponRequest = {
+    couponId : string;
     adminId : string;
 }
