@@ -39,7 +39,7 @@ const TransactionManagment = () => {
     },
     _id: ""
   }
-console.log("Data : ", data);
+// console.log("Data : ", data);
 
   const {
     shippingInfo: {
