@@ -1,7 +1,7 @@
 .cart {
   padding: 1rem 3rem;
   @include flex(row, unset,unset, 4rem);
-  height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
 
   > main {
     width: 70%;
@@ -17,7 +17,8 @@
 
   > aside {
     width: 30%;
-    padding: 4rem;
+    height: fit-content;
+    padding: 3rem;
     @include flex(column, center, stretch, 1.5rem);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.28);
     position: sticky;
@@ -61,6 +62,10 @@
   padding: 1rem;
   @include flex(row, flex-start, center, 3rem);
   border-radius: 10px;
+  transition: background 0.3s;
+  &:hover{
+    background: #eee;
+  }
   > img {
     object-fit: contain;
     @include square(6rem);
@@ -110,4 +115,36 @@
       color: rgb(148, 7, 7);
     }
   }
+}
+
+
+@media screen and (width <= 850px) and (width > 500px){
+  .cart{
+    flex-direction: column;
+    align-items: center;
+
+    > main, aside{
+        width: 80%;
+    }
+  }
+}
+
+@media screen and (width <= 500px){
+    .cart{
+       flex-direction: column;
+       align-items: center;
+       
+       > main, aside{
+         width: 90%;
+        
+         .cart-item{
+            > img{
+              height: 3rem;
+              width: 3rem;
+            }
+
+            flex-wrap: wrap;
+         }
+        }
+    }
 }

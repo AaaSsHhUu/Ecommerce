@@ -9,6 +9,9 @@
     position: fixed;
     right: 2rem;
     top: 5.5rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
     // z-index: 100;
     @include square(2.5rem);
     @include flex(row,center,center, 0);
