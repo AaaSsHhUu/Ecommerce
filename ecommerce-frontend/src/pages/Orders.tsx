@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Column } from "react-table";
 import { RootState } from "../redux/store";
 import { useMyOrderQuery } from "../redux/api/orderApi";
-import { CustomError } from "../types/api-types-";
+import { CustomError } from "../types/api-types";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { TableSkeleton } from "../components";
