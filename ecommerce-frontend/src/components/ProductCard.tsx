@@ -14,7 +14,7 @@ type ProductCardProps = {
 const ProductCard = ({productId,name,price,photo,stock,handler} : ProductCardProps) => {
   return (
     <div className="product-card">
-        <Link to={`product/${productId}`}>
+        <Link to={`/product/${productId}`}>
           <img src={`${server}/${photo}`} alt={name} />
         </Link>
 
