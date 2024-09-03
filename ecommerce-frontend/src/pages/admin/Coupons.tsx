@@ -7,7 +7,7 @@ import { Column } from "react-table";
 import { ReactElement, useEffect, useState } from "react";
 import { useAllCouponsQuery, useDeleteCouponMutation, useNewCouponMutation } from "../../redux/api/couponApi";
 import { CustomError } from "../../types/api-types";
-import { FaCross, FaPlus, FaTrash } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
 import { Coupon } from "../../types/types";
 import { responseToast } from "../../utils/features";
