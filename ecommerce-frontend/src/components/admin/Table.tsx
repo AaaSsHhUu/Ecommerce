@@ -43,8 +43,6 @@ function Table<T extends Object>({
         gotoPage
     } = useTable(options, useSortBy, usePagination);
 
-    console.log("rendering table");
-    
     return (
         <div className={containerClassname}>
             <h2 className="heading">{heading}</h2>
