@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { IconType } from "react-icons";
 import { FaChartBar, FaChartLine, FaChartPie } from "react-icons/fa";
 import { HiMenuAlt4 } from "react-icons/hi";
-import { RiDashboardFill, RiFileTextFill, RiMoneyRupeeCircleFill, RiShoppingBag3Fill } from "react-icons/ri";
+import { RiDashboardFill, RiFileTextFill, RiMoneyRupeeCircleFill, RiShoppingBag3Fill, RiCoupon3Fill } from "react-icons/ri";
 import { Link, Location, useLocation } from "react-router-dom";
 
 function AdminSidebar() {
@@ -49,6 +49,8 @@ function AdminSidebar() {
                 <Li text="Customer" url="/admin/customer" Icon={RiFileTextFill} location={location} />
               {/* Transactions */}
                 <Li text="Transaction" url="/admin/transaction" Icon={RiMoneyRupeeCircleFill} location={location} />
+              {/* Transactions */}
+                <Li text="Coupons" url="/admin/coupons" Icon={RiCoupon3Fill} location={location} />
             </ul>
         </div>
 
