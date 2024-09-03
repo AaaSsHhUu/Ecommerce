@@ -7,7 +7,7 @@ import { AdminSidebar, TableSkeleton } from "../../components";
 import Table from "../../components/admin/Table";
 import { useAllUserQuery, useDeleteUserMutation } from "../../redux/api/userApi";
 import { RootState } from "../../redux/store";
-import { CustomError } from "../../types/api-types-";
+import { CustomError } from "../../types/api-types";
 import { responseToast } from "../../utils/features";
 
 interface DataType{

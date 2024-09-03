@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { AdminSidebar, BarChart, Loader } from "../../../components";
 import { RootState } from "../../../redux/store";
 import { useBarQuery } from "../../../redux/api/dashboardApi";
-import { CustomError } from "../../../types/api-types-";
+import { CustomError } from "../../../types/api-types";
 import toast from "react-hot-toast";
 import { getLastMonths } from "../../../utils/features";
 

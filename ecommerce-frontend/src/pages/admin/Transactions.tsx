@@ -7,7 +7,7 @@ import { AdminSidebar, TableSkeleton } from "../../components";
 import Table from "../../components/admin/Table";
 import { useAllOrdersQuery } from "../../redux/api/orderApi";
 import { RootState } from "../../redux/store";
-import { CustomError } from "../../types/api-types-";
+import { CustomError } from "../../types/api-types";
 
 interface DataType{
   user : string;

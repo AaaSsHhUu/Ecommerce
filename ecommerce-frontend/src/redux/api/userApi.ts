@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { User } from "../../types/types";
-import { AllUserResponse, AxiosGetUserResponse, DeleteUserRequest, MessageResponse } from "../../types/api-types-";
+import { AllUserResponse, AxiosGetUserResponse, DeleteUserRequest, MessageResponse } from "../../types/api-types";
 import axios from "axios";
 
 export const userAPI = createApi({

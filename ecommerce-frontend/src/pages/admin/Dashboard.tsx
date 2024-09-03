@@ -7,7 +7,7 @@ import userImg from "../../assets/images/user.png";
 import { AdminSidebar, BarChart, DashboardSkeleton, DashboardTable, DoughnutChart } from "../../components";
 import { useStatsQuery } from "../../redux/api/dashboardApi";
 import { RootState } from "../../redux/store";
-import { CustomError } from "../../types/api-types-";
+import { CustomError } from "../../types/api-types";
 import { Navigate } from "react-router-dom";
 
 const Dashboard = () => {

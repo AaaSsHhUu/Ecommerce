@@ -7,7 +7,7 @@ import { FaPlus } from "react-icons/fa";
 import { useAllProductsQuery } from "../../redux/api/productApi";
 import { RootState, server } from "../../redux/store";
 import toast from "react-hot-toast";
-import { CustomError } from "../../types/api-types-";
+import { CustomError } from "../../types/api-types";
 import { useSelector } from "react-redux";
 
 interface DataType{

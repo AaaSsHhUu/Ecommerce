@@ -3,7 +3,7 @@ import { AdminSidebar, LineChart, Loader } from "../../../components"
 import { getLastMonths } from "../../../utils/features"
 import { RootState } from "../../../redux/store";
 import { useLineQuery } from "../../../redux/api/dashboardApi";
-import { CustomError } from "../../../types/api-types-";
+import { CustomError } from "../../../types/api-types";
 import toast from "react-hot-toast";
 
 const LineCharts = () => {
