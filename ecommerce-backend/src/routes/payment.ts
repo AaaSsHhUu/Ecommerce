@@ -10,7 +10,7 @@ router.post("/coupon/new",adminOnly, newCoupon);
 
 router.post("/discount", applyCoupon);
 
-router.get("/coupon/all/",adminOnly, allCoupons);
+router.get("/coupon/all",adminOnly, allCoupons);
 
 router.route("/coupon/:id")
     .get(adminOnly, getCoupon)
