@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Footer, Header, Loader, ProtectedRoute } from "./components";
 import { auth } from "./firebase";
-import { BarCharts, Cart, Checkout, Orders, Customer, Dashboard, Home, LineCharts, Login, NewProduct, NotFound, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions, ProductDetail } from "./pages";
+import { BarCharts, Cart, Checkout, Orders, Customer, Dashboard, Home, LineCharts, Login, NewProduct, NotFound, PieCharts, Product, ProductManagment, Search, Shipping, TransactionManagment, Transactions, ProductDetail, Coupons } from "./pages";
 import { getUser } from "./redux/api/userApi";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import { UserReducerInitialState } from "./types/reducer-types";
@@ -62,6 +62,7 @@ function App() {
               <Route path="/admin/product" element={<Product />} />
               <Route path="/admin/transaction" element={<Transactions />} />
               <Route path="/admin/customer" element={<Customer />} />
+              <Route path="/admin/coupons" element={<Coupons />} />
 
               {/* Charts */}
               <Route path="/admin/chart/bar" element={<BarCharts />} />
