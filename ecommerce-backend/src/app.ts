@@ -33,7 +33,6 @@ export const myCache = new NodeCache({stdTTL : 600, checkperiod : 600}); // both
 // middlewares
 app.use(cookieParser());
 app.use(cors({
-    origin : process.env.FRONTEND_URL,
     methods : ["GET", "POST", "PUT", "DELETE"],
     credentials : true
 }));
