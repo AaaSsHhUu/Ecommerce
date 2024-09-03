@@ -150,3 +150,9 @@ export type Line = {
   discount : number[];
   revenue : number[];
 }
+
+export type Coupon = {
+  _id : string;
+  coupon : string;
+  amount : number;
+}
