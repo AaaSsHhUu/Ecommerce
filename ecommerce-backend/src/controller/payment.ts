@@ -35,8 +35,8 @@ export const newCoupon = asyncHandler(
         const {success,error} = couponSchema.safeParse({coupon,amount});
 
         if(!success){
-            console.log("zod Error", error);
-            throw new ErrorHandler("Invalid Inputs", 400);
+            console.log("zod Error : ", error.issues[0].message);
+            throw new ErrorHandler(error.issues[0].message || "Invalid Inputs", 400);
         }
 
         const newCoupon = await Coupon.create({coupon, amount});
@@ -74,7 +74,8 @@ export const applyCoupon = asyncHandler(
 export const allCoupons = asyncHandler(
     async( req : Request , res : Response , next : NextFunction)=>{
         const coupons = await Coupon.find();
-
+        console.log("fetched coupons : ", coupons);
+        
         if(!coupons){
             throw new ErrorHandler("No coupons found",404);
         }
