@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { auth } from "../firebase";
 import { getUser, useLoginMutation } from "../redux/api/userApi";
 import { userExist, userNotExist } from "../redux/reducer/userReducer";
-import { MessageResponse } from "../types/api-types-";
+import { MessageResponse } from "../types/api-types";
 
 const Login = () => {
     const [gender, setGender] = useState("");
