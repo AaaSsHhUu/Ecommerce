@@ -30,22 +30,9 @@ export const myCache = new NodeCache({stdTTL : 600, checkperiod : 600}); // both
 // stdTTL -> standard time to live
 // checkperiod -> time at which the cache will check for expired items and remove them
 
-const allowedOrigins = ['https://mern-ecommerce-r85057cd6-anegi6723gmailcoms-projects.vercel.app'];
-
-const corsOptions = {
-    origin : function(origin : string | undefined, callback : (err : Error | null, allow ?: boolean) => void){
-        if(origin && allowedOrigins.includes(origin)){
-            callback(null, true);
-        }
-        else{
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    credentials : true
-}
 // middlewares
 app.use(cookieParser());
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(morgan("dev"))
 app.use(express.json());
 
