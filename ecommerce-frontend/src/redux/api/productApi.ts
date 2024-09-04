@@ -5,7 +5,6 @@ export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product`,
-    credentials : "include" // for cookies
   }),
 
   tagTypes : ["product"], // for revalidating cached data
