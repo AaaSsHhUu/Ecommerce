@@ -72,3 +72,16 @@ $red: rgb(233, 23, 23);
   }
 
 }
+
+@media screen and (width < 500px){
+    .login-container{
+        > .form-card{
+            width: 80vw;
+            > .login-form{
+              > .login-btn{
+                margin-top: 0;
+              }
+            }
+        }
+    }
+}

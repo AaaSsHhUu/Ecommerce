@@ -37,7 +37,7 @@ const Footer = () => {
         <div className='mini'>
             {/* copyright */}
             <p className="footer-copyright">
-                &copy; bigbucket.io 2024
+                &copy; buybucket.io 2024
             </p>
 
             <div className="social-links">
