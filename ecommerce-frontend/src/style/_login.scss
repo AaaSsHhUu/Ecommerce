@@ -9,7 +9,7 @@ $red: rgb(233, 23, 23);
 
   >.form-card{
     height: 70vh;
-    width: 25vw;
+    width: 35vw;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
@@ -73,7 +73,7 @@ $red: rgb(233, 23, 23);
 
 }
 
-@media screen and (width < 500px){
+@media screen and (width <= 500px){
     .login-container{
         > .form-card{
             width: 80vw;
@@ -84,4 +84,17 @@ $red: rgb(233, 23, 23);
             }
         }
     }
+}
+
+@media screen and (width > 500px) and (width < 750px) {
+  .login-container{
+    > .form-card{
+        width: 80vw;
+        > .login-form{
+          > .login-btn{
+            margin-top: 0;
+          }
+        }
+    }
+}
 }

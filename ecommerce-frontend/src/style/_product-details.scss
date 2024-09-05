@@ -83,3 +83,26 @@ $red : #DF2935;
         }
     }
 }
+
+@media screen and (width < 750px) {
+    .product-details{
+        > main{
+            flex-direction: column;
+
+            > section{
+                &:first-of-type{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 1rem;
+                }
+
+                &:last-of-type{
+                    width: 100%;
+                    padding: 1rem;
+                    min-height: auto;
+                }
+            }
+        }
+    }
+}
