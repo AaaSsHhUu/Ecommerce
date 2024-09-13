@@ -10,6 +10,7 @@ import NodeCache from "node-cache";
 import morgan from "morgan";
 import Stripe from "stripe";
 import cors from "cors";
+import {v2 as cloudinary} from 'cloudinary';
 
 // Routes
 import userRoutes from "./routes/user.js";
@@ -35,6 +36,12 @@ app.use(cookieParser());
 app.use(cors());
 app.use(morgan("dev"))
 app.use(express.json());
+
+cloudinary.config({
+    cloud_name : process.env.CLOUDINARY_CLOUD_NAME,
+    api_key : process.env.CLOUDINARY_API_KEY,
+    api_secret : process.env.CLOUDINARY_API_SECRET
+})
 
 app.get("/api/v1/", (req,res) => {
     res.send("This is root route")

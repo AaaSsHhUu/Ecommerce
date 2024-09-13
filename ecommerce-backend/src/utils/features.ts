@@ -1,3 +1,5 @@
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
+import fs from "fs";
 import mongoose, { Document } from "mongoose";
 import { InvalidateCacheProps } from "../types/types.js";
 import Product from "../models/product.js";
@@ -130,4 +132,26 @@ export const generateChartDataArr = ({length, docArr, today, field} : generateCh
     });
     
     return data;
+}
+
+// Uploading images on cloudinary
+
+export const uploadOnCloudinary = async (filePath : string) => {
+    try {
+        if(!filePath) return null;
+
+        // upload on cloudinary
+        const response = await cloudinary.uploader.upload(
+          filePath,
+          { resource_type : "auto" }
+        )
+
+        // remove the locally saved file after it has been uploaded 
+        fs.unlinkSync(filePath);
+        return response;
+    } catch (error) {
+        // remove the locally saved file as the operation gets failed
+        fs.unlinkSync(filePath);
+        return null;
+    }
 }

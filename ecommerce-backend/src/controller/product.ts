@@ -6,14 +6,14 @@ import Product from "../models/product.js";
 import { rm } from "fs";
 import {SearchQueryInputs, BaseQuery, NewProductRequestBody} from "../types/types.js";
 import { myCache } from "../app.js";
-import { invalidateCache } from "../utils/features.js";
+import { invalidateCache, uploadOnCloudinary } from "../utils/features.js";
 // import {faker} from "@faker-js/faker";
 
 export const createProduct = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, price, stock, category } = req.body;
-    const photo = req.file;
-
+    const photo = req.file?.path;
+    
     const { success } = newProductValidation.safeParse(req.body);
 
     if (!photo) {
@@ -21,18 +21,22 @@ export const createProduct = asyncHandler(
     }
 
     if (!success) {
-      rm(photo?.path, () => {
-        console.log("Image deleted");
-      });
+      // rm(photo?.path, () => {
+      //   console.log("Image deleted");
+      // });
       throw new ErrorHandler("Invalid Inputs", 400);
     }
+
+    const photoUrl = await uploadOnCloudinary(photo);
+    console.log("photo url : ", photoUrl);
+    
 
     const product = await Product.create({
       name,
       category: category.toLowerCase(),
       stock: Number(stock),
       price: Number(price),
-      photo: photo?.path,
+      photo: photoUrl?.secure_url,
     });
 
     if (!product) {
