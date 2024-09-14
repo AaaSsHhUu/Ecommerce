@@ -8,8 +8,8 @@ $red: rgb(233, 23, 23);
   align-items: center;
 
   >.form-card{
-    height: 70vh;
-    width: 35vw;
+    height: 80vh;
+    width: 25vw;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
@@ -86,10 +86,10 @@ $red: rgb(233, 23, 23);
     }
 }
 
-@media screen and (width > 500px) and (width < 750px) {
+@media screen and (width > 500px) and (width < 850px) {
   .login-container{
     > .form-card{
-        width: 80vw;
+        width: 50vw;
         > .login-form{
           > .login-btn{
             margin-top: 0;

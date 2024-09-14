@@ -62,10 +62,45 @@ const Login = () => {
         }
     }
 
+    const firebaseSignupHandler = async (e : MouseEvent) => {
+        e.preventDefault();
+        if(!gender || !date){
+            toast.error("Invalid Inputs");
+            return ;
+        }
+        try {
+            const provider = new GoogleAuthProvider();
+            const {user} = await signInWithPopup(auth, provider);
+
+            const res = await login({
+                name : user.displayName!,
+                email : user.email!,
+                photo : user.photoURL!,
+                gender,
+                role : "user",
+                dob : date,
+                _id : user.uid,
+            })
+
+            if("data" in res){
+                toast.success(res.data?.message!);
+                const data = await getUser(user.uid);
+                dispatch(userExist(data.user));
+            }else{
+                const error = res.error as FetchBaseQueryError;
+                const message = (error.data as MessageResponse).message;
+                toast.error(message);
+                dispatch(userNotExist());
+            }
+        } catch (error) {
+            toast.error("Signup Failed, Try Again")
+        }
+    }
+
     return (
         <div className="login-container">
             <div className="form-card">
-                <h1>Login</h1>
+                <h1>Signup</h1>
                 <form className="login-form">
                     <div>
                         <label htmlFor="gender">Gender</label>
@@ -79,9 +114,13 @@ const Login = () => {
                         <label htmlFor="dob">Date of birth</label>
                         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                     </div>
+                    <button className="login-btn" onClick={firebaseSignupHandler}>
+                        <FcGoogle />
+                        Signup
+                    </button>
                     <button className="login-btn" onClick={firebaseLoginHandler}>
                         <FcGoogle />
-                        Login using Google
+                        Signin using Google
                     </button>
                 </form>
             </div>
