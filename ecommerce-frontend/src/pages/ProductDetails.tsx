@@ -56,7 +56,7 @@ const ProductDetails = () => {
                     showThumbnails
                     showNav={false}
                     onClick={() => setCarouselOpen(true)}
-                    images={[`${server}/${data?.product.photo}` || ""]}
+                    images={[data?.product.photo || ""]}
                 />
                 {
                     carouselOpen && (
