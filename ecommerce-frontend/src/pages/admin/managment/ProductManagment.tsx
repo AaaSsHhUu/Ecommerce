@@ -3,7 +3,7 @@ import { AdminSidebar, ProductDetailSkeleton } from "../../../components";
 import TextField from '@mui/material/TextField';
 import { useDeleteProductMutation, useProductDetailsQuery, useUpdateProductMutation } from "../../../redux/api/productApi";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { RootState, server } from "../../../redux/store";
+import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
 import { responseToast } from "../../../utils/features";
 import { FaTrash } from "react-icons/fa";
@@ -96,7 +96,7 @@ const ProductManagment = () => {
                                     <button onClick={deleteHandler} className="delete-btn"><FaTrash /></button>
                                     {stockUpdate > 0 && <span className="stock">{stockUpdate} Available</span>}
                                     <strong>ID - {data?.product._id}</strong>
-                                    <img src={`${server}/${data?.product.photo}`} alt="product" />
+                                    <img src={data?.product.photo} alt="product" />
                                     <p>{nameUpdate}</p>
                                     {
                                         stockUpdate > 0 ? <span className="green">Availbale</span> : <span className="red">Not Available</span>

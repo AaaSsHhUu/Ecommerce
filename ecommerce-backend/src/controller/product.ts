@@ -39,6 +39,8 @@ export const createProduct = asyncHandler(
       photo: photoUrl?.secure_url,
     });
 
+    // console.log("product created : ", product);
+
     if (!product) {
       throw new ErrorHandler("Some error occured while creating product", 500);
     }

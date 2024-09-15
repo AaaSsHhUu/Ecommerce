@@ -11,6 +11,8 @@ type ProductCardProps = {
 }
 
 const ProductCard = ({productId,name,price,photo,stock,handler} : ProductCardProps) => {
+  // console.log("product details : ", photo);
+  
   return (
     <div className="product-card">
         <Link to={`/product/${productId}`}>
