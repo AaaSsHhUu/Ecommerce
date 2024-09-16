@@ -187,7 +187,8 @@ export const updateProduct = asyncHandler(
     const id = req.params.id;
 
     const { name, price, stock, category } = req.body;
-    const photo = req.file;
+    const photo = req.file?.path;
+    console.log("photo path : ", photo);
 
     const product = await Product.findById(id);
     // console.log("product : ",product);
@@ -196,11 +197,12 @@ export const updateProduct = asyncHandler(
       throw new ErrorHandler("Invalid id, product not found", 404);
     }
 
-    if (photo) {
-      rm(product?.photo!, () => {
-        console.log("removed product previous photo");
-      });
-      product.photo = photo.path
+    // Photo updation
+    if (photo){
+      const photoUrl = await uploadOnCloudinary(photo);
+      if(photoUrl){
+        product.photo = photoUrl.secure_url;
+      }
     }
 
     if (name) product.name = name;
