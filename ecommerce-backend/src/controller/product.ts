@@ -4,7 +4,7 @@ import { newProductValidation } from "../types/schema.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import Product from "../models/product.js";
 import { rm } from "fs";
-import {SearchQueryInputs, BaseQuery, NewProductRequestBody} from "../types/types.js";
+import {SearchQueryInputs, BaseQuery} from "../types/types.js";
 import { myCache } from "../app.js";
 import { invalidateCache, uploadOnCloudinary } from "../utils/features.js";
 // import {faker} from "@faker-js/faker";
@@ -21,9 +21,7 @@ export const createProduct = asyncHandler(
     }
 
     if (!success) {
-      // rm(photo?.path, () => {
-      //   console.log("Image deleted");
-      // });
+      
       throw new ErrorHandler("Invalid Inputs", 400);
     }
 
