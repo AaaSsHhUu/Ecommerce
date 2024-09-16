@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 import { CartItem } from "../types/types";
 import { addToCart } from "../redux/reducer/cartReducer";
 import { ProductDetailSkeleton } from "../components";
-import { server } from "../redux/store";
 
 const ProductDetails = () => {
     const {id : productId} = useParams();
